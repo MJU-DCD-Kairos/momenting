@@ -61,8 +61,8 @@ public class csvReaderChatRoomName : MonoBehaviour
         for(int i = 0; i<tableSize-1; i++)
         {
             ChatRoomNameList.CRN[i] = new chatRoomName();
-            ChatRoomNameList.CRN[i].Adjective = (CSVdata[2*(i+1)+1]);
-            ChatRoomNameList.CRN[i].Noun = (CSVdata[2*(i+1)+2]);
+            ChatRoomNameList.CRN[i].Adjective = (CSVdata[2*(i+1)]);
+            ChatRoomNameList.CRN[i].Noun = (CSVdata[2*(i+1)+1]);
         }
         
     }
@@ -81,7 +81,7 @@ public class csvReaderChatRoomName : MonoBehaviour
         Debug.Log(adjNum);
         Debug.Log(nounNum);
 
-        if(adjNum+nounNum+1 < 6){
+        if(adjNum+nounNum+1 < 8){
             Debug.Log(adj + " " + noun);
         }
         else{
