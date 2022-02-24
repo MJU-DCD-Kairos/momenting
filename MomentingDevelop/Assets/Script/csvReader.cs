@@ -42,7 +42,7 @@ public class csvReader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RedaCSV();
+        ReadCSV();
         PrintQuestionT();
         
     }
@@ -54,7 +54,7 @@ public class csvReader : MonoBehaviour
     }
 
     //본격적으로 CSV파일을 파싱해서 배열정보로 생성하는 함수 작성
-    void RedaCSV(){
+    void ReadCSV(){
         //참조한 CSV파일을 ,와 엔터단위로 파싱
         string[] CSVdata = csvfile.text.Split(new string[] {",", "\n"}, StringSplitOptions.None);
 
