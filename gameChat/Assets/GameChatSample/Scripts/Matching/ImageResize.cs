@@ -12,14 +12,14 @@ public class ImageResize : MonoBehaviour
     void Start()
     {
 
-       
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        //비율 곱하기 버전
+
         //소스이미지 원래 사이즈로 세팅
         GetComponent<Image>().SetNativeSize();
 
@@ -35,11 +35,11 @@ public class ImageResize : MonoBehaviour
         //높이가 더 짧으면 높이를 인스펙터상에서 입력한 size로 바꿈
         else
         {
-            float aspect = RectTransform.sizeDelta.x / RectTransform.sizeDelta.y; //이미지 비율 구하기
+            float aspect = RectTransform.sizeDelta.x / RectTransform.sizeDelta.y;
             RectTransform.sizeDelta = new Vector2(size * aspect, size);
         }
-        
+
     }
 
-    
+
 }
