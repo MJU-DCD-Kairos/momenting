@@ -11,15 +11,15 @@ public class ImageResize : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+       
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
+        //비율 곱하기 버전
         //소스이미지 원래 사이즈로 세팅
         GetComponent<Image>().SetNativeSize();
 
@@ -28,15 +28,17 @@ public class ImageResize : MonoBehaviour
         //넓이가 더 짧으면 넓이를 인스펙터상에서 입력한 size로 바꿈
         if (RectTransform.sizeDelta.x < RectTransform.sizeDelta.y)
         {
-            RectTransform.sizeDelta = new Vector2(size, RectTransform.sizeDelta.y);
+            float aspect = RectTransform.sizeDelta.y / RectTransform.sizeDelta.x; //이미지 비율 구하기
+            RectTransform.sizeDelta = new Vector2(size, size * aspect);
         }
 
         //높이가 더 짧으면 높이를 인스펙터상에서 입력한 size로 바꿈
         else
         {
-            RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, size);
+            float aspect = RectTransform.sizeDelta.x / RectTransform.sizeDelta.y; //이미지 비율 구하기
+            RectTransform.sizeDelta = new Vector2(size * aspect, size);
         }
-
+        
     }
 
     
