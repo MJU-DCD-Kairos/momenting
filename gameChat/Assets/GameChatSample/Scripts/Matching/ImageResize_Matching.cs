@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageResize : MonoBehaviour
+public class ImageResize_Matching : MonoBehaviour
 {
-    //ÄÄÆ÷³ÍÆ®¿¡ µû¶ó ÀÎ½ºÆåÅÍ»ó¿¡¼­ »çÀÌÁî Á¶Àý °¡´ÉÇÏµµ·Ï ¼±¾ð
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í»ó¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public float size = 384;
 
     // Start is called before the first frame update
@@ -19,23 +19,23 @@ public class ImageResize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ºñÀ² °öÇÏ±â ¹öÀü
-        //¼Ò½ºÀÌ¹ÌÁö ¿ø·¡ »çÀÌÁî·Î ¼¼ÆÃ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //ï¿½Ò½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GetComponent<Image>().SetNativeSize();
 
         var RectTransform = transform as RectTransform;
 
-        //³ÐÀÌ°¡ ´õ ÂªÀ¸¸é ³ÐÀÌ¸¦ ÀÎ½ºÆåÅÍ»ó¿¡¼­ ÀÔ·ÂÇÑ size·Î ¹Ù²Þ
+        //ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ Âªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í»ó¿¡¼ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ sizeï¿½ï¿½ ï¿½Ù²ï¿½
         if (RectTransform.sizeDelta.x < RectTransform.sizeDelta.y)
         {
-            float aspect = RectTransform.sizeDelta.y / RectTransform.sizeDelta.x; //ÀÌ¹ÌÁö ºñÀ² ±¸ÇÏ±â
+            float aspect = RectTransform.sizeDelta.y / RectTransform.sizeDelta.x; //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
             RectTransform.sizeDelta = new Vector2(size, size * aspect);
         }
 
-        //³ôÀÌ°¡ ´õ ÂªÀ¸¸é ³ôÀÌ¸¦ ÀÎ½ºÆåÅÍ»ó¿¡¼­ ÀÔ·ÂÇÑ size·Î ¹Ù²Þ
+        //ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ Âªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í»ó¿¡¼ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ sizeï¿½ï¿½ ï¿½Ù²ï¿½
         else
         {
-            float aspect = RectTransform.sizeDelta.x / RectTransform.sizeDelta.y; //ÀÌ¹ÌÁö ºñÀ² ±¸ÇÏ±â
+            float aspect = RectTransform.sizeDelta.x / RectTransform.sizeDelta.y; //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
             RectTransform.sizeDelta = new Vector2(size * aspect, size);
         }
         
