@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Assets.SimpleSlider.Scripts
 {
 	/// <summary>
@@ -10,6 +11,7 @@ namespace Assets.SimpleSlider.Scripts
 	/// </summary>
 	public class Slider : MonoBehaviour
 	{
+		
 		[Header("Settings")]
 		public List<Banner> Banners;
 		public bool Random;
@@ -22,10 +24,10 @@ namespace Assets.SimpleSlider.Scripts
 		public Toggle PagePrefab;
 		public HorizontalScrollSnap HorizontalScrollSnap;
 
-		public void OnValidate()
-		{
-			GetComponent<ScrollRect>().content.GetComponent<GridLayoutGroup>().cellSize = GetComponent<RectTransform>().sizeDelta;
-		}
+		//public void OnValidate()
+		//{
+		//	GetComponent<ScrollRect>().content.GetComponent<GridLayoutGroup>().cellSize = GetComponent<RectTransform>().sizeDelta;
+		//}
 
 		public IEnumerator Start()
 		{
