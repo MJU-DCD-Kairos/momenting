@@ -189,7 +189,7 @@ namespace GameChatSample
             if (message.sender.id == UserId.text)
                 PrintChatMessage(Color.green, message);
             else
-                chatManager.Chat(false, "message", message.sender.id , null);
+                chatManager.Chat(false, message.content, message.sender.id , null);
                 PrintChatMessage(Color.black, message);
 
         }

@@ -24,7 +24,7 @@ public class ChatManager : MonoBehaviour
     public float startingTime = 1200f;
     [SerializeField]
     public Text countdownText;
-
+    public bool ai = false;
 
     AreaScript LastArea;
     
@@ -45,6 +45,7 @@ public class ChatManager : MonoBehaviour
  
     void Start()
     {
+        scrollBar.value = 0.00001f;
         currentTime = startingTime;
     }
     void Update()
@@ -52,25 +53,29 @@ public class ChatManager : MonoBehaviour
 
         currentTime -= 1 * Time.deltaTime;
         countdownText.text = currentTime.ToString("0");
-        
+
         //10분 5분 3분 타이머 AI
-        if (currentTime <= 600.000 && 599.999 <= currentTime)
+        
+        if (currentTime <= 600 && 599 <= currentTime && !ai)
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
             CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            ai = true;
+                }
+        if (currentTime <= 300 && 299 <= currentTime && ai)
+        {
+            Transform CurAIArea = Instantiate(AIArea).transform;
+            CurAIArea.SetParent(ContentRect.transform, false);
+            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            ai = false;
         }
-        if (currentTime <= 300.000 && 299.999 <= currentTime)
+        if (currentTime <= 180 && 179 <= currentTime && !ai)
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
             CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
-        }
-        if (currentTime <= 180.000 && 179.999 <= currentTime)
-        {
-            Transform CurAIArea = Instantiate(AIArea).transform;
-            CurAIArea.SetParent(ContentRect.transform, false);
-            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            ai = true;
         }
 
 
@@ -115,13 +120,16 @@ public class ChatManager : MonoBehaviour
         Area.transform.SetParent(ContentRect.transform, false);
         Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
         Area.TextRect.GetComponent<Text>().text = text;
+
+        //최근 메세지 보기 버튼에 텍스트 불러오기
         Area2.TextRect.GetComponent<Text>().text = text;
         gd.GetComponent<Text>().text = text;
+
         Fit(Area.BoxRect);
 
 
         // 두 줄 이상이면 크기를 줄여가면서, 한 줄이 아래로 내려가면 바로 전 크기를 대입 
-        float X = Area.TextRect.sizeDelta.x + 60;
+        float X = Area.TextRect.sizeDelta.x + 150;
         float Y = Area.TextRect.sizeDelta.y;
         if (Y > 49)
         {
@@ -194,7 +202,12 @@ public class ChatManager : MonoBehaviour
         Fit(ContentRect);
         LastArea = Area;
 
-
+        if (isBottom)
+        {
+            getDownbtn.gameObject.SetActive(false);
+            //Destroy(gameObject);
+            Debug.Log("s");
+        }
         // 스크롤바가 위로 올라간 상태에서 메시지를 받으면 맨 아래로 내리지 않음
         if (!isSend && !isBottom)
         {
