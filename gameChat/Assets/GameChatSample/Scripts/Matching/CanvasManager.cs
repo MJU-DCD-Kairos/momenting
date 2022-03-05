@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject Canvas_back;
-    public GameObject Canvas_next;
+    public GameObject inactive;
+    public GameObject active;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,17 +18,11 @@ public class CanvasManager : MonoBehaviour
         
     }
 
-    public void Back()
+    public void Switch()
     {
-        Canvas_back.SetActive(true);
-        Canvas_next.SetActive(false);
+        inactive.SetActive(false);
+        active.SetActive(true);
 
     }
 
-    public void Next()
-    {
-        Canvas_back.SetActive(false);
-        Canvas_next.SetActive(true);
-
-    }
 }
