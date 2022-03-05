@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject Canvas_inactive;
-    public GameObject Canvas_active;
-
-
-    public void Swtich()
+    public GameObject inactive;
+    public GameObject active;
+    // Start is called before the first frame update
+    void Start()
     {
-        Canvas_inactive.SetActive(false);
-        Canvas_active.SetActive(true);
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void Switch()
+    {
+        inactive.SetActive(false);
+        active.SetActive(true);
 
     }
 
-    
 }
