@@ -18,6 +18,10 @@ public class ChatManager : MonoBehaviour
     public Scrollbar scrollBar;
     public Toggle MineToggle;
     public GameObject getDownbtn;
+   
+    [Header("ellipsis")]
+    public int stringLength;
+    public Text inputText;
     [Header("Timer")]
     public Text TimerText;
     public float currentTime = 0f;
@@ -100,7 +104,18 @@ public class ChatManager : MonoBehaviour
 
     }
 
+    //말줄임코드
+    public void StringTransfer(String inputString, int stringLength)
+    {
+        string msg = inputString;
+        int textlength = inputString.Length;
+        if (textlength > stringLength)
+        {
+            string newString = inputText.text.Remove(stringLength, inputText.text.Length - stringLength);
+            inputText.text = newString + "...";
 
+        }
+    }
 
 
 
@@ -121,12 +136,13 @@ public class ChatManager : MonoBehaviour
         Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
         Area.TextRect.GetComponent<Text>().text = text;
 
-        //최근 메세지 보기 버튼에 텍스트 불러오기
+        //최근 메시지 보기 버튼에 텍스트 불러오기
         Area2.TextRect.GetComponent<Text>().text = text;
         gd.GetComponent<Text>().text = text;
 
         Fit(Area.BoxRect);
-
+        //최근 메시지 말줄임
+        StringTransfer(inputText.text, stringLength);
 
         // 두 줄 이상이면 크기를 줄여가면서, 한 줄이 아래로 내려가면 바로 전 크기를 대입 
         float X = Area.TextRect.sizeDelta.x + 150;
@@ -202,16 +218,14 @@ public class ChatManager : MonoBehaviour
         Fit(ContentRect);
         LastArea = Area;
 
-        if (isBottom)
-        {
-            getDownbtn.gameObject.SetActive(false);
-            //Destroy(gameObject);
-            Debug.Log("s");
-        }
+
         // 스크롤바가 위로 올라간 상태에서 메시지를 받으면 맨 아래로 내리지 않음
         if (!isSend && !isBottom)
         {
-            getDownbtn.gameObject.SetActive(true);
+            if (scrollBar.size < 1)
+            {
+                getDownbtn.gameObject.SetActive(true);
+            }
             return;
         }
         Invoke("ScrollDelay", 0.03f);

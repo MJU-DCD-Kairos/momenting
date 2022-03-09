@@ -2280,6 +2280,8 @@ MonoBehaviour:
   scrollBar: {fileID: 1997362410}
   MineToggle: {fileID: 0}
   getDownbtn: {fileID: 1699845158}
+  stringLength: 24
+  inputText: {fileID: 1919470184}
   TimerText: {fileID: 1414888403}
   currentTime: 0
   startingTime: 601
@@ -3917,6 +3919,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &451549944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451549946}
+  - component: {fileID: 451549945}
+  m_Layer: 0
+  m_Name: ScrollManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &451549945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451549944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de4c5956fedf9b24abd005d70d3cae8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getDownbtn: {fileID: 1699845158}
+  scrollBar: {fileID: 1997362410}
+--- !u!4 &451549946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451549944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.313532, y: 0.4353497, z: -5.5261455}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458121139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,8 +4131,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1440, y: 2960}
+  m_AnchoredPosition: {x: 0, y: -1365.9999}
+  m_SizeDelta: {x: 1440, y: 228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473201841
 MonoBehaviour:
@@ -4100,7 +4147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5176471}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.23529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8345,7 +8392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691b967170ef9ac49a312dad2ac4eb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 1200
+  maxTime: 107.8
   eend: {fileID: 473201839}
 --- !u!1 &1180966235
 GameObject:
@@ -9196,7 +9243,7 @@ RectTransform:
   - {fileID: 473201840}
   - {fileID: 1699845159}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12388,8 +12435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557f167ea1e619c44b170ee53db116dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroy: {fileID: 1699845158}
-  scrollBar: {fileID: 1997362410}
 --- !u!1 &1749417319
 GameObject:
   m_ObjectHideFlags: 0
@@ -14979,7 +15024,19 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451549945}
+        m_TargetAssemblyTypeName: scroll, Assembly-CSharp
+        m_MethodName: Update
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2096906802
 MonoBehaviour:
   m_ObjectHideFlags: 0
