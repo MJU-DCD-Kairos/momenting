@@ -81,7 +81,7 @@ public class csvReader : MonoBehaviour
         Debug.Log(todayQuestionList.TQL[tqlNum].answerA);
         Debug.Log(todayQuestionList.TQL[tqlNum].answerB);
 
-        Question.text = "Q."+ todayQuestionList.TQL[tqlNum].QuestionT;
+        Question.text = todayQuestionList.TQL[tqlNum].QuestionT;
         answerA.text = todayQuestionList.TQL[tqlNum].answerA;
         answerB.text = todayQuestionList.TQL[tqlNum].answerB;
     }
