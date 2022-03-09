@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ImageResize : MonoBehaviour
 {
     //컴포넌트에 따라 인스펙터상에서 사이즈 조절 가능하도록 선언
-    public float size = 384;
+    public float size = 1440;
 
     // Start is called before the first frame update
     void Start()
