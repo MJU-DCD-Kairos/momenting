@@ -8,10 +8,10 @@ using UnityEngine.UI;
 
 public class List
 {
-    public List(string _KeywordName, string _Description)
-    { KeywordName = _KeywordName; Description = _Description; }
+    public List(string _KeywordName, string _Description, string _KeywordRatio)
+    { KeywordName = _KeywordName; Description = _Description; KeywordRatio = _KeywordRatio; }
 
-    public string KeywordName, Description;
+    public string KeywordName, Description, KeywordRatio;
     public bool Badge_SameKeword;
 }
 
@@ -41,7 +41,7 @@ public class ListProfileKewordManager : MonoBehaviour
         {
             string[] row = line[i].Split('\t');
 
-            KeywordList.Add(new List(row[0], row[1]));
+            KeywordList.Add(new List(row[0], row[1], row[2]));
 
             //리스트 프리팹을 Content 부모 밑에 자식으로 생성
             GameObject ListContent = Instantiate(Resources.Load("Prefabs/Keyword")) as GameObject;
@@ -52,8 +52,12 @@ public class ListProfileKewordManager : MonoBehaviour
             GameObject[] DetailObj = GameObject.FindGameObjectsWithTag("Detail");
             DetailObj[i].GetComponent<Text>().text = row[1];
 
+            GameObject[] RatioObj = GameObject.FindGameObjectsWithTag("Ratio");
+            RatioObj[i].GetComponent<Text>().text = row[2];
+
             Debug.Log(row[0]);
             Debug.Log(row[1]);
+            Debug.Log(row[2]);
         }
     }
 
