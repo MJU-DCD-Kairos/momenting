@@ -59,17 +59,22 @@
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ScrollViewPractice.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslateSettingPopup.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\NestedScrollManager.cs" />
-    <Compile Include="Assets\GDManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GDManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatBinder.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Sample_TMP_Selector.cs" />
-    <Compile Include="Assets\Timer.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Banner.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Timer.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\ChangeProjPopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\PieChart.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\PopupManager.cs" />
-    <Compile Include="Assets\TimerText.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\TimerText.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Slider.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\ImageResize_Matching.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\csvReaderChatRoomName.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\scroll.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\HorizontalScrollSnap.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleUnitTranslation.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleLoginManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager_API.cs" />
@@ -83,14 +88,17 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleGlobalData.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\TextManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\ComponentManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\ComponentManager2.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ChatList\ToggleManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeTestManager.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\GameChatSample\Resources\text\TypeTest.txt" />
+     <None Include="Assets\GameChatSample\Scripts\MyProfile\BlurShader.shader" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\layout\activity_sub.xml" />
      <None Include="Assets\GameChat\GameChatUnity.SocketIO.dll" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
      <None Include="Assets\GameChatSample\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\GameChatSample\testbranch.txt" />
      <None Include="Assets\GameChatSample\Resources\text\Question_Today.txt" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\layout\activity_sub.xml" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
