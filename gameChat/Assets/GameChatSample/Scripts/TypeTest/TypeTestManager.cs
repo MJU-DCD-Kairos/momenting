@@ -18,6 +18,8 @@ public class TypeTestManager : MonoBehaviour
     public Text answerA;
     public Text answerB;
 
+    public Text CurrentIndex;
+
     //public int order;
 
     //txt파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언
@@ -141,6 +143,7 @@ public class TypeTestManager : MonoBehaviour
         }
 
         PrintQuestion();
+        changeIndex();
     }
     
 
@@ -151,6 +154,7 @@ public class TypeTestManager : MonoBehaviour
         {
             order = 1;
             GameObject.Find("Test").transform.Find("Btn_Previous").gameObject.SetActive(true);
+            
         }
         else if (order == 1)
         {
@@ -202,10 +206,20 @@ public class TypeTestManager : MonoBehaviour
         {
             order = 0;
             GameObject.Find("Test").SetActive(false);
-            GameObject.Find("TypeTest").transform.Find("Result").gameObject.SetActive(true);
+            GameObject.Find("TypeTest").transform.Find("MyType").gameObject.SetActive(true);
         }
 
         PrintQuestion();
+        changeIndex();
 
     }
+
+
+    public void changeIndex()
+    {
+        int idx = 1;
+        idx += order;
+        CurrentIndex.text = idx.ToString();
+    }
+
 }
