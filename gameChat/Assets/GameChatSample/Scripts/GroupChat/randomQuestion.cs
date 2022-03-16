@@ -80,7 +80,7 @@ public class randomQuestion : MonoBehaviour
         Debug.Log(ChatQuestionList.CQL[cqlnum].answerA);
         Debug.Log(ChatQuestionList.CQL[cqlnum].answerB);
 
-        question.text = ChatQuestionList.CQL[cqlnum].chatQuestion;
+        question.text = "<color=#F55637>"+ "Q.  " + "</Color>" + ChatQuestionList.CQL[cqlnum].chatQuestion;
         answerA.text = ChatQuestionList.CQL[cqlnum].answerA;
         answerB.text = ChatQuestionList.CQL[cqlnum].answerB;
     }
