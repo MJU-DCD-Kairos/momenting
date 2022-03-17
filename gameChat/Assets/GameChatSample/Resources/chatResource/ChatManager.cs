@@ -10,7 +10,7 @@ using System.Text;
 public class ChatManager : MonoBehaviour
 {
     
-    public GameObject MyArea, ElseArea, DateArea, GetDown, AIArea, RQArea;
+    public GameObject MyArea, ElseArea, DateArea, GetDown, AIArea, RQArea, FQ;
     [Header("GetDown")]
     public Text gd;
     [Header("Prefab")]
@@ -119,9 +119,14 @@ public class ChatManager : MonoBehaviour
         RArea.GetComponent<AreaScript>().UserText.text = answerA.text;
         RArea.GetComponent<AreaScript>().DateText.text = answerB.text;
         Invoke("ScrollDelay", 0.03f);
-        Invoke("resetQ",0.03f);
+        //Invoke("resetQ",0.03f);
     }
- 
+
+    public void SA()
+    {
+        Transform RArea = Instantiate(FQ).transform;
+        RArea.SetParent(ContentRect.transform, false);
+    }
     void resetQ()
     {
         question.text = "";
@@ -134,6 +139,10 @@ public class ChatManager : MonoBehaviour
         ReadCSV();
         scrollBar.value = 0.00001f;
         currentTime = startingTime;
+        RandomQuestion();
+        RQuestion();
+        SA();
+        //Invoke("SA", 0.3f); 
     }
     void Update()
     {
