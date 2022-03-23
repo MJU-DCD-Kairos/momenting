@@ -156,21 +156,21 @@ public class ChatManager : MonoBehaviour
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
-            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + "<b>" + Mathf.Ceil(currentTime / 60) + "</b>" + "<b>분</b> 남았습니다.");
             ai = true;
                 }
         if (currentTime <= 300 && 299 <= currentTime && ai)
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
-            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + "<b>" + Mathf.Ceil(currentTime / 60) + "</b>" + "<b>분</b> 남았습니다.");
             ai = false;
         }
         if (currentTime <= 180 && 179 <= currentTime && !ai)
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
-            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + Mathf.Ceil(currentTime / 60) + "분 남았습니다.");
+            CurAIArea.GetComponent<AreaScript>().DateText.text = ("단체 채팅 종료까지 \n" + "<b>" + Mathf.Ceil(currentTime / 60) + "</b>" + "<b>분</b> 남았습니다.");
             ai = true;
         }
 
