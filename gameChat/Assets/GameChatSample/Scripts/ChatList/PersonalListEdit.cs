@@ -7,80 +7,57 @@ using System.IO;
 
 
 
-[System.Serializable]
-
-public class List
-{
-    public List(string _UserName, string _Recent, string _Chat, bool _Badge_MannerEvaluation, bool _Checkbox)
-    { UserName = _UserName; Recent = _Recent; Chat = _Chat; Badge_MannerEvaluation = _Badge_MannerEvaluation; Checkbox = _Checkbox; }
-
-
-    public Image ProfileImage;
-    public string UserName, Recent, Chat;
-    public bool Badge_MannerEvaluation, Checkbox;
-
-
-}
-
-/*
-[System.Serializable]
-public class ToggleList
-{
-    public ToggleList(bool _Checkbox) { Checkbox = _Checkbox; }
-
-    public bool Checkbox;
-}
-*/
-
 public class PersonalListEdit : MonoBehaviour
 {
+    
+    [System.Serializable]
+
+    public class List //각 값을 보유할 클래스 생성
+    {
+        public List(string _UserName, string _Recent, string _Chat, bool _Badge_MannerEvaluation, Toggle _Toggle)
+        { UserName = _UserName; Recent = _Recent; Chat = _Chat; Badge_MannerEvaluation = _Badge_MannerEvaluation; toggle = _Toggle; }
+
+
+        public Image ProfileImage;
+        public string UserName, Recent, Chat;
+        public Toggle toggle;
+        
+        public bool Badge_MannerEvaluation;
+
+
+    }
+    
     //txt파일을 인스펙터에서 참조하도록 생성
     public TextAsset UserDatabase;
 
     //유저 정보가 들어갈 리스트 배열 생성
     public List<List> PersonalList;
 
-    //선택된 리스트 담을 리스트 배열 생성
-    public List<OnCheckedList> CheckedList = new List<OnCheckedList>();
+    public Toggle checkbox;
 
-    [System.Serializable]
-    public class OnCheckedList
-    {
-        public OnCheckedList(string _Index) { idx = _Index; }
-
-        public string idx;
-    }
-    
 
     //리스트를 생성할 부모 오브젝트를 참조
     public GameObject Content;
-    //public GameObject CheckboxGroup;
-    public string[] line;
-    public string[] row;
 
     public int i;
-    //public string idx;
+    //public GameObject ListContent;
 
-    public GameObject[] ToggleList;
     void Start()
     {
         
         MyList();
-        //AllSelect();
-        //ToggleList();
-        //FindChecked();
     }
 
     public void MyList()
     {
         //리스트 불러오기
-        line = UserDatabase.text.Substring(0, UserDatabase.text.Length - 1).Split('\n');
+        string[] line = UserDatabase.text.Substring(0, UserDatabase.text.Length - 1).Split('\n');
         for (i = 0; i < line.Length; i++)
         {
-            row = line[i].Split('\t');
-
-            PersonalList.Add(new List(row[0], row[1], row[2], row[3] == "TRUE", row[4] == "TRUE"));
-            //CheckedList.Add(new ToggleList (row[4] == "TRUE"));
+            string[] row = line[i].Split('\t');
+;
+            PersonalList.Add(new List(row[0], row[1], row[2], row[3] == "TRUE", checkbox));
+            
 
             GameObject Canvas_ChatList = GameObject.Find("ChatList").transform.Find("ChatList_Main").gameObject;
             GameObject Canvas_Personal_SeeMore = GameObject.Find("ChatList").transform.Find("Personal_SeeMore").gameObject;
@@ -92,16 +69,16 @@ public class PersonalListEdit : MonoBehaviour
             {
                 GameObject ListContent = Instantiate(Resources.Load("Prefabs/List_PersonalChat")) as GameObject;
                 ListContent.transform.SetParent(Content.transform, false);
-
+                checkbox = ListContent.GetComponentInChildren<Toggle>();
             }
             
             else if (Canvas_Personal_SeeMore.activeInHierarchy || Canvas_ChatList.activeInHierarchy == false)
             {
                 GameObject ListContent = Instantiate(Resources.Load("Prefabs/List_Personal_Edit")) as GameObject;
                 ListContent.transform.SetParent(Content.transform, false);
-
+                checkbox = ListContent.GetComponentInChildren<Toggle>();
             }
-            
+
             //닉네임을 UserName 오브젝트의 텍스트 컴포넌트에 할당
             GameObject[] UserNameList = GameObject.FindGameObjectsWithTag("UserName");
             UserNameList[i].GetComponent<Text>().text = row[0];
@@ -114,34 +91,24 @@ public class PersonalListEdit : MonoBehaviour
             GameObject[] ChatPreviewList = GameObject.FindGameObjectsWithTag("ChatPreview");
             ChatPreviewList[i].GetComponent<Text>().text = row[2];
 
-            //값이 1인 경우에만 매너평가 배지 생성
-            //0과 1로 구분 (0 = 24시간 지나지 않았거나 매너평가를 한 경우 / 1 = 24시간 지났고, 매너평가 하지 않은 경우)
+            //값이 true인 경우에만 매너평가 배지 생성 (false = 24시간 지나지 않았거나 매너평가를 한 경우 / true = 24시간 지났고, 매너평가 하지 않은 경우)
             if (row[3] == "TRUE")
             {
                 GameObject[] Badge = GameObject.FindGameObjectsWithTag("Information");
                 Badge[i].transform.GetChild(0).gameObject.SetActive(true);
             }
 
+            //GameObject[] ToggleList = GameObject.FindGameObjectsWithTag("Toggle");
+            //checkbox = ToggleList[i].GetComponent<Toggle>();
             
 
+
         }
-
-        Save();
-        Load();
+        //Save();
+        //Load();
 
     }
 
-    private void Update()
-    {
-        //Check();
-    }
-
-    /*
-    public void ToggleList()
-    {
-        PersonalList.Badge_MannerEvaluation
-    }
-    */
 
 
     //토글 버튼이 On 되면 리스트 txt파일의 Checkbox 값이 TRUE로 바뀜
@@ -169,30 +136,13 @@ public class PersonalListEdit : MonoBehaviour
     void Load() //json 파일 가져오기
     {
         string jdata = File.ReadAllText(Application.dataPath + "/GameChatSample/Resources/MyPersonalList.txt");
-        PersonalList = JsonConvert.DeserializeObject<List<List>>(jdata);
+        //PersonalList = JsonConvert.DeserializeObject<List<List>>(jdata);
 
         //OnToggle(Check);
     }
 
-    /*
-    void Check()
-    {
-        if (ToggleList[i].GetComponent<Toggle>().isOn == true)
-        {
-            string index = i.ToString();
-            CheckedList.Add(new OnCheckedList(index));
-        }
 
-        else if (ToggleList[i].GetComponent<Toggle>().isOn == false)
-        {
-            string index = i.ToString();
-            CheckedList.Remove(new OnCheckedList(index));
-        }
-
-    }
-    */
-
-    public Toggle allCheck;
+    //public Toggle allCheck;
 
     /*
     public void AllSelect()
