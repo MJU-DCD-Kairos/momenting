@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeDescription.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ScrollViewPractice.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslateSettingPopup.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\NestedScrollManager.cs" />
@@ -88,10 +89,8 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleGlobalData.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeTestManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\TextManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\LoadScene.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\ToggleManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeDescription.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GameChatSample\Resources\text\TypeTest.txt" />
