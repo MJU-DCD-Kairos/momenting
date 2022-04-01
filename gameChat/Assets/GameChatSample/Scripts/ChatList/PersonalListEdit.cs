@@ -9,7 +9,7 @@ using System.IO;
 
 public class PersonalListEdit : MonoBehaviour
 {
-    
+
     [System.Serializable]
 
     public class List //각 값을 보유할 클래스 생성
@@ -21,12 +21,12 @@ public class PersonalListEdit : MonoBehaviour
         public Image ProfileImage;
         public string UserName, Recent, Chat;
         public Toggle toggle;
-        
+
         public bool Badge_MannerEvaluation;
 
 
     }
-    
+
     //txt파일을 인스펙터에서 참조하도록 생성
     public TextAsset UserDatabase;
 
@@ -40,12 +40,16 @@ public class PersonalListEdit : MonoBehaviour
     public GameObject Content;
 
     public int i;
-    //public GameObject ListContent;
+    public GameObject ListContent;
 
     void Start()
     {
-        
+
         MyList();
+    }
+    private void Update()
+    {
+        //OnChecked();
     }
 
     public void MyList()
@@ -55,9 +59,6 @@ public class PersonalListEdit : MonoBehaviour
         for (i = 0; i < line.Length; i++)
         {
             string[] row = line[i].Split('\t');
-;
-            PersonalList.Add(new List(row[0], row[1], row[2], row[3] == "TRUE", checkbox));
-            
 
             GameObject Canvas_ChatList = GameObject.Find("ChatList").transform.Find("ChatList_Main").gameObject;
             GameObject Canvas_Personal_SeeMore = GameObject.Find("ChatList").transform.Find("Personal_SeeMore").gameObject;
@@ -69,15 +70,16 @@ public class PersonalListEdit : MonoBehaviour
             {
                 GameObject ListContent = Instantiate(Resources.Load("Prefabs/List_PersonalChat")) as GameObject;
                 ListContent.transform.SetParent(Content.transform, false);
-                checkbox = ListContent.GetComponentInChildren<Toggle>();
             }
-            
+
             else if (Canvas_Personal_SeeMore.activeInHierarchy || Canvas_ChatList.activeInHierarchy == false)
             {
                 GameObject ListContent = Instantiate(Resources.Load("Prefabs/List_Personal_Edit")) as GameObject;
                 ListContent.transform.SetParent(Content.transform, false);
                 checkbox = ListContent.GetComponentInChildren<Toggle>();
             }
+
+            PersonalList.Add(new List(row[0], row[1], row[2], row[3] == "TRUE", checkbox));
 
             //닉네임을 UserName 오브젝트의 텍스트 컴포넌트에 할당
             GameObject[] UserNameList = GameObject.FindGameObjectsWithTag("UserName");
@@ -100,7 +102,7 @@ public class PersonalListEdit : MonoBehaviour
 
             //GameObject[] ToggleList = GameObject.FindGameObjectsWithTag("Toggle");
             //checkbox = ToggleList[i].GetComponent<Toggle>();
-            
+
 
 
         }
@@ -108,21 +110,6 @@ public class PersonalListEdit : MonoBehaviour
         //Load();
 
     }
-
-
-
-    //토글 버튼이 On 되면 리스트 txt파일의 Checkbox 값이 TRUE로 바뀜
-    //row[4]에서 TRUE 값이 하나라도 있으면 삭제 버튼 Enabled 활성화
-    //삭제 버튼 Enabled 누르면 Checkbox 값이 TRUE인 line(인덱스 번호로 찾기?) 전부 찾아서 리스트에서 line 삭제.
-
-    /*
-    void FindChecked() //리스트에서 Checkbox 값이 true인 인덱스 찾는 함수 
-    {
-        int idx = PersonalList.FindIndex(x => x.UserName == "진라면매운맛");
-        Debug.Log(idx);
-        
-    }
-    */
 
 
     void Save() //json 파일로 저장
@@ -140,34 +127,38 @@ public class PersonalListEdit : MonoBehaviour
 
         //OnToggle(Check);
     }
+    //public List<string> currentSelected;
+    public GameObject DisabledBtn;
 
-
-    //public Toggle allCheck;
-
-    /*
-    public void AllSelect()
+    public void CheckSelected()
     {
-        //GameObject[] ToggleList = GameObject.FindGameObjectsWithTag("Toggle");
-        //ToggleList[i].GetComponent<Toggle>().isOn = true;
-        if (allCheck.isOn)
+        for (int i = PersonalList.Count - 1; i >= 0; i--)
         {
-            for (int n = 0; n < 35; n++)
+            if (checkbox.isOn)
             {
-                GameObject[] ToggleList = GameObject.FindGameObjectsWithTag("Toggle");
-                ToggleList[n].GetComponent<Toggle>().isOn = true;
-
+                DisabledBtn.SetActive(false);
+                
+                //PersonalList.Remove(PersonalList[i]);
             }
+            //PersonalList.Remove(PersonalList.FindAll(x => x.toggle.isOn));
+           
         }
-        else
-        {
-            for (int n = 0; n < 35; n++)
-            {
-                GameObject[] ToggleList = GameObject.FindGameObjectsWithTag("Toggle");
-                ToggleList[n].GetComponent<Toggle>().isOn = false;
-
-            }
-        }
-
     }
-    */
+    
+    public void DestroyList()
+    {
+        for (int i = PersonalList.Count - 1; i >= 0; i--)
+        {
+            if (checkbox.isOn)
+            {
+                Debug.Log(i);
+                //PersonalList.Remove(PersonalList[i]);
+            }
+            //PersonalList.Remove(PersonalList.FindAll(x => x.toggle.isOn));
+
+        }
+    }
+
+    //List<List> currentChecked = PersonalList.FindAll(x => x.toggle.isOn = true);
+    
 }

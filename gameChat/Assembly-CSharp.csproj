@@ -59,17 +59,23 @@
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ScrollViewPractice.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslateSettingPopup.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\NestedScrollManager.cs" />
-    <Compile Include="Assets\GDManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GDManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ChatList\PersonalListEdit.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatBinder.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Sample_TMP_Selector.cs" />
-    <Compile Include="Assets\Timer.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Banner.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Timer.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\ChangeProjPopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\PieChart.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\PopupManager.cs" />
-    <Compile Include="Assets\TimerText.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\TimerText.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Slider.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\ImageResize_Matching.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\csvReaderChatRoomName.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\scroll.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\HorizontalScrollSnap.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleUnitTranslation.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleLoginManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager_API.cs" />
@@ -83,18 +89,28 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleGlobalData.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\TextManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\ComponentManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\ComponentManager2.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ChatList\ToggleManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ChatList\SelectList.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\GameChatSample\Resources\text\UserData.txt" />
+     <None Include="Assets\GameChatSample\Scripts\MyProfile\BlurShader.shader" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\layout\activity_sub.xml" />
      <None Include="Assets\GameChat\GameChatUnity.SocketIO.dll" />
+     <None Include="Assets\JsonDotNet\link.xml" />
+     <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
+     <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
+     <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll" />
      <None Include="Assets\GameChatSample\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\GameChatSample\Resources\MyPersonalList.txt" />
      <None Include="Assets\GameChatSample\Resources\text\Question_Today.txt" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\layout\activity_sub.xml" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
      <None Include="Assets\GameChat\GameChatUnity.SimpleJSON.dll" />
+     <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll" />
+     <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
+     <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll" />
      <None Include="Assets\GameChat\GameChatUnity.dll" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\AndroidManifest.xml" />
     <Reference Include="UnityEngine">
@@ -312,6 +328,9 @@
     </Reference>
     <Reference Include="GameChatUnity">
       <HintPath>Assets\GameChat\GameChatUnity.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="GameChatUnity.SocketIO">
       <HintPath>Assets\GameChat\GameChatUnity.SocketIO.dll</HintPath>

@@ -176,6 +176,8 @@ MonoBehaviour:
   checkbox: {fileID: 0}
   Content: {fileID: 2074976134}
   i: 0
+  ListContent: {fileID: 0}
+  DisabledBtn: {fileID: 0}
 --- !u!224 &77777401 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1680222129831470755, guid: d7bd134915f603047939eb38d3ee600b, type: 3}
@@ -339,8 +341,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1821586020}
   - {fileID: 192205276}
+  - {fileID: 1821586020}
   m_Father: {fileID: 595769079}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1288,7 +1290,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98215141}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1664,6 +1666,8 @@ MonoBehaviour:
   checkbox: {fileID: 0}
   Content: {fileID: 1715806028}
   i: 0
+  ListContent: {fileID: 0}
+  DisabledBtn: {fileID: 0}
 --- !u!1 &341061244
 GameObject:
   m_ObjectHideFlags: 0
@@ -8173,7 +8177,7 @@ GameObject:
   - component: {fileID: 1627416369}
   m_Layer: 5
   m_Name: ListManager
-  m_TagString: Untagged
+  m_TagString: ListManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8206,9 +8210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UserDatabase: {fileID: 4900000, guid: 81605ac4de111334d857a85c91bdf5f4, type: 3}
   PersonalList: []
-  checkbox: {fileID: 0}
+  checkbox: {fileID: 2139195835}
   Content: {fileID: 1260999696}
   i: 0
+  ListContent: {fileID: 1627416367}
+  DisabledBtn: {fileID: 192205275}
 --- !u!1 &1715806028
 GameObject:
   m_ObjectHideFlags: 0
@@ -8614,14 +8620,13 @@ GameObject:
   - component: {fileID: 1821586023}
   - component: {fileID: 1821586022}
   - component: {fileID: 1821586021}
-  - component: {fileID: 1821586024}
   m_Layer: 5
   m_Name: Btn_Edit_Enabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1821586020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8634,7 +8639,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98215141}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -8685,9 +8690,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1821586024}
-        m_TargetAssemblyTypeName: ToggleManager, Assembly-CSharp
-        m_MethodName: OnClickDestroy
+      - m_Target: {fileID: 1627416369}
+        m_TargetAssemblyTypeName: PersonalListEdit, Assembly-CSharp
+        m_MethodName: DestroyList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8735,18 +8740,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821586019}
   m_CullTransparentMesh: 1
---- !u!114 &1821586024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821586019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9849ef9c381ca6f4b93faeef892530e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1832347917
 GameObject:
   m_ObjectHideFlags: 0
