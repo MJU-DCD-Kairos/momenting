@@ -96,23 +96,66 @@ public class TypeTestManager : MonoBehaviour
 
     public void OnClick_Previous()
     {
+        toggle1.isOn = false;
+        toggle2.isOn = false;
+
         if (order == 1)
         {
+            GameObject.Find("Btn_Previous").gameObject.SetActive(false);
+            if(E_I == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
             order = 0;
             E_I = 0;
-            GameObject.Find("Btn_Previous").gameObject.SetActive(false);
         }
-        else if (order == 2) { order = 1; E_I = E_I - A2; }
-        else if (order == 3) { order = 2; E_I = E_I - A3; }
-        else if (order == 4) { order = 3; N_S = N_S - A4; }
-        else if (order == 5) { order = 4; N_S = N_S - A5; }
-        else if (order == 6) { order = 5; N_S = N_S - A6; }
-        else if (order == 7) { order = 6; T_F = T_F - A7; }
-        else if (order == 8) { order = 7; T_F = T_F - A8; }
-        else if (order == 9) { order = 8; T_F = T_F - A9; }
-        else if (order == 10) { order = 9; P_J = P_J - A10; }
+        else if (order == 2) 
+        {
+            if (E_I == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 1; E_I = E_I - A2; }
+        else if (order == 3) 
+        {
+            if (E_I == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 2; E_I = E_I - A3; }
+        else if (order == 4) 
+        {
+            if (N_S == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 3; N_S = N_S - A4; }
+        else if (order == 5) 
+        {
+            if (N_S == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 4; N_S = N_S - A5; }
+        else if (order == 6) 
+        {
+            if (N_S == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 5; N_S = N_S - A6; }
+        else if (order == 7) 
+        {
+            if (T_F == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 6; T_F = T_F - A7; }
+        else if (order == 8)
+        {
+            if (T_F == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 7; T_F = T_F - A8; }
+        else if (order == 9)
+        {
+            if (T_F == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 8; T_F = T_F - A9; }
+        else if (order == 10) 
+        {
+            if (P_J == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
+            order = 9; P_J = P_J - A10; }
         else if (order == 11)
         {
+            if (P_J == 0) { toggle1.isOn = true; }
+            else { toggle2.isOn = true; }
             order = 10;
             P_J = P_J - A11;
             Text result = GameObject.Find("Btn_Next").transform.GetChild(0).gameObject.GetComponent<Text>();
@@ -122,8 +165,9 @@ public class TypeTestManager : MonoBehaviour
         PrintQuestion();
         changeIndex();
 
-        toggle1.isOn = false;
-        toggle2.isOn = false;
+
+        //toggle1.isOn = false;
+        //toggle2.isOn = false;
     }
 
 
@@ -375,4 +419,16 @@ public class TypeTestManager : MonoBehaviour
         }
 
     }
+
+    public void Redo()
+    {
+        E_I = 0; N_S = 0; T_F = 0; P_J = 0;
+        order = 0;
+        Text result = GameObject.Find("Btn_Next").transform.GetChild(0).gameObject.GetComponent<Text>();
+        result.text = "¥Ÿ¿Ω";
+        GameObject.Find("Btn_Previous").gameObject.SetActive(false);
+    }
+        
+
+
 }
