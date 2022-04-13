@@ -10,33 +10,22 @@ public class SelectList : MonoBehaviour
 
     public void OnMouseUpAsButton()
     {
-        if (check.isOn == true)
+        if (check.isOn == true) //토글의 isOn 값이 true일 때(선택했을 때)
         {
-            OnSelect();
-            CheckSelected();
-            //GameObject.FindGameObjectWithTag("ListManager").GetComponent<PersonalListEdit>().OnChecked();
-
+            //OnSelect();
+            GameObject.FindGameObjectWithTag("ListManager").GetComponent<PersonalListEdit>().CheckedToggles.Add(check); //체크된 토글 리스트에 추가
         }
-        else
+        else //토글의 isOn 값이 false일 때(선택해제됐을 때)
         {
-            OffSelect();
+            //OffSelect();
+            GameObject.FindGameObjectWithTag("ListManager").GetComponent<PersonalListEdit>().CheckedToggles.Remove(check); //체크된 토글 리스트에서 제거
         }
+
+        GameObject.FindGameObjectWithTag("ListManager").GetComponent<PersonalListEdit>().OnEnableBtn();
+        GameObject.FindGameObjectWithTag("ListManager").GetComponent<PersonalListEdit>().changeLabel(); //선택 리스트 개수 레이블 
     }
 
-    public void CheckSelectedOn()
-    {
-        GameObject.Find("Btn_Edit_Enabled").SetActive(true);
-        //DisabledBtn.SetActive(false);
-
-        //PersonalList.Remove(PersonalList.FindAll(x => x.toggle.isOn));
-
-        
-    }
-
-    public void CheckSelectedOff()
-    {
-
-    }
+    
 
     public void OnSelect()
     {
@@ -48,28 +37,5 @@ public class SelectList : MonoBehaviour
     {
         selected = "";
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    //public GameObject obj;
-
-    /*
-    public static void OnChecked()
-    {
-        GameObject obj = GameObject.Find("ListManager").GetComponent<GameObject>();
-        obj.OnChecked();
-        //int index = PersonalList.FindIndex(x => x.toggle.isOn = true);
-        //string idx = index.ToString();
-        //currentSelected.Add(idx);
-    }*/
-    
 
 }
