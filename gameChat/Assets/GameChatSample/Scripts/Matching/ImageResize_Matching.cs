@@ -7,6 +7,7 @@ public class ImageResize_Matching : MonoBehaviour
 {
     //������Ʈ�� ���� �ν����ͻ󿡼� ������ ���� �����ϵ��� ����
     public float size = 384;
+    public RectTransform rt;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class ImageResize_Matching : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         //���� ���ϱ� ����
         //�ҽ��̹��� ���� ������� ����
@@ -29,7 +30,7 @@ public class ImageResize_Matching : MonoBehaviour
         if (RectTransform.sizeDelta.x < RectTransform.sizeDelta.y)
         {
             float aspect = RectTransform.sizeDelta.y / RectTransform.sizeDelta.x; //�̹��� ���� ���ϱ�
-            RectTransform.sizeDelta = new Vector2(size, size * aspect);
+            
         }
 
         //���̰� �� ª���� ���̸� �ν����ͻ󿡼� �Է��� size�� �ٲ�

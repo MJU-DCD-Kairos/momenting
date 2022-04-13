@@ -12,6 +12,7 @@ public class GDManager : MonoBehaviour
     {
         Invoke("ScrollDelay", 0.03f);
         getDownbtn.gameObject.SetActive(false);
+        
     }
 
     void ScrollDelay() => scrollBar.value = 0;
