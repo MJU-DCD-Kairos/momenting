@@ -52,7 +52,9 @@ public class TypeTestManager : MonoBehaviour
     {
         ReadTXT();
         PrintQuestion();
-        
+        PrintType();
+
+
     }
 
     //본격적으로 txt파일을 파싱해서 배열정보로 생성하는 함수 작성
@@ -337,7 +339,12 @@ public class TypeTestManager : MonoBehaviour
     {
         //인스펙터에 입력한 엠비티아이와 일치하는 프리팹 로드
 
-        if (MbtiType == "INTP")
+        if (MbtiType == "")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_None")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MbtiType == "INTP")
         {
             GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INTP")) as GameObject;
             MbtiResult.transform.SetParent(Content.transform, false);
@@ -426,7 +433,7 @@ public class TypeTestManager : MonoBehaviour
         order = 0;
         Text result = GameObject.Find("Btn_Next").transform.GetChild(0).gameObject.GetComponent<Text>();
         result.text = "다음";
-        GameObject.Find("Btn_Previous").gameObject.SetActive(false);
+        GameObject.Find("Test").transform.Find("Btn_Previous").gameObject.SetActive(false);
     }
         
 

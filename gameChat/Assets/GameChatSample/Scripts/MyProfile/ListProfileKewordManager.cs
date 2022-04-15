@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 
 [System.Serializable]
 
@@ -26,8 +26,9 @@ public class ListProfileKewordManager : MonoBehaviour
     //리스트를 생성할 부모 오브젝트를 참조
     public GameObject Content;
 
+    public List<float> ratioList;
 
-    void Start()
+    void Awake()
     {
         LoadList();
 
@@ -35,6 +36,9 @@ public class ListProfileKewordManager : MonoBehaviour
 
     public void LoadList()
     {
+
+        ratioList.Clear();
+
         //리스트 불러오기
         string[] line = KeywordData.text.Substring(0, KeywordData.text.Length - 1).Split('\n');
         for (int i = 0; i < line.Length; i++)
@@ -54,6 +58,8 @@ public class ListProfileKewordManager : MonoBehaviour
 
             GameObject[] RatioObj = GameObject.FindGameObjectsWithTag("Ratio");
             RatioObj[i].GetComponent<Text>().text = row[2];
+
+            ratioList.Add(Convert.ToSingle(row[2]));
 
             Debug.Log(row[0]);
             Debug.Log(row[1]);
