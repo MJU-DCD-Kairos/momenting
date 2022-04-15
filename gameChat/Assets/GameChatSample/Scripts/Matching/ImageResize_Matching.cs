@@ -16,9 +16,13 @@ public class ImageResize_Matching : MonoBehaviour
        
     }
 
+    public void OnClickImage()
+    {
+        size = 592;
+    }
 
     // Update is called once per frame
-    public void Update()
+    public void Awake()
     {
         //���� ���ϱ� ����
         //�ҽ��̹��� ���� ������� ����
@@ -30,7 +34,8 @@ public class ImageResize_Matching : MonoBehaviour
         if (RectTransform.sizeDelta.x < RectTransform.sizeDelta.y)
         {
             float aspect = RectTransform.sizeDelta.y / RectTransform.sizeDelta.x; //�̹��� ���� ���ϱ�
-            
+            RectTransform.sizeDelta = new Vector2(size , size * aspect);
+
         }
 
         //���̰� �� ª���� ���̸� �ν����ͻ󿡼� �Է��� size�� �ٲ�
