@@ -25,6 +25,8 @@ public class ListProfileKewordManager : MonoBehaviour
 
     //리스트를 생성할 부모 오브젝트를 참조
     public GameObject Content;
+    public GameObject MyProfile;
+    public GameObject Profile;
 
     public List<float> ratioList;
 
@@ -46,10 +48,19 @@ public class ListProfileKewordManager : MonoBehaviour
             string[] row = line[i].Split('\t');
 
             KeywordList.Add(new List(row[0], row[1], row[2]));
-
-            //리스트 프리팹을 Content 부모 밑에 자식으로 생성
-            GameObject ListContent = Instantiate(Resources.Load("Prefabs/Keyword")) as GameObject;
-            ListContent.transform.SetParent(Content.transform, false);
+            if(MyProfile.activeInHierarchy == true)
+            {
+                //리스트 프리팹을 Content 부모 밑에 자식으로 생성
+                GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
+                ListContent.transform.SetParent(Content.transform, false);
+            }
+            else if(Profile.activeInHierarchy == true)
+            {
+                //리스트 프리팹을 Content 부모 밑에 자식으로 생성
+                GameObject ListContent = Instantiate(Resources.Load("Prefabs/Keyword")) as GameObject;
+                ListContent.transform.SetParent(Content.transform, false);
+            }
+            
             GameObject[] KeywordObj = GameObject.FindGameObjectsWithTag("Keyword");
             KeywordObj[i].GetComponent<Text>().text = row[0];
 
