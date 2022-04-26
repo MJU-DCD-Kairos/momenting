@@ -17,6 +17,8 @@ public class SelectPer : MonoBehaviour
     public GameObject Profile;
     public Image mask;
     public Image image;
+    public GameObject dim;
+    public GameObject Sframe;
     public Image outline;
     public GameObject profileResizer;
 
@@ -59,10 +61,13 @@ public class SelectPer : MonoBehaviour
         //sr.color = new Color(0.5f, 0.5f, 0.5f);
         SenderId.text = "<color=#929292>" + "가나다라마바사" + "</color>";
 
-
+        dim.SetActive(true);
+        Sframe.SetActive(false);
     }
     void OnSelect()
     {
+        dim.SetActive(false);
+        Sframe.SetActive(true);
         var RectTransform = transform as RectTransform;
         RectTransform.sizeDelta = new Vector2(592, 592);
         RectTransform rect = (RectTransform)image.transform;
