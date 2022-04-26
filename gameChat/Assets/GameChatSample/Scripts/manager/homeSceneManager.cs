@@ -18,6 +18,9 @@ public class homeSceneManager : MonoBehaviour
     public GameObject MatchingPage;
 
 
+    //오늘의 질문 답변 여부 체크
+    
+
     //onclick 이용할 버튼 참조
     public Button ProfileBtn;
     public Button MailBox;
@@ -38,7 +41,7 @@ public class homeSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MatchingPage.active)
+        if (MatchingPage.activeSelf)
         {
             Check_Timer();
         }
@@ -89,6 +92,27 @@ public class homeSceneManager : MonoBehaviour
         time_current = time_Max;
         isEnded = false;
         Debug.Log("Start");
+    }
+
+    //오늘의 질문 답변 시 다이얼로그 안뜸상태
+    public void isTodayQdoneTrue()
+    {
+        PlayerPrefs.SetInt("todayQdone",1);
+        PlayerPrefs.SetInt("todayQanswer", 1);
+    }
+
+    //오늘의 질문 닫은 경우 인지
+    public void isTodayQdoneFalse()
+    {
+        if(1!= PlayerPrefs.GetInt("todayQanswer"))
+        {
+            PlayerPrefs.SetInt("todayQdone", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("todayQdone", 1);
+        }
+        
     }
 
 }

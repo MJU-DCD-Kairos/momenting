@@ -11,6 +11,8 @@ public class gameSceneManager : MonoBehaviour
     private bool isEnded;
     public GameObject title;
     public GameObject splash;
+    
+    //GameObject TodayQ;
 
 
     // Start is called before the first frame update
@@ -18,7 +20,8 @@ public class gameSceneManager : MonoBehaviour
     {
         //씬매니저 파괴 방지를 위한 코드
         DontDestroyOnLoad(this.gameObject);
-        
+        //TodayQ = GameObject.Find("TodayQ").GetComponent<>();
+
     }
 
     // Update is called once per frame
@@ -44,7 +47,6 @@ public class gameSceneManager : MonoBehaviour
     public void LoadScene_Home()
     {
         LoadScene("Home");
-        Debug.Log("버튼눌림");
     }
 
     //챗리스트 씬 호출

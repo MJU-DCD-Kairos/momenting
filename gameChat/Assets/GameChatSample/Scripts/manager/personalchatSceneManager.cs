@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class myprofileSceneManager : MonoBehaviour
+public class personalchatSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
     gameSceneManager gSM;
-    public Button backToHome;
-    public Button goToChatList;
-    public Button goToSetting;
-    public Button goToTest;
+    public Button backToChatList;
 
     // Start is called before the first frame update
     void Start()
@@ -19,16 +16,12 @@ public class myprofileSceneManager : MonoBehaviour
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
 
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
-        backToHome.onClick.AddListener(gSM.LoadScene_Home); 
-        goToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
-        goToSetting.onClick.AddListener(gSM.LoadScene_Setting);
-        goToTest.onClick.AddListener(gSM.LoadScene_TypeTest);
+        backToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
-
