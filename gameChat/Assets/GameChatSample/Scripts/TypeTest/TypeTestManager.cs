@@ -52,7 +52,7 @@ public class TypeTestManager : MonoBehaviour
     {
         ReadTXT();
         PrintQuestion();
-        PrintType();
+        PrintType_destroy(); //검사 결과에따른 타입을 띄워줌
 
 
     }
@@ -204,14 +204,18 @@ public class TypeTestManager : MonoBehaviour
             {
                 order = 0;
                 P_J = P_J + A12;
+                
+                TypeResult();
+                PrintType_destroy();
                 GameObject.Find("Test").SetActive(false);
                 GameObject.Find("TypeTest").transform.Find("MyType").gameObject.SetActive(true);
-                TypeResult();
-                PrintType();
+                //TypeResult();
+                //PrintType();
                 //Debug.Log(MbtiType);
             }
-
+            //다음 질문 띄워주기
             PrintQuestion();
+            //질문 인덱스 변경
             changeIndex();
 
             //버튼 선택되지 않은 상태로 만들기
@@ -253,6 +257,7 @@ public class TypeTestManager : MonoBehaviour
     public int A10;
     public int A11;
     public int A12;
+    
     //활성화된 버튼의 텍스트 색상 화이트로 바꾸기
     public void Answer1Btn_TypeTest(bool select)
     {
@@ -332,100 +337,147 @@ public class TypeTestManager : MonoBehaviour
         else if ((E_I > 1) && (N_S > 1) && (T_F > 1) && (P_J <= 1)) { MbtiType = "ISFP"; }
         else if ((E_I > 1) && (N_S > 1) && (T_F > 1) && (P_J > 1)) { MbtiType = "ISFJ"; }
         else if ((E_I > 1) && (N_S > 1) && (T_F <= 1) && (P_J > 1)) { MbtiType = "ISTJ"; }
+
+        Debug.Log("MBTI타입초기대입"+MbtiType);
+        PlayerPrefs.SetString("MBTIResert", MbtiType.ToString());
+        //string Result = PlayerPrefs.GetString("MBTIResert");
+        //Debug.Log("플레이어프렙스저장정보" + Result);
     }
 
     public GameObject Content; //프리팹 인스턴스화 해줄 위치 참조
-    public void PrintType()
-    {
-        //인스펙터에 입력한 엠비티아이와 일치하는 프리팹 로드
 
-        if (MbtiType == "")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_None")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
+    public void PrintType_destroy()
+    {//이미 생성된 MBTI정보 게임 오브젝트를 삭제하고 새로 생성
+     //아무것도 없을때, 인덱스를 벗어남을 방지하는 코드           
+        int index = Content.transform.childCount-1;
+
+        Debug.Log("맨끝인덱스" + index);
+        Debug.Log("텍스트타이틀 트루?: " + Content.transform.GetChild(index).gameObject.name.Contains("Text_Title"));
+        if (!Content.transform.GetChild(index).gameObject.name.Contains("Text_Title"))
+        {            
+            while (!Content.transform.GetChild(index).gameObject.name.Contains("Text_Title"))
+            {
+                Debug.Log("while문 들어옴");
+                if (Content.transform.GetChild(index).gameObject.name.Contains("Text_Title"))
+                { 
+                    break;
+                }
+                else
+                {
+                    GameObject DestroyMbti = Content.transform.GetChild(index).gameObject;
+                    Destroy(DestroyMbti);
+                }
+                index -= 1;
+            }
+            PrintType();
+            
         }
-        else if (MbtiType == "INTP")
+        else
         {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INTP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
+            PrintType();
         }
-        else if (MbtiType == "INTJ")
+        
+    }
+
+
+    public void PrintType()
         {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INTJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "INFP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INFP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "INFJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INFJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ISTP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISTP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ISTJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISTJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ISFP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISFP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ISFJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISFJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ENTP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENTP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ENTJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENTJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ENFP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENFP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ENFJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENFJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ESTP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESTP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ESTJ")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESTJ")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ESFP")
-        {
-            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESFP")) as GameObject;
-            MbtiResult.transform.SetParent(Content.transform, false);
-        }
-        else if (MbtiType == "ESFJ")
+        string MBTIResult = PlayerPrefs.GetString("MBTIResert");
+        Debug.Log("플레이어프렙스MBTI정보" + MBTIResult);
+
+        //인스펙터에 입력한 엠비티아이와 일치하는 프리팹 로드
+        if (MBTIResult == "ESFJ")
         {
             GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESFJ")) as GameObject;
             MbtiResult.transform.SetParent(Content.transform, false);
         }
+        else if (MBTIResult == "INTP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INTP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "INTJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INTJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "INFP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INFP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "INFJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_INFJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ISTP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISTP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ISTJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISTJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ISFP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISFP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ISFJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ISFJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ENTP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENTP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ENTJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENTJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ENFP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENFP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ENFJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ENFJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ESTP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESTP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ESTJ")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESTJ")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "ESFP")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_ESFP")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
+        }
+        else if (MBTIResult == "")
+        {
+            GameObject MbtiResult = Instantiate(Resources.Load("Prefabs/Result_None")) as GameObject;
+            MbtiResult.transform.SetParent(Content.transform, false);
 
+        }
     }
+        //저장된 MBTI결과 불러오기
+       
+        
+
+
 
     public void Redo()
     {
@@ -434,7 +486,10 @@ public class TypeTestManager : MonoBehaviour
         Text result = GameObject.Find("Btn_Next").transform.GetChild(0).gameObject.GetComponent<Text>();
         result.text = "다음";
         GameObject.Find("Test").transform.Find("Btn_Previous").gameObject.SetActive(false);
+
+
     }
+
         
 
 
