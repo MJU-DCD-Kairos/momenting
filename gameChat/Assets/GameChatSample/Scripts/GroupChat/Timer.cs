@@ -9,7 +9,6 @@ public class Timer : MonoBehaviour
     public float maxTime = 1200f;
     float timeLeft;
     public GameObject eend;
-    public GameObject finishDim;
 
     void Start()
     {
@@ -31,7 +30,7 @@ public class Timer : MonoBehaviour
         else
         {
             Time.timeScale = 0;
-            finishDim.gameObject.SetActive(true);
+            
             eend.gameObject.SetActive(true);
             
             
