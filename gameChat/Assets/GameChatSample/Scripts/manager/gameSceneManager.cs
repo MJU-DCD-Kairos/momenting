@@ -65,6 +65,7 @@ public class gameSceneManager : MonoBehaviour
     public void LoadScene_MyProfile_Sample3()
     {
         LoadScene("MyProfile_Sample3");
+        Debug.Log("프로필씬 호출버튼 클릭");
     }
    
     //일대일대화 씬 호출
