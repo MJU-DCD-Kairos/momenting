@@ -91,7 +91,7 @@ public class ChatManager : MonoBehaviour
         int cqlnum = UnityEngine.Random.Range(1, 107);
 
         Debug.Log(cqlnum);
-        Debug.Log(ChatQuestionList.CQL[cqlnum].chatQuestion);
+        //Debug.Log(ChatQuestionList.CQL[cqlnum].chatQuestion);
         Debug.Log(ChatQuestionList.CQL[cqlnum].answerA);
         Debug.Log(ChatQuestionList.CQL[cqlnum].answerB);
 
@@ -136,6 +136,7 @@ public class ChatManager : MonoBehaviour
 
     void Start()
     {
+        
         ReadCSV();
         scrollBar.value = 0.00001f;
         currentTime = startingTime;
@@ -148,11 +149,15 @@ public class ChatManager : MonoBehaviour
     {
 
         currentTime -= 1 * Time.deltaTime;
-        countdownText.text = currentTime.ToString("0");
+        if(null != GameObject.Find("Text_Timer_GroupChat"))
+        {
+            countdownText.text = currentTime.ToString("0");
+        }
+        
 
         //10분 5분 3분 타이머 AI
         
-        if (currentTime <= 600 && 599 <= currentTime && !ai)
+        if (currentTime <= 600 && 599 <= currentTime && !ai && null!=GameObject.Find("Text_Timer_GroupChat"))//텍스트 오브젝트를 찾을 수 있는 경우만)
         {
             Transform CurAIArea = Instantiate(AIArea).transform;
             CurAIArea.SetParent(ContentRect.transform, false);
@@ -192,7 +197,11 @@ public class ChatManager : MonoBehaviour
         float mins = Mathf.FloorToInt(TimeToDisplay / 60);
         float secs = Mathf.FloorToInt(TimeToDisplay % 60);
 
-        countdownText.text = string.Format("{0:00}{1:00}", mins, "분");
+        if(null != GameObject.Find("Text_Timer_GroupChat"))//해당이름의 게임오브젝트가 씬에 있으면으로 그룹챗 씬인지 판별
+        {
+            countdownText.text = string.Format("{0:00}{1:00}", mins, "분");//그룹챗에서만 작동하도록 예외처리
+        }
+        
 
     }
 
