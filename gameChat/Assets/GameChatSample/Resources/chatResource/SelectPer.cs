@@ -9,12 +9,11 @@ using System.Text;
 public class SelectPer : MonoBehaviour
 {
     public People people;
-    Animator anim;
-    SpriteRenderer sr;
+   
+    
     public SelectPer[] chars;
     public Text SenderId;
-    public GameObject UserSlot;
-    public GameObject Profile;
+    
     public Image mask;
     public Image image;
     public GameObject dim;
@@ -26,13 +25,11 @@ public class SelectPer : MonoBehaviour
     void Start()
     {
         OnDeSelect();
-        RectTransform rt = GetComponent<RectTransform>();
-        anim = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+     
         if (ChoMgr.instance.currentChoice == people) OnSelect();
         else OnDeSelect();
     }
-    private void OnMouseUpAsButton()
+    public void OnMouseUpAsButton()
     {
         ChoMgr.instance.currentChoice = people;
         OnSelect();
