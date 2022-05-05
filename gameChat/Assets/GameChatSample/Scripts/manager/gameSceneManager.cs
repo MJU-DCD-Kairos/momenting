@@ -113,7 +113,7 @@ public class gameSceneManager : MonoBehaviour
         if (0 < time_current)
         {
             time_current -= Time.deltaTime;
-            Debug.Log(time_current);
+            //Debug.Log(time_current);
         }
         else if (!isEnded)
         {
