@@ -56,63 +56,123 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeDescription.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ScrollViewPractice.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GotMatched.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslateSettingPopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\settingSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\NestedScrollManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GDManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\PersonalListEdit.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\SignIn\LetterSpacing.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatBinder.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Sample_TMP_Selector.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\groupchatSceneManager.cs" />
+    <Compile Include="Assets\DemoTxtFile.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\MannerBtnManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Banner.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\chatlistSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Timer.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\ChangeProjPopup.cs" />
+    <Compile Include="Assets\MaskButton.cs" />
+    <Compile Include="Assets\RQtext.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\PieChart.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\PopupManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\TimerText.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Slider.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\Setting\csvReaderFAQ.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\ImageResize_Matching.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\csvReaderChatRoomName.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\scroll.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager_old.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\HorizontalScrollSnap.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\myprofileSceneManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\FirebaseManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleUnitTranslation.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleLoginManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\Home\isTodayQdone.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager_API.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\MannerEvaluation.cs" />
+    <Compile Include="Assets\GameChatSample\Resources\chatResource\SelectPer.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ImageResize.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\CustomizedPopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\gameSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Home\csvReader.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ListProfileKewordManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CanvasManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ClosePage.cs" />
+    <Compile Include="Assets\GameChatSample\Resources\chatResource\ChoMgr.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\ChatList\SnackBarManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\AreaScript.cs" />
+    <Compile Include="Assets\SizerFollow.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\InputPopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\OpenPage.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslatePopup.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\SignUp\LetterSpacing10.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\mailboxSceneManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\homeSceneManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\personalchatSceneManager.cs" />
+    <Compile Include="Assets\FirstQ.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleGlobalData.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeTestManager.cs" />
+    <Compile Include="Assets\loadScene.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\TextManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\manager\typetestSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\ToggleManager.cs" />
+    <Compile Include="Assets\Child.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\SelectList.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GroupChat\randomQuestion.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\GameChatSample\Resources\text\TypeTest.txt" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppFirestore.dll" />
+     <None Include="Assets\Parse\Plugins\Unity.Compat.dll" />
      <None Include="Assets\GameChatSample\Resources\text\UserData.txt" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Analytics.dll" />
      <None Include="Assets\GameChatSample\Scripts\MyProfile\BlurShader.shader" />
-     <None Include="Assets\GameChatSample\Plugins\Android\res\layout\activity_sub.xml" />
+     <None Include="Assets\StreamingAssets\Example.txt" />
+     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Analytics.dll" />
+     <None Include="Assets\Firebase\Plugins\Firebase.App.dll" />
      <None Include="Assets\GameChat\GameChatUnity.SocketIO.dll" />
+     <None Include="Assets\Parse\Plugins\Unity.Tasks.dll" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-firestore-unity\maven-metadata.xml" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAnalytics.dll" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-8_6_2.dll" />
+     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Firestore.dll" />
+     <None Include="Assets\GameChatSample\Resources\text\WriteTXT.txt" />
+     <None Include="Assets\GameChatSample\Resources\text\TestWriteTXT.txt" />
+     <None Include="Assets\Firebase\Plugins\Firebase.TaskExtension.dll" />
      <None Include="Assets\JsonDotNet\link.xml" />
      <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
+     <None Include="Assets\GameChatSample\Resources\text\TypeDescription.txt" />
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll" />
      <None Include="Assets\GameChatSample\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\GameChatSample\Resources\MyPersonalList.txt" />
+     <None Include="Assets\GameChatSample\testbranch.txt" />
      <None Include="Assets\GameChatSample\Resources\text\Question_Today.txt" />
-     <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\layout\activity_sub.xml" />
+     <None Include="Assets\GameChatSample\Resources\text\FAQ.txt" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-analytics-unity\maven-metadata.xml" />
      <None Include="Assets\GameChat\GameChatUnity.SimpleJSON.dll" />
      <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll" />
      <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
      <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Firestore.dll" />
+     <None Include="Assets\GameChatSample\Resources\KeywordData.txt" />
+     <None Include="Assets\Parse\Plugins\dotNet45\Unity.Compat.dll" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Platform.dll" />
      <None Include="Assets\GameChat\GameChatUnity.dll" />
+     <None Include="Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll" />
+     <None Include="Assets\GameChatSample\Resources\TestWriteTXT.txt" />
+     <None Include="Assets\Firebase\Plugins\Google.MiniJson.dll" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Firebase\Plugins\iOS\Firebase.App.dll" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.1f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -337,6 +397,30 @@
     </Reference>
     <Reference Include="GameChatUnity.SimpleJSON">
       <HintPath>Assets\GameChat\GameChatUnity.SimpleJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension">
+      <HintPath>Assets\Firebase\Plugins\Firebase.TaskExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Firestore">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.1f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
