@@ -95,6 +95,7 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager_API.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\MannerEvaluation.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\SelectPer.cs" />
+    <Compile Include="Assets\KakaoSystem.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ImageResize.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\CustomizedPopup.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\gameSceneManager.cs" />
@@ -132,17 +133,19 @@
      <None Include="Assets\Parse\Plugins\Unity.Compat.dll" />
      <None Include="Assets\GameChatSample\Resources\text\UserData.txt" />
      <None Include="Assets\Firebase\Plugins\Firebase.Analytics.dll" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppDatabase.dll" />
      <None Include="Assets\GameChatSample\Scripts\MyProfile\BlurShader.shader" />
      <None Include="Assets\StreamingAssets\Example.txt" />
      <None Include="Assets\Firebase\Plugins\iOS\Firebase.Analytics.dll" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppStorage.dll" />
      <None Include="Assets\Firebase\Plugins\Firebase.App.dll" />
      <None Include="Assets\GameChat\GameChatUnity.SocketIO.dll" />
      <None Include="Assets\Parse\Plugins\Unity.Tasks.dll" />
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-firestore-unity\maven-metadata.xml" />
      <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAnalytics.dll" />
-     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-8_6_2.dll" />
-     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Firestore.dll" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAuth.dll" />
      <None Include="Assets\GameChatSample\Resources\text\WriteTXT.txt" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-8_10_1.dll" />
      <None Include="Assets\GameChatSample\Resources\text\TestWriteTXT.txt" />
      <None Include="Assets\Firebase\Plugins\Firebase.TaskExtension.dll" />
      <None Include="Assets\JsonDotNet\link.xml" />
@@ -152,27 +155,32 @@
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Auth.dll" />
      <None Include="Assets\GameChatSample\Plugins\Android\AndroidManifest.xml" />
-     <None Include="Assets\GameChatSample\Resources\MyPersonalList.txt" />
-     <None Include="Assets\GameChatSample\testbranch.txt" />
      <None Include="Assets\GameChatSample\Resources\text\Question_Today.txt" />
      <None Include="Assets\GameChatSample\Resources\text\FAQ.txt" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Database.dll" />
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-analytics-unity\maven-metadata.xml" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
      <None Include="Assets\GameChat\GameChatUnity.SimpleJSON.dll" />
+     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Auth.dll" />
      <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll" />
      <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
      <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll" />
      <None Include="Assets\Firebase\Plugins\Firebase.Firestore.dll" />
      <None Include="Assets\GameChatSample\Resources\KeywordData.txt" />
+     <None Include="Assets\Firebase\Plugins\iOS\Firebase.Database.dll" />
      <None Include="Assets\Parse\Plugins\dotNet45\Unity.Compat.dll" />
      <None Include="Assets\Firebase\Plugins\Firebase.Platform.dll" />
      <None Include="Assets\GameChat\GameChatUnity.dll" />
      <None Include="Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll" />
-     <None Include="Assets\GameChatSample\Resources\TestWriteTXT.txt" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-database-unity\maven-metadata.xml" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Storage.dll" />
      <None Include="Assets\Firebase\Plugins\Google.MiniJson.dll" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Firebase\Plugins\iOS\Firebase.App.dll" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-storage-unity\maven-metadata.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.1f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -389,20 +397,26 @@
     <Reference Include="GameChatUnity">
       <HintPath>Assets\GameChat\GameChatUnity.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="GameChatUnity.SocketIO">
       <HintPath>Assets\GameChat\GameChatUnity.SocketIO.dll</HintPath>
     </Reference>
-    <Reference Include="GameChatUnity.SimpleJSON">
-      <HintPath>Assets\GameChat\GameChatUnity.SimpleJSON.dll</HintPath>
+    <Reference Include="Firebase.Storage">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.App">
       <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Firestore">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Analytics">
       <HintPath>Assets\Firebase\Plugins\Firebase.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Database">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Tasks">
       <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
@@ -413,14 +427,17 @@
     <Reference Include="Google.MiniJson">
       <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
     </Reference>
+    <Reference Include="GameChatUnity.SimpleJSON">
+      <HintPath>Assets\GameChat\GameChatUnity.SimpleJSON.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.Platform">
       <HintPath>Assets\Firebase\Plugins\Firebase.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Compat.dll</HintPath>
     </Reference>
-    <Reference Include="Firebase.Firestore">
-      <HintPath>Assets\Firebase\Plugins\Firebase.Firestore.dll</HintPath>
+    <Reference Include="Firebase.Auth">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.1f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
