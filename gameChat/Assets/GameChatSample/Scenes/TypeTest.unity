@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1899,7 +1899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 898c778b9aceef0489fa524218030b81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6000915fd2276da4093834da7f25045b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2690,6 +2690,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 905537003}
     m_Modifications:
+    - target: {fileID: 840095349822717877, guid: 8905dcb237c015b40b193c9982019fae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 11ef99465c9fa8245a4f5aeeb60e371a, type: 3}
     - target: {fileID: 3247498408987114131, guid: 8905dcb237c015b40b193c9982019fae, type: 3}
       propertyPath: m_Text
       value: "\uB098\uC758 \uBAA8\uB798\uC54C \uCC3E\uAE30"
@@ -2798,6 +2802,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LoadScene, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7071368244274244524, guid: 8905dcb237c015b40b193c9982019fae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1119d1d93a692a41a2040c697a2ff68, type: 3}
     - target: {fileID: 7716932948026539059, guid: 8905dcb237c015b40b193c9982019fae, type: 3}
       propertyPath: m_Name
       value: Title_MyType
@@ -2856,7 +2864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 931fa802b0ace2a4db34d446b16b38ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b34e390aa3024849a8473ff7133dfc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
