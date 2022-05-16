@@ -65,7 +65,7 @@ namespace GameChatSample
             btn_info[0].callback = () =>
             {
                 LoadingPanel.SetActive(false);
-                SceneManager.LoadSceneAsync("SampleScene_Main");
+                SceneManager.LoadSceneAsync("Home");
             };
             p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_BtnOne", "Connect Success !", "로그인이 완료되었습니다.", btn_info);
 

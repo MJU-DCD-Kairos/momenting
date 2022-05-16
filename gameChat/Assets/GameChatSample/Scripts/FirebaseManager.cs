@@ -9,7 +9,7 @@ using System;
 
 public class FirebaseManager : MonoBehaviour
 {
-    FirebaseFirestore db;
+    public FirebaseFirestore db;
 
     public InputField ID;
     public InputField PW;
@@ -27,8 +27,9 @@ public class FirebaseManager : MonoBehaviour
             if (task.Result == DependencyStatus.Available)
             {
                 //app = Firebase.FirebaseApp.DefaultInstance;
-                Debug.Log("DB 연결 성공");
                 db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
+                Debug.Log("DB 연결 성공");
+                //useridDB();
                 //ReadData();
                 //LoadData();
                 makeUserData();

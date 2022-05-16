@@ -7,7 +7,9 @@ public class homeSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
     gameSceneManager gSM;
-    
+    //NewChatManager NCM;
+    public TextAsset csvFile;
+
     //매칭 화면에서 채팅으로 넘어가는 플로우 테스트용 타이머, 불변수 선언
     bool isMatching = true;
     // 타이머 코드를 위한 변수 선언
@@ -31,6 +33,7 @@ public class homeSceneManager : MonoBehaviour
     {
         //don't destroy로 살려서 넘어온 게임씬매니저의 스크립트를 변수에 담음
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
+        //NCM = GameObject.Find("GameSceneManager").GetComponent<NewChatManager>();
         
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         ProfileBtn.onClick.AddListener(gSM.LoadScene_MyProfile_Sample3);
@@ -69,7 +72,7 @@ public class homeSceneManager : MonoBehaviour
         if (0 < time_current)
         {
             time_current -= Time.deltaTime;
-            Debug.Log(time_current);
+            //Debug.Log(time_current);
         }
         else if (!isEnded)
         {
@@ -83,6 +86,12 @@ public class homeSceneManager : MonoBehaviour
     {
         Debug.Log("End");
         time_current = 0;
+        //gSM.ReadCSV();
+   
+        //StartCoroutine(gSM.CreateChatRoom());
+       
+        //gSM.CreatChatCode();
+        
         matchingScene();
     }
 

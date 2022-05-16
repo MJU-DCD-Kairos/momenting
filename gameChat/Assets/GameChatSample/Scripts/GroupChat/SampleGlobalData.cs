@@ -15,7 +15,7 @@ namespace GameChatSample
 
         public static bool G_isSocketConnected = false;
 
-        public static List<Channel> G_ChannelList = null;
+        public static List<Channel> G_ChannelList = new List<Channel>();
 
     }
 }

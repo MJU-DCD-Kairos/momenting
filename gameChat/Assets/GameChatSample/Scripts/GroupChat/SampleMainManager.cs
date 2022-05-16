@@ -12,6 +12,8 @@ namespace GameChatSample
 {
     public partial class SampleMainManager : MonoBehaviour
     {
+        gameSceneManager gSM;
+        public Channel getC;
 
         [SerializeField]
         GameObject PopupRoot;
@@ -92,16 +94,21 @@ namespace GameChatSample
 
         private void Start()
         {
+            gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
+
             stringBuilder.Clear();
 
             Member user = SampleGlobalData.G_User;
             UserId.text = SampleGlobalData.G_User.id;
 
             if (!string.IsNullOrEmpty(user.nickname))
+            {
                 Nickname.text = user.nickname;
+            }
 
             GetProfileImage();
             poolSubscription = new HashSet<string>();
+            //getChannel();
 
             RefreshChannelList(() =>
             {
@@ -109,12 +116,55 @@ namespace GameChatSample
                 RefreshSubscribeStateUI();
                 RefreshAPITargetChannelUI();
             });
+            Debug.Log(SampleGlobalData.G_ChannelList[0].ToString());
+            ChannelGet();
 
             if (SampleGlobalData.G_isSocketConnected)
             {
                 PrintChatMessage(Color.blue, "[ 소켓서버와 연결되었습니다. ]");
             }
         }
+
+
+        
+        //원하는 채널을 가져옴
+        public Channel ChannelGet()
+        {
+            //해당하는 채널id를 서버에서 받아와 호출하는 과정이 필요
+            string CHANNEL_ID=gSM.CreatChatCode();
+            if (null != CHANNEL_ID) 
+            {
+                //string CHANNEL_ID = gSM.creatChatCode;
+                GameChat.getChannel(CHANNEL_ID, (Channel Channel, GameChatException Exception) => {
+
+                    if (Exception != null)
+                    {
+                        Debug.Log("겟채널에러");
+                        // Error 핸들링
+                        return;
+                    }
+
+                    if (null != gSM.creatChatCode)
+                    {
+                        //handling channelInfo instance
+                        Debug.Log("겟채널성공");
+                        getC = Channel;
+                        Debug.Log(Channel.name);
+                        Debug.Log(Channel.data);
+                    }
+
+                    return;
+                });
+
+            }
+            else
+            {
+                Debug.Log("리스트에서 받아온 값 없음");
+            }
+
+            return getC;
+        }
+        
 
 
         void GetProfileImage()
@@ -220,14 +270,31 @@ namespace GameChatSample
                 return;
             }
 
-            GameChat.getChannels(0, 30, (List<Channel> channels, GameChatException exception) =>
+            GameChat.getChannels(0, 10, (List<Channel> Channels, GameChatException exception) =>
             {
                 if (exception != null)
                 {
                     Debug.Log("getChannels Exception Log => " + exception.ToJson());
                     return;
                 }
-                SampleGlobalData.G_ChannelList = channels;
+                foreach (Channel elem in Channels)
+                {
+                    if (null!=elem && null!=SampleGlobalData.G_ChannelList)
+                    {
+                        SampleGlobalData.G_ChannelList.Add(elem);
+                        
+                        for (int i = 0; i < SampleGlobalData.G_ChannelList.Count; i++)
+                        {
+                            Debug.Log("CList" + SampleGlobalData.G_ChannelList[i].id);
+                            //(SampleGlobalData.G_ChannelList[i].id.ToString());
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("elem없음");
+                    }
+                }
+               
                 callback();
             });
         }
@@ -289,8 +356,9 @@ namespace GameChatSample
 
             if (string.IsNullOrEmpty(msg.Trim()))
                 return;
-
+            //(채널, 메시지)
             GameChat.sendMessage(SampleGlobalData.G_ChannelList[DropdownSubscribeChannel.value].id, msg);
+            
             InputSendMsg.text.Remove(0, InputSendMsg.text.Length);
             InputSendMsg.text = "";
             messageInput.text = "";

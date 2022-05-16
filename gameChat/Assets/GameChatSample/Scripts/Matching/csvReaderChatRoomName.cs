@@ -7,13 +7,13 @@ using System;
 public class csvReaderChatRoomName : MonoBehaviour
 {
 
-    //csv파일을 외부에서 인스펙터에서 직접 참조할 수 있도록 생성
+    //csv파일을 외부에서 인스펙터에서 직접 참조할 수 있도록 생성_채팅방 이름 생성
     public TextAsset csvfile;
 
-    //오늘의 질문을 넣어줄 UI텍스트 오브젝트를 인스펙터로 참조받기위한 선언
+    //오늘의 질문을 넣어줄 UI텍스트 오브젝트를 인스펙터로 참조받기위한 선언_채팅방 이름 텍스트
     public Text ChatRoomNameText;
 
-    //CSV파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언
+    //CSV파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언_채팅방 이름을 위한 작업
     public int tableSize;
     string randomCRN;
     
@@ -40,7 +40,7 @@ public class csvReaderChatRoomName : MonoBehaviour
     void Start()
     {
         ReadCSV();
-        makeChatRoomName();
+        
         
     }
 
@@ -67,25 +67,27 @@ public class csvReaderChatRoomName : MonoBehaviour
         
     }
 
-    void makeChatRoomName()
+    public String makeChatRoomName()
     {
-        int AdjNum = UnityEngine.Random.Range(1,tableSize);
-        int NounNum = UnityEngine.Random.Range(1,tableSize);
-        
-        string adj = ChatRoomNameList.CRN[AdjNum].Adjective;
-        string noun = ChatRoomNameList.CRN[NounNum].Noun;
+        while (true)
+        {
+            int AdjNum = UnityEngine.Random.Range(1, tableSize);
+            int NounNum = UnityEngine.Random.Range(1, tableSize);
 
-        int adjNum = adj.Length;
-        int nounNum = noun.Length;
-        Debug.Log(adjNum+nounNum+1);
-        Debug.Log(adjNum);
-        Debug.Log(nounNum);
+            string adj = ChatRoomNameList.CRN[AdjNum].Adjective;
+            string noun = ChatRoomNameList.CRN[NounNum].Noun;
 
-        if(adjNum+nounNum+1 < 8){
-            Debug.Log(adj + " " + noun);
-        }
-        else{
-            makeChatRoomName();
+            int adjNum = adj.Length;
+            int nounNum = noun.Length;
+            Debug.Log("위에디버그" + (adjNum + nounNum + 1));
+            //Debug.Log(adjNum);
+            //Debug.Log(nounNum);
+
+            if (adjNum + nounNum + 1 < 8)
+            {
+                Debug.Log(adj + " " + noun);
+                return (adj + " " + noun);
+            }
         }
 
     }

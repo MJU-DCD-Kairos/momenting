@@ -77,7 +77,7 @@ public class csvReader : MonoBehaviour
         int tqlNum = UnityEngine.Random.Range(1,109);
         
         Debug.Log(tqlNum);
-        Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
+        //Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
         Debug.Log(todayQuestionList.TQL[tqlNum].answerA);
         Debug.Log(todayQuestionList.TQL[tqlNum].answerB);
 
