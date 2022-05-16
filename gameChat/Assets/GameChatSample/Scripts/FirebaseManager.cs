@@ -9,14 +9,14 @@ using System;
 
 public class FirebaseManager : MonoBehaviour
 {
-    FirebaseFirestore db;
+    public static FirebaseFirestore db;
 
     public InputField ID;
     public InputField PW;
     public string uid;
     public string upw;
 
-    void Start()
+    public void Start()
     {
         //씬매니저 파괴 방지를 위한 코드
         DontDestroyOnLoad(this.gameObject);
@@ -32,6 +32,7 @@ public class FirebaseManager : MonoBehaviour
                 //ReadData();
                 //LoadData();
                 makeUserData();
+                make_uidDB();
             }
             else
             {
@@ -39,73 +40,6 @@ public class FirebaseManager : MonoBehaviour
             }
         });
 
-    }
-    
-    //QuerySnapshot snapshot = await.userRef.GetSnapshotAsync();
-    //Debug.Log(user1);
-    //DocumentReference docRef = db.Collection("Users").Document("Person"); //Users 컬렉션에서 "Person"문서 불러오기
-    //QuerySnapshot snapshot = await userRef.GetSnapshotAsync(); //문서 안에 있는 data 가져오라고 서버에 요청
-    /*
-    foreach (DocumentSnapshot document in snapshot.Documents)
-    {
-        Dictionary<string, object> documentDictionary = document.ToDictionary(); //받은 컬렉션에서 .document라는 속성을 통해각 문서들에 접근. 각 문서를 dictionary로 받아서 .todictionary를 통해 바꿔주면 수월하게 데이터를 처리할 수 있다.
-        Debug.Log("name:  " + documentDictionary["name"] as string);
-        if (documentDictionary.ContainsKey("name"))
-        {
-            Debug.Log("t")
-        }
-    }
-    */
-
-    public void ReadData()
-    {
-        
-        CollectionReference userRef = db.Collection("Users"); //유저들의의 데이터가 저장된 컬렉션 불러오기
-        Debug.Log(userRef.GetType());
-        
-        userRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-        {
-            
-            QuerySnapshot snapshot = task.Result;
-            foreach (DocumentSnapshot document in snapshot.Documents)
-            {
-                Dictionary<string, object> documentDictionary = document.ToDictionary();
-                Debug.Log(string.Format("age {0}",documentDictionary["age"]));
-                Debug.Log(string.Format("age: {0}", document.Id));
-                
-                Debug.Log(string.Format("introduction: {1}", document.Id));
-                Debug.Log(string.Format("mannerScore: {2}", document.Id));
-                Debug.Log(string.Format("mbti: {3}", document.Id));
-                Debug.Log(string.Format("name: {4}", document.Id));
-                Debug.Log(string.Format("sex: {5}", document.Id));
-                Debug.Log(string.Format("state: {6}", document.Id));
-                Debug.Log(string.Format("todayQ: {7}", document.Id));
-                Debug.Log(string.Format("uid: {8}", document.Id));
-            }
-        });
-        
-    }
-
-    public void LoadData()
-    {
-        DocumentReference docRef = db.Collection("Users").Document("Person");
-        docRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-        {
-            DocumentSnapshot snapshot = task.Result;
-            if (snapshot.Exists)
-            {
-                
-                Dictionary<string, object> city = snapshot.ToDictionary();
-                foreach (KeyValuePair<string, object> pair in city)
-                {
-                    Debug.Log(string.Format("{0}: {1}", pair.Key, pair.Value));
-                }
-            }
-            else
-            {
-                Debug.Log(string.Format("Document {0} does not exist!", snapshot.Id));
-            }
-        });
     }
     
     public void iID() //inputID 함수 호출
@@ -144,6 +78,110 @@ public class FirebaseManager : MonoBehaviour
             Debug.Log("유저비밀번호: " + PW.text); 
         }
         
+    }
+
+
+    void make_uidDB() //유저아이디와 토큰만 모아놓는 db 생성
+    {
+        Query allUidQuery = db.Collection("Users");
+        allUidQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            QuerySnapshot allUid = task.Result;
+            foreach (DocumentSnapshot UsersDoc in allUid.Documents) //모든 문서id (uid) 불러오기 반복
+            {
+                Debug.Log(string.Format(UsersDoc.Id)); 
+                
+                //유저아이디만 모아놓는 컬렉션에 uid 문서 생성
+                //문서가 있는지 확실치 않으므로 새 데이터를 기존 문서와 병합하는 방식 사용
+                //추후 token에 카카오 로그인 시 발급받는 토큰을 저장하도록 수정해야함
+                DocumentReference uidDoc = db.Collection("useridDB").Document(UsersDoc.Id);
+                Dictionary<string, object> update = new Dictionary<string, object>
+                {
+                    {"uid", UsersDoc.Id },
+                    {"token" , null }
+                };
+                uidDoc.SetAsync(update, SetOptions.MergeAll);
+            }
+        });
+    }
+    public void Udata() //유저데이터 로컬 저장
+    {
+        //PlayerPrefs.SetString("name", );
+        //PlayerPrefs.SetString("sex", );
+        PlayerPrefs.SetString("uid", ID.text);
+        PlayerPrefs.Save();
+
+    }
+
+    public void Signin()
+    {
+        Debug.Log("버튼 누름");
+        Udata();
+        Debug.Log(PlayerPrefs.GetString("uid"));
+
+        /*
+        if (ID.text.Trim() != "" && PW.text.Trim() != "")
+        {
+            Query allUidQuery = db.Collection("useridDB").WhereEqualTo("uid",ID.text); //uid가 입력한 아이디와 일치하는 문서 반환
+            Debug.Log(allUidQuery.GetType());
+            if (allUidQuery != null)
+            {
+                Debug.Log("로그인성공");
+            }
+            else
+            {
+                Debug.Log("일치하는 아이디가 없습니다.");
+            }
+            /*
+            allUidQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            {
+                QuerySnapshot allUid = task.Result;
+                foreach (DocumentSnapshot UsersDoc in allUid.Documents) //모든 문서id (uid) 불러오기 반복
+                {
+                    Debug.Log(string.Format(UsersDoc.Id));
+
+                    //유저아이디만 모아놓는 컬렉션에 uid 문서 생성
+                    //문서가 있는지 확실치 않으므로 새 데이터를 기존 문서와 병합하는 방식 사용
+                    //추후 token에 카카오 로그인 시 발급받는 토큰을 저장하도록 수정해야함
+                    DocumentReference uidDoc = db.Collection("useridDB").Document(UsersDoc.Id);
+                    Dictionary<string, object> update = new Dictionary<string, object>
+                {
+                    {"uid", UsersDoc.Id },
+                    {"token" , null }
+                };
+                    uidDoc.SetAsync(update, SetOptions.MergeAll);
+                }
+            });
+
+
+            CollectionReference user = db.Collection("Users"); //Users 컬렉션 참조
+            Query uidquery = user.WhereEqualTo("uid", ID.text); //uid가 입력한 ID와 일치하는 쿼리 찾기
+            uidquery.GetSnapshotAsync().ContinueWithOnMainThread((querySnapshotTask) =>
+            {
+                foreach (DocumentSnapshot docSnapshot in querySnapshotTask.Result.Documents)
+                {
+                    Debug.Log(string.Format("유저아이디", docSnapshot.Id));
+                    if (docSnapshot.Id == ID.text)
+                    {
+                        Debug.Log("일치하는 아이디가 있습니다.");
+                    }
+                    else
+                    {
+                        Debug.Log("일치하는 아이디가 없습니다!");
+                    }
+                }
+            });*/
+
+            /*
+            uidquery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            {
+                QuerySnapshot snapshot = task.Result;
+                Debug.Log(String.Format("Document data for {0} document:", snapshot));
+                if (string.Format(snapshot) = ID.text.Trim())
+            });
+            
+            
+        }*/
     }
 
     public void makeUserData() //새로운유저 DB 생성
