@@ -60,8 +60,10 @@
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ScrollViewPractice.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GotMatched.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslateSettingPopup.cs" />
+    <Compile Include="Assets\GoogleSignIn\GoogleSignInStatusCode.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\settingSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\NestedScrollManager.cs" />
+    <Compile Include="Assets\GameChatExtension\Runtime\Scripts\TMP_GameChatSpriteAsset.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\GDManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\PersonalListEdit.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\SignIn\LetterSpacing.cs" />
@@ -69,9 +71,9 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CreatChat.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Sample_TMP_Selector.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Home\MatchingScript.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\groupchatSceneManager.cs" />
     <Compile Include="Assets\DemoTxtFile.cs" />
+    <Compile Include="Assets\GoogleSignIn\Impl\BaseObject.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\MannerBtnManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\Banner.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\chatlistSceneManager.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Assets\GameChatSample\Scripts\Matching\ImageResize_Matching.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\csvReaderChatRoomName.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\scroll.cs" />
+    <Compile Include="Assets\GoogleSignIn\Impl\SignInHelperObject.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager_old.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\HorizontalScrollSnap.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\myprofileSceneManager.cs" />
@@ -97,17 +100,22 @@
     <Compile Include="Assets\GameChatSample\Scripts\Home\isTodayQdone.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleMainManager_API.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\MannerEvaluation.cs" />
+    <Compile Include="Assets\GetKeyboardHeight.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\SelectPer.cs" />
     <Compile Include="Assets\KakaoSystem.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ImageResize.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\CustomizedPopup.cs" />
+    <Compile Include="Assets\GoogleSignIn\Impl\NativeFuture.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\gameSceneManager.cs" />
+    <Compile Include="Assets\GameChatSample\Scripts\GoogleSignInDemo.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Home\csvReader.cs" />
+    <Compile Include="Assets\GKSManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\MyProfile\ListProfileKewordManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CanvasManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ClosePage.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChoMgr.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\NewChatManager.cs" />
+    <Compile Include="Assets\GameChatExtension\Runtime\Scripts\TMP_GameChatTextUGUI.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Setting\SwitchToggle.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\SnackBarManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\AreaScript.cs" />
@@ -115,6 +123,8 @@
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\InputPopup.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\OpenPage.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\Popup\TranslatePopup.cs" />
+    <Compile Include="Assets\GoogleSignIn\GoogleSignInUser.cs" />
+    <Compile Include="Assets\GoogleSignIn\GoogleSignIn.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\SignUp\LetterSpacing10.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\mailboxSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\homeSceneManager.cs" />
@@ -122,15 +132,18 @@
     <Compile Include="Assets\FirstQ.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\SampleGlobalData.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\TypeTest\TypeTestManager.cs" />
-    <Compile Include="Assets\GameChatSample\Scripts\Matching\MatchingManager.cs" />
     <Compile Include="Assets\loadScene.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\TextManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\CardTipManager.cs" />
+    <Compile Include="Assets\GoogleSignIn\Future.cs" />
+    <Compile Include="Assets\GoogleSignIn\Impl\GoogleSignInImpl.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\manager\typetestSceneManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\LoadScene.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\Matching\MatchManager.cs" />
     <Compile Include="Assets\GameChatSample\Resources\chatResource\ChatManager.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\ToggleManager.cs" />
+    <Compile Include="Assets\GoogleSignIn\GoogleSignInConfiguration.cs" />
+    <Compile Include="Assets\GameChatExtension\Runtime\Scripts\SearchApi\TMP_GameChatSearchEngine.cs" />
     <Compile Include="Assets\Child.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\ChatList\SelectList.cs" />
     <Compile Include="Assets\GameChatSample\Scripts\GroupChat\randomQuestion.cs" />
@@ -138,6 +151,7 @@
   <ItemGroup>
      <None Include="Assets\GameChatSample\Resources\text\TypeTest.txt" />
      <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppFirestore.dll" />
+     <None Include="Assets\Firebase\Plugins\Firebase.Messaging.dll" />
      <None Include="Assets\Parse\Plugins\Unity.Compat.dll" />
      <None Include="Assets\GameChatSample\Resources\text\UserData.txt" />
      <None Include="Assets\Firebase\Plugins\Firebase.Analytics.dll" />
@@ -151,6 +165,7 @@
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-firestore-unity\maven-metadata.xml" />
      <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAnalytics.dll" />
      <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppAuth.dll" />
+     <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppMessaging.dll" />
      <None Include="Assets\GameChatSample\Resources\text\WriteTXT.txt" />
      <None Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-8_10_1.dll" />
      <None Include="Assets\GameChatSample\Resources\text\TestWriteTXT.txt" />
@@ -160,10 +175,12 @@
      <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
      <None Include="Assets\GameChatSample\Resources\text\TypeDescription.txt" />
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
+     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-messaging-unity\maven-metadata.xml" />
      <None Include="Assets\GameChatSample\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
      <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll" />
      <None Include="Assets\Firebase\Plugins\Firebase.Auth.dll" />
      <None Include="Assets\GameChatSample\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\GameChatExtension\README.txt" />
      <None Include="Assets\GameChatSample\Resources\text\Question_Today.txt" />
      <None Include="Assets\GameChatSample\Resources\text\FAQ.txt" />
      <None Include="Assets\GameChatSample\Resources\chatResource\Plugins\Android\res\drawable\ic_send_black_32dp.xml" />
@@ -445,6 +462,9 @@
     </Reference>
     <Reference Include="Firebase.Auth">
       <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Messaging">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.1f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
