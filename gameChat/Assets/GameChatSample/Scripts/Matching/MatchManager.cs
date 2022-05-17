@@ -4,9 +4,11 @@ using UnityEngine;
 using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
+using System;
 
 public class MatchManager : MonoBehaviour
 {
+    /*
     public DatabaseReference Mref;
 
     // Start is called before the first frame update
@@ -18,14 +20,10 @@ public class MatchManager : MonoBehaviour
         Mref = FirebaseDatabase.DefaultInstance.RootReference;
 
         name = PlayerPrefs.GetString("name");
+        OnclickMatching();
+        AddUser();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     class User //유저 정보를 담는 클래스
     {
         public string name;
@@ -40,19 +38,39 @@ public class MatchManager : MonoBehaviour
             this.isActive = isActive;
         }
     }
-
+    
     public void AddUser()
     {
         string myname = PlayerPrefs.GetString("name");
-        User user = new User(myname, PlayerPrefs.GetString("sex"), true);
+        User user = new User(myname, PlayerPrefs.GetString("sex"), true); //닉네임, 성별, 매칭가능여부를 클래스에 추가
         string json = JsonUtility.ToJson(user); //데이터를 json 형태로 변환
 
         //string key = Mref.Child("Users").Push().Key;
-        Mref.Child("Users").Child(myname).SetRawJsonValueAsync(json);
+        Mref.Child("Users").Child(myname).SetRawJsonValueAsync(json); //"Users"DB에 생성
     }
-
-    public void matching() //리얼타임데이터베이스의 Rooms의 
+   
+    public void OnclickMatching()
     {
+        //bool matchingDB = Convert.ToBoolean(PlayerPrefs.GetString("isInMatchingDB"));
+        string myname = PlayerPrefs.GetString("name");
+        if (matchingDB == false) //매칭데이터베이스에 정보가 추가되어있지 않다면
+        {
+            //AddUser(); //매칭 데이터베이스에 유저정보(닉네임,성별,매칭가능여부) 생성
+        }
+        else
+        {
+            Mref.Child("Users").Child(myname).SetValueAsync(true); //DB에 isActive 상태 변경
+            Debug.Log(myname);
+        }
+
+
+        //matching();
+
+    }
+    */
+    public void matching() //리얼타임데이터베이스의 Rooms DB에 들어감
+    {
+
         var roomRef = FirebaseDatabase.DefaultInstance.GetReference("Rooms");
         roomRef.ValueChanged += HandleValueChanged;
 
@@ -67,7 +85,7 @@ public class MatchManager : MonoBehaviour
 
     }
     
-
+    
     public void LoadData()
     {
         
@@ -95,11 +113,6 @@ public class MatchManager : MonoBehaviour
         });
         
     }
+    
 
-    public void OnclickMatching()
-    {
-        AddUser();
-        //matching();
-        
-    }
 }

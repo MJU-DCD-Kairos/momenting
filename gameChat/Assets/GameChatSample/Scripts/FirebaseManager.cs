@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 public class FirebaseManager : MonoBehaviour
 {
-    public static FirebaseFirestore db;
+    public FirebaseFirestore db;
 
     public InputField Name;
     public InputField Age;//db 생성 테스트를 위한 아이디 인풋필드
@@ -25,6 +25,7 @@ public class FirebaseManager : MonoBehaviour
     public int mannerLevel;
     public bool ispass;
     public bool isActive;
+    public bool isInMatchingDB;
 
     public void Start()
     {
@@ -36,19 +37,19 @@ public class FirebaseManager : MonoBehaviour
             //var dependencyStatus = task.Result;
             if (task.Result == DependencyStatus.Available)
             {
-                Debug.Log("DB 연결 성공");
+                Debug.Log("파이어스토어 DB 연결 성공");
                 db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
                 
-                //makeUserData();
-                //makeTokenDB();
             }
             else
             {
                 Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
             }
         });
-    }
 
+        //isMatchToken(); //토큰 정보 있는지 확인
+    }
+    
     public void myName() { inputName(Name.text); }//inputID 함수 호출
     public void myage() { inputAge(Age.text); }
     public void mySex() { inputSex(Sex.text); }
@@ -105,9 +106,9 @@ public class FirebaseManager : MonoBehaviour
         }
 
     }
-    public async void Onclick_LoadData()
+    public async void isMatch_LoadData()
     {//매칭버튼 누르기 전에 인풋필드에 닉네임 입력 먼저 하기 (닉네임으로 조회)
-        myname = Name.text;
+        //myname = Name.text;
         await LoadData(); //유저 정보 불러오기
         LocalData(); //유저 정보 로컬 저장
 
@@ -118,7 +119,7 @@ public class FirebaseManager : MonoBehaviour
         Query userRef = db.Collection("userInfo").WhereEqualTo("name", myname); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
         QuerySnapshot snapshot = await userRef.GetSnapshotAsync();
         foreach (DocumentSnapshot doc in snapshot.Documents)
-        {
+        { 
             Dictionary<string, object> docDictionary = doc.ToDictionary();
             myname = docDictionary["name"] as string;
             sex = docDictionary["sex"] as string;
@@ -126,95 +127,74 @@ public class FirebaseManager : MonoBehaviour
         Debug.Log("닉네임 : " + myname);
         Debug.Log("성별 : " + sex);
     }
-    /*
-    async Task LocalData() //유저데이터 로컬 저장
+   
+    void LocalData() //유저데이터 로컬 저장 (가입단에 들어갈 거임!)
     {
-        token = "qpiubf92qqq8g2fco6qo943gafkugbskvubjhgqo34"; //토큰문자열 저장하는 변수
-
-        PlayerPrefs.SetString("token", token); //토큰
         PlayerPrefs.SetString("name", myname); //이름
         PlayerPrefs.SetString("sex", sex); //성별
         PlayerPrefs.SetInt("age", age); //나이
         PlayerPrefs.SetString("mbti", mbti); //모래알유형
         PlayerPrefs.SetInt("mannerLevel", mannerLevel); //매너등급
-        //PlayerPrefs.SetString("isActive", "false");
+        isInMatchingDB = false;
+        PlayerPrefs.SetString("isInMatchingDB", isInMatchingDB.ToString());
+        
         PlayerPrefs.Save();
     }
-    */
-    void LocalData() //유저데이터 로컬 저장
+    
+    async void isMatchToken()
     {
-        token = "qpiubf92qqq8g2fco6qo943gafkugbskvubjhgqo34"; //토큰문자열 저장하는 변수
+        //Query allTokenQuery = null;
 
-        PlayerPrefs.SetString("token", token); //토큰
-        PlayerPrefs.SetString("name", myname); //이름
-        PlayerPrefs.SetString("sex", sex); //성별
-        PlayerPrefs.SetInt("age", age); //나이
-        PlayerPrefs.SetString("mbti", mbti); //모래알유형
-        PlayerPrefs.SetInt("mannerLevel", mannerLevel); //매너등급
-        //PlayerPrefs.SetString("isActive", "false");
-        PlayerPrefs.Save();
-    }
-    void makeTokenDB() //유저아이디와 토큰만 모아놓는 db 생성
-    {
-        Query allUTokenQuery = db.Collection("userToken");
-        allUTokenQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        Query allTokenQuery = db.Collection("userToken").WhereEqualTo("name", PlayerPrefs.GetString("name")); //닉네임으로 일치하는 쿼리 찾아서 참조
+        await allTokenQuery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             QuerySnapshot allToken = task.Result;
-            foreach (DocumentSnapshot UserToken in allToken.Documents) //모든 문서id (uid) 불러오기 반복
+            foreach (DocumentSnapshot token in allToken.Documents)
             {
-                Debug.Log(string.Format(UserToken.Id)); 
-                
-                //문서가 있는지 확실치 않으므로 새 데이터를 기존 문서와 병합하는 방식 사용
-                //추후 token에 카카오 로그인 시 발급받는 토큰을 저장하도록 수정해야함
-                DocumentReference uidDoc = db.Collection("useridDB").Document(UserToken.Id);
-                Dictionary<string, object> update = new Dictionary<string, object>
+                Dictionary<string, object> tokenDictionary = token.ToDictionary();
+
+                if (tokenDictionary["token"] as string != null) //토큰 정보가 있으면
                 {
-                    {"name", UserToken.Id },
-                    {"token" , null }
-                };
-                uidDoc.SetAsync(update, SetOptions.MergeAll);
+                    Debug.Log(string.Format(tokenDictionary["name"] as string));
+                    Debug.Log(string.Format(tokenDictionary["token"] as string));
+                }
+
+                else //토큰 정보 없으면 토큰DB에 새로 추가
+                {
+                    CollectionReference tokenColl = db.Collection("userToken"); //토큰 콜렉션 참조
+                    Dictionary<string, object> update = new Dictionary<string, object> //새로운 딕셔너리 생성
+                    {
+                        {"name", PlayerPrefs.GetString("name") },
+                        {"token" , PlayerPrefs.GetString("token") }
+                    };
+                    tokenColl.AddAsync(update);
+                }
+                
+
+                /*
+                if (allToken != null) //토큰 정보가 있으면
+                {
+                    Dictionary<string, object> tokenDictionary = token.ToDictionary();
+
+                    Debug.Log(string.Format(tokenDictionary["name"] as string));
+                    Debug.Log(string.Format(tokenDictionary["token"] as string));
+                }
+
+                else //토큰 정보 없으면 토큰DB에 새로 추가
+                {
+                    CollectionReference tokenColl = db.Collection("userToken"); //토큰 콜렉션 참조
+                    Dictionary<string, object> update = new Dictionary<string, object> //새로운 딕셔너리 생성
+                    {
+                        {"name", PlayerPrefs.GetString("name") },
+                        {"token" , PlayerPrefs.GetString("token") }
+                    };
+                    tokenColl.AddAsync(update);
+                }*/
             }
+
         });
     }
 
-    public void Signin()
-    {
-        if(Name.text.Trim() != "" && Name.text.Trim() == myname) //토큰으로 바꿔야 됨
-        {
-            Debug.Log("로그인완료!");
-
-        }
-
-        /*
-            CollectionReference user = db.Collection("Users"); //Users 컬렉션 참조
-            Query uidquery = user.WhereEqualTo("uid", ID.text); //uid가 입력한 ID와 일치하는 쿼리 찾기
-            uidquery.GetSnapshotAsync().ContinueWithOnMainThread((querySnapshotTask) =>
-            {
-                foreach (DocumentSnapshot docSnapshot in querySnapshotTask.Result.Documents)
-                {
-                    Debug.Log(string.Format("유저아이디", docSnapshot.Id));
-                    if (docSnapshot.Id == ID.text)
-                    {
-                        Debug.Log("일치하는 아이디가 있습니다.");
-                    }
-                    else
-                    {
-                        Debug.Log("일치하는 아이디가 없습니다!");
-                    }
-                }
-            });*/
-
-            /*
-            uidquery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-            {
-                QuerySnapshot snapshot = task.Result;
-                Debug.Log(String.Format("Document data for {0} document:", snapshot));
-                if (string.Format(snapshot) = ID.text.Trim())
-            });
-            
-            
-        }*/
-    }
 
     public void makeUserData() //새로운유저 DB 생성
     {
