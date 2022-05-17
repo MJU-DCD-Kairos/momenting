@@ -128,8 +128,14 @@ public class gameSceneManager : MonoBehaviour
     public void LoadScene_SampleScene_Login()
     {
         LoadScene("SampleScene_Login");
+
     }
-    
+
+    public void LoadScene_GroupChat()
+    {
+        LoadScene("SampleScene_Main");
+    }
+
     //회원가입 씬 호출
     public void LoadScene_SignUp()
     {

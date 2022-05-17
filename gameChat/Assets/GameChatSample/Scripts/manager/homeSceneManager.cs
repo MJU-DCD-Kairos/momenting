@@ -44,18 +44,15 @@ public class homeSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MatchingPage.activeSelf)
-        {
-            Check_Timer();
-        }
+        
     }
 
     //매칭 완료 시 채팅 플로우를 시작하는 씬을 로드하는 함수
-    void matchingScene()
+    public void matchingScene()
     {
         if(isMatching == true)
         {
-            gSM.LoadScene_SampleScene_Login();
+            gSM.LoadScene_GroupChat();
         }
         else
         {

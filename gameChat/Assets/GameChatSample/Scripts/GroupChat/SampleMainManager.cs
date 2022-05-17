@@ -12,6 +12,9 @@ namespace GameChatSample
 {
     public partial class SampleMainManager : MonoBehaviour
     {
+        //채팅 내용을 불러오기 위한 new chat manager선언
+        NewChatManager newChatManager;
+
         gameSceneManager gSM;
         public Channel getC;
 
@@ -95,6 +98,7 @@ namespace GameChatSample
         private void Start()
         {
             gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
+            newChatManager = GameObject.Find("HomeSceneManager").GetComponent<NewChatManager>();
 
             stringBuilder.Clear();
 
@@ -106,18 +110,20 @@ namespace GameChatSample
                 Nickname.text = user.nickname;
             }
 
+            
+
             GetProfileImage();
             poolSubscription = new HashSet<string>();
             //getChannel();
-
+            /*
             RefreshChannelList(() =>
             {
                 RefreshChannelListUI();
                 RefreshSubscribeStateUI();
                 RefreshAPITargetChannelUI();
-            });
-            Debug.Log(SampleGlobalData.G_ChannelList[0].ToString());
-            ChannelGet();
+            });*/
+            //Debug.Log(SampleGlobalData.G_ChannelList[0].ToString());
+            //ChannelGet();
 
             if (SampleGlobalData.G_isSocketConnected)
             {
@@ -501,6 +507,13 @@ namespace GameChatSample
 
         #endregion
 
+        //채팅방 id로 메시지 이력 가져옴
+        public void getMSG()
+        {
+            Debug.Log("버튼 실행");
+            
+            newChatManager.GetMSG();
+        }
 
 
 
