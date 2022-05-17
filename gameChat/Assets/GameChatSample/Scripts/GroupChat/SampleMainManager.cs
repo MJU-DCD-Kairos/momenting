@@ -515,7 +515,10 @@ namespace GameChatSample
             newChatManager.GetMSG();
         }
 
-
+        public void getChannelID()
+        {
+            newChatManager.getChannelID();
+        }
 
         #region Public_Interface
 
