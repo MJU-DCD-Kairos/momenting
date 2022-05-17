@@ -358,7 +358,7 @@ namespace GameChatSample {
                                 Area.TimeText.text = elem.created_at;
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 1000;
+                                float X = Area.TextRect.sizeDelta.x + 400;
                                 float Y = Area.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
@@ -385,7 +385,7 @@ namespace GameChatSample {
                                 Area2.TimeText.text = elem.created_at;
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 150;
+                                float X = Area2.TextRect.sizeDelta.x + 400;
                                 float Y = Area2.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
@@ -420,7 +420,7 @@ namespace GameChatSample {
                                     Debug.Log("타인 시간없음 :  " + (xMSG.created_at.ToString() == elem.created_at.ToString()));
 
                                     //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area.TextRect.sizeDelta.x + 150;
+                                    float X = Area.TextRect.sizeDelta.x + 400;
                                     float Y = Area.TextRect.sizeDelta.y;
                                     if (Y > 700)
                                     {
@@ -449,7 +449,7 @@ namespace GameChatSample {
 
 
                                     //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area2.TextRect.sizeDelta.x + 150;
+                                    float X = Area2.TextRect.sizeDelta.x + 400;
                                     float Y = Area2.TextRect.sizeDelta.y;
                                     if (Y > 700)
                                     {
@@ -478,7 +478,7 @@ namespace GameChatSample {
                                     Area.TimeText.text = elem.created_at;
 
                                     //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area.TextRect.sizeDelta.x + 150;
+                                    float X = Area.TextRect.sizeDelta.x + 400;
                                     float Y = Area.TextRect.sizeDelta.y;
                                     if (Y > 700)
                                     {
@@ -504,7 +504,7 @@ namespace GameChatSample {
                                     Area2.TimeText.text = elem.created_at;
 
                                     //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area2.TextRect.sizeDelta.x + 150;
+                                    float X = Area2.TextRect.sizeDelta.x + 400;
                                     float Y = Area2.TextRect.sizeDelta.y;
                                     if (Y > 700)
                                     {
@@ -538,7 +538,7 @@ namespace GameChatSample {
                                 
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 150;
+                                float X = Area.TextRect.sizeDelta.x + 400;
                                 float Y = Area.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
@@ -562,7 +562,7 @@ namespace GameChatSample {
                                 Area.TimeText.text = elem.created_at;
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 150;
+                                float X = Area.TextRect.sizeDelta.x + 400;
                                 float Y = Area.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
@@ -590,7 +590,7 @@ namespace GameChatSample {
                                
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 150;
+                                float X = Area2.TextRect.sizeDelta.x + 400;
                                 float Y = Area2.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
@@ -615,7 +615,7 @@ namespace GameChatSample {
                                 Area2.TimeText.text = elem.created_at;
 
                                 //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 150;
+                                float X = Area2.TextRect.sizeDelta.x + 400;
                                 float Y = Area2.TextRect.sizeDelta.y;
                                 if (Y > 700)
                                 {
