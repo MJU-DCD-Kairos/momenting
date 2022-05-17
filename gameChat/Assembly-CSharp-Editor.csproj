@@ -67,7 +67,6 @@
      <None Include="Assets\Firebase\Editor\FirebaseFirestore_version-8.10.1_manifest.txt" />
      <None Include="Assets\Firebase\Editor\FirebaseAnalytics_version-8.10.1_manifest.txt" />
      <None Include="Assets\ExternalDependencyManager\Editor\1.2.170\Google.PackageManagerResolver.dll" />
-     <None Include="Assets\ExternalDependencyManager\Editor\1.2.170\Google.IOSResolver.dll" />
      <None Include="Assets\Firebase\Editor\StorageDependencies.xml" />
      <None Include="Assets\Firebase\Editor\AuthDependencies.xml" />
      <None Include="Assets\ExternalDependencyManager\Editor\1.2.170\Google.JarResolver.dll" />
@@ -323,8 +322,8 @@
     <Reference Include="GameChatUnity.SocketIO">
       <HintPath>Assets\GameChat\GameChatUnity.SocketIO.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver">
-      <HintPath>Assets\ExternalDependencyManager\Editor\1.2.170\Google.IOSResolver.dll</HintPath>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Storage">
       <HintPath>Assets\Firebase\Plugins\Firebase.Storage.dll</HintPath>
@@ -349,6 +348,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Tasks">
       <HintPath>Assets\Parse\Plugins\dotNet45\Unity.Tasks.dll</HintPath>
@@ -769,6 +771,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{9DB23FC3-9402-9802-ABD2-869B4B36744E}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{97F4F042-AEBF-349B-8FEF-DE3488AEF92C}</Project>
       <Name>Assembly-CSharp</Name>

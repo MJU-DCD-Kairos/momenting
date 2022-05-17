@@ -1,27 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
-using System.IO;
-
-public class DemoTxtFile : MonoBehaviour
-{
-    public Text sender;
-    public Text title;
-
-    StreamWriter writer;
-    public void start()
-    {
-        writeTXT();
-    }
-    public void writeTXT() //리스트 덮어쓰기
-    {
-        writer = new StreamWriter(Application.dataPath + "/GameChatSample/Resources/text/ChatInfo.txt", true); //같은 이름을 가진 파일로 덮어씀
-        writer.WriteLine("title","sender");
-        writer.Flush();
-        writer.Close();
-
-    }
-
-
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8b213dcc3986d96458be9ab3e9b38f37df25426dbd19c84a23934167303bb688
+size 614

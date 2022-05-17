@@ -1,19 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class SizerFollow : MonoBehaviour
-{
-    public float size;
-    public Image flow;
-
-
-    public void Follow()
-    {
-        var RectTransform = transform as RectTransform;
-        flow.GetComponent<RectTransform>().sizeDelta = new Vector2(592 , 592);
-        Debug.Log("ss");
-    }
-        
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:28d6a0bbe5ebbc951323ade8a6aecd89bb9e14cdac2d8e345dfd8d22765186a6
+size 423

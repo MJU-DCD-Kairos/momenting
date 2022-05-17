@@ -1,26 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using System;
-using UnityEngine.UI;
-
-public class MaskButton : MonoBehaviour
-{
-    public Image mask;
-    public Image image;
-    public void EnterSize()
-    {
-        RectTransform rect = (RectTransform)image.transform;
-        rect.sizeDelta = new Vector2(592, 592);
-        RectTransform rect2 = (RectTransform)mask.transform;
-        rect2.sizeDelta = new Vector2(592, 592);
-    }
-    public void ExitSize()
-    {
-        RectTransform rect = (RectTransform)image.transform;
-        rect.sizeDelta = new Vector2(512, 512);
-        RectTransform rect2 = (RectTransform)mask.transform;
-        rect2.sizeDelta = new Vector2(512, 512);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0e9fc75f9e8844609745dfdd72cc0950b2b1133b980b5eafe8566e5d25d527b1
+size 782
