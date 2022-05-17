@@ -73,6 +73,7 @@ public class gameSceneManager : MonoBehaviour
     {
         //스플래시 타이머 작동 코드
         Check_Timer();
+
     }
 
     //씬 네임으로 원하는 씬을 로드
