@@ -333,7 +333,7 @@ public class ChatManager : MonoBehaviour
     }
 
 
-    void Fit(RectTransform Rect) => LayoutRebuilder.ForceRebuildLayoutImmediate(Rect);
+    public void Fit(RectTransform Rect) => LayoutRebuilder.ForceRebuildLayoutImmediate(Rect);
 
 
     void ScrollDelay() => scrollBar.value = 0;
