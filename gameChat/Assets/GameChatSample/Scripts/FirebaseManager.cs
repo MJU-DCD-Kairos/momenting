@@ -71,7 +71,7 @@ public class FirebaseManager : MonoBehaviour
     {
         if (text.Trim() == "")
         {
-            Debug.Log("아이디를 입력하지 않았습니다.");
+            Debug.Log("나이를 입력하지 않았습니다.");
             return;
         }
         else
@@ -84,7 +84,7 @@ public class FirebaseManager : MonoBehaviour
     {
         if (text.Trim() == "")
         {
-            Debug.Log("아이디를 입력하지 않았습니다.");
+            Debug.Log("성별을 입력하지 않았습니다.");
             return;
         }
         else
@@ -97,7 +97,7 @@ public class FirebaseManager : MonoBehaviour
     {
         if (text.Trim() == "")
         {
-            Debug.Log("아이디를 입력하지 않았습니다.");
+            Debug.Log(" 토큰 ");
             return;
         }
         else
@@ -108,27 +108,32 @@ public class FirebaseManager : MonoBehaviour
     }
     public async void isMatch_LoadData()
     {//매칭버튼 누르기 전에 인풋필드에 닉네임 입력 먼저 하기 (닉네임으로 조회)
-        //myname = Name.text;
+        myname = Name.text;
         await LoadData(); //유저 정보 불러오기
         LocalData(); //유저 정보 로컬 저장
-
+        isMatchToken();
     }
 
     private async Task LoadData() //파이어스토어DB에서 유저정보 불러오는 함수
     {
         Query userRef = db.Collection("userInfo").WhereEqualTo("name", myname); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
-        QuerySnapshot snapshot = await userRef.GetSnapshotAsync();
-        foreach (DocumentSnapshot doc in snapshot.Documents)
-        { 
-            Dictionary<string, object> docDictionary = doc.ToDictionary();
-            myname = docDictionary["name"] as string;
-            sex = docDictionary["sex"] as string;
+        
+        if(userRef != null)
+        {
+            QuerySnapshot snapshot = await userRef.GetSnapshotAsync();
+            foreach (DocumentSnapshot doc in snapshot.Documents)
+            {
+                Dictionary<string, object> docDictionary = doc.ToDictionary();
+                //myname = docDictionary["name"] as string;
+                sex = docDictionary["sex"] as string;
+            }
+            Debug.Log("닉네임 : " + myname);
+            Debug.Log("성별 : " + sex);
         }
-        Debug.Log("닉네임 : " + myname);
-        Debug.Log("성별 : " + sex);
+        
     }
    
-    void LocalData() //유저데이터 로컬 저장 (가입단에 들어갈 거임!)
+    void LocalData() //유저데이터 로컬 저장 (가입단에 들어감)
     {
         PlayerPrefs.SetString("name", myname); //이름
         PlayerPrefs.SetString("sex", sex); //성별
@@ -141,7 +146,7 @@ public class FirebaseManager : MonoBehaviour
         PlayerPrefs.Save();
     }
     
-    async void isMatchToken()
+    async void isMatchToken() //토큰 DB에서 정보 확인 (가입단에 들어감) 
     {
         //Query allTokenQuery = null;
 
@@ -235,10 +240,9 @@ public class FirebaseManager : MonoBehaviour
             { "mannerLevel", 1 } //매너등급 (기본 1등급으로 시작)
         };
 
-        db.Collection("userInfo").AddAsync(user).ContinueWithOnMainThread(task =>
+        db.Collection("userInfo").Document(myname).SetAsync(user).ContinueWithOnMainThread(task =>
         {
-            DocumentReference addUserInfo = task.Result;
-            Debug.Log(string.Format("추가된 문서 ID: {0}.", addUserInfo.Id));
+            //Debug.Log(string.Format("추가된 문서 ID: {0}.", addUserInfo.Id));
         });
 
     }

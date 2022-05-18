@@ -11,7 +11,7 @@ public class MatchingManager : MonoBehaviour
     private FirebaseManager db;
     public string username; 
     public string sex; 
-    public bool isActive = false;
+    public bool isActive;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,31 +19,16 @@ public class MatchingManager : MonoBehaviour
         username = PlayerPrefs.GetString("name");
         sex = PlayerPrefs.GetString("sex");
     }
-
     // Update is called once per frame
     void Update()
     {
         
     }
-    /*
-    class User //유저 정보를 담는 클래스
-    {
-        public string name;
-        public string sex;
-        public bool isActive;
-
-
-        public User(string name, string sex, bool isActive) //초기화하기 쉽게 생성자 사용
-        {
-            this.name = name;
-            this.sex = sex;
-            this.isActive = isActive;
-        }
-    }*/
+    
     public void AddUser() //가입 시 한번만 실행 (매칭DB)
     {
         
-        DocumentReference Mref = db.db.Collection("MatchingUsers").Document(username);
+        DocumentReference Mref = db.db.Collection("matchingUsers").Document(username);
         Mref.SetAsync(new Dictionary<string, object>()
         {
             {"name", username},
@@ -54,31 +39,106 @@ public class MatchingManager : MonoBehaviour
 
     public void OnclickMatching() //매칭버튼 눌렀을 때 호출할 함수
     {
+        AddUser();
         isActive = true; //매칭가능여부를 true로 바꿈
 
-        DocumentReference userRef = db.db.Collection("MatchingUsers").Document(username);
+        Query query = db.db.Collection("matchingUsers").WhereEqualTo("name", username);
+        query.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
+        {
+            foreach(DocumentSnapshot doc in QuerySnapshotTask.Result)
+            {
+                Debug.Log(string.Format(doc.Id));
+            }
+
+        });
+
+        DocumentReference userRef = db.db.Collection("matchingUsers").Document(username);
         Dictionary<string, object> updates = new Dictionary<string, object>
         {
-            {"isActive", isActive }
+            {"isActive", true }
         };
         userRef.UpdateAsync(updates).ContinueWithOnMainThread(task => {
             Debug.Log(isActive);
         });
 
-        //matching();
+        matching();
 
     }
-    public void matching() //MatchingRoom DB에 들어감
+    async void matching() //MatchingRoom DB
     {
-        string roomId = null; //채팅방id 
+        //string roomId = null; //채팅방id 
 
-        DocumentReference roomRef = db.db.Collection("MatchingRoom").Document(roomId);
+        if(PlayerPrefs.GetString("sex") == "여") //유저가 여성이라면
+        {
+            Query maleRef = db.db.Collection("matchingRoom").WhereEqualTo("female", false); //여성 수가 3명이 다 차지 않은 방 찾기
+            
+            if (maleRef == null) //남성 유저가 3명이 다 차지 않은 방이 없다면
+            {
+                count = 1;
+                count_f = 1;
+                count_m = 0;
+                female = false;
+                male = false;
+                m1 = username;
+                m2 = null;
+                m3 = null;
+                m4 = null;
+                m5 = null;
+                m6 = null;
 
+                makeRoom(); //새로운 방 생성
 
-        //roomRef.SetAsync
+            }
 
+            else if (maleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
+            {
+                await maleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
+                {
+                    foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
+                    {
+                        Debug.Log("여성유저가 2명 이하인 방 : "+ roomdoc.Id);
+                    }
+                });
+            }
+        }
 
+        else if (PlayerPrefs.GetString("sex") == "남") //유저가 남성이라면
+        {
+            Query femaleRef = db.db.Collection("matchingRoom").WhereEqualTo("male", false); //남성 수가 3명이 다 차지 않은 방 찾기
+            
+            if (femaleRef == null) //남성 유저가 3명이 다 차지 않은 방이 없다면
+            {
+                count = 1;
+                count_f = 1;
+                count_m = 0;
+                female = false;
+                male = false;
+                m1 = username;
+                m2 = null;
+                m3 = null;
+                m4 = null;
+                m5 = null;
+                m6 = null;
+
+                makeRoom(); //새로운 방 생성
+
+            }
+
+            else if(femaleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
+            {
+                await femaleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
+                {
+                    foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
+                    {
+                        Debug.Log("여성유저가 2명 이하인 방 : " + roomdoc.Id);
+                    }
+                });
+            }
+
+        }
+        
     }
+
 
     public int count;
     public int count_f;
@@ -91,7 +151,6 @@ public class MatchingManager : MonoBehaviour
     public string m4;
     public string m5;
     public string m6;
-
 
     public void makeRoom() //채팅방 생성
     {
