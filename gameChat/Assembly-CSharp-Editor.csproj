@@ -61,12 +61,19 @@
   <ItemGroup>
      <None Include="Assets\Firebase\Editor\FirebaseDatabase_version-8.10.1_manifest.txt" />
      <None Include="Assets\Firebase\Editor\FirebaseAuth_version-8.10.1_manifest.txt" />
+     <None Include="Assets\Firebase\Editor\FirebaseMessaging_version-8.10.1_manifest.txt" />
+     <None Include="Assets\GoogleSignIn\Editor\GoogleSignInDependencies.xml" />
+     <None Include="Assets\GoogleSignIn\Editor\m2repository\com\google\signin\google-signin-support\maven-metadata.xml" />
      <None Include="Assets\Firebase\Editor\FirebaseStorage_version-8.10.1_manifest.txt" />
+     <None Include="Assets\Firebase\Editor\Firebase.Messaging.Editor.dll" />
+     <None Include="Assets\GoogleSignIn\Editor\google-signin-plugin_v1.0.4.txt" />
      <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.170_manifest.txt" />
      <None Include="Assets\ExternalDependencyManager\Editor\Google.VersionHandler.dll" />
      <None Include="Assets\Firebase\Editor\FirebaseFirestore_version-8.10.1_manifest.txt" />
      <None Include="Assets\Firebase\Editor\FirebaseAnalytics_version-8.10.1_manifest.txt" />
      <None Include="Assets\ExternalDependencyManager\Editor\1.2.170\Google.PackageManagerResolver.dll" />
+     <None Include="Assets\GoogleSignIn\Editor\GoogleSignInSupportDependencies.xml" />
+     <None Include="Assets\Firebase\Editor\MessagingDependencies.xml" />
      <None Include="Assets\Firebase\Editor\StorageDependencies.xml" />
      <None Include="Assets\Firebase\Editor\AuthDependencies.xml" />
      <None Include="Assets\ExternalDependencyManager\Editor\1.2.170\Google.JarResolver.dll" />
@@ -378,6 +385,12 @@
     </Reference>
     <Reference Include="Firebase.Auth">
       <HintPath>Assets\Firebase\Plugins\Firebase.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Messaging">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Messaging.Editor">
+      <HintPath>Assets\Firebase\Editor\Firebase.Messaging.Editor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
