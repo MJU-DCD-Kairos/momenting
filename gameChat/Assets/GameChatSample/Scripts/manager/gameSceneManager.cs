@@ -72,7 +72,11 @@ public class gameSceneManager : MonoBehaviour
     void Update()
     {
         //스플래시 타이머 작동 코드
-        Check_Timer();
+        if (null != GameObject.Find("isTitle"))
+        {
+            Check_Timer();
+        }
+        
 
     }
 

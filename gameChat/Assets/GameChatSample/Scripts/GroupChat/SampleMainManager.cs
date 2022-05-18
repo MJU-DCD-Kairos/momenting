@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using GameChatUnity;
 using GameChatUnity.SimpleJSON;
 using GameChatUnity.SocketIO;
+using CM;
 // using GameChatUnity.Extension;
 
 namespace GameChatSample
@@ -14,6 +15,7 @@ namespace GameChatSample
     {
         //채팅 내용을 불러오기 위한 new chat manager선언
         NewChatManager newChatManager;
+        ChatManager chatManager;
 
         gameSceneManager gSM;
         public Channel getC;
@@ -67,7 +69,7 @@ namespace GameChatSample
         [SerializeField]
         GameObject msgRoot;
 
-        public ChatManager chatManager;
+        
         public InputField messageInput;
 
         #region  LifeCycle
@@ -355,7 +357,7 @@ namespace GameChatSample
 
         public void ClickBtnSendMessage()
         {
-            ClearTranslateMessage();
+            //ClearTranslateMessage();
             chatManager.Chat(true, messageInput.text, "나", null);
             
             string msg = InputSendMsg.text;
@@ -364,7 +366,7 @@ namespace GameChatSample
                 return;
             //(채널, 메시지)
 
-            GameChat.sendMessage(newChatManager.CList[0].id, msg);
+            GameChat.sendMessage(NewChatManager.CList[0].id, msg);
             
             InputSendMsg.text.Remove(0, InputSendMsg.text.Length);
             InputSendMsg.text = "";
@@ -516,7 +518,7 @@ namespace GameChatSample
 
         public void getChannelID()
         {
-            newChatManager.getChannelID();
+            NewChatManager.getChannelID();
         }
 
         #region Public_Interface

@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +10,11 @@ using UnityEngine.SceneManagement;
 using GameChatUnity;
 using GameChatUnity.SimpleJSON;
 using GameChatUnity.SocketIO;
-//using GameChatUnity.Extention;
+using System.Threading;
+using System.Threading.Tasks;
+
+using CM;
+using AS;
 
 using UnityEngine.Networking;
 
@@ -20,7 +26,7 @@ namespace GameChatSample {
         [Header("매칭")]
         //매칭 쿨타임
         public bool canMatching = true;
-
+        
         //RTDB에 들어갈 유저 정보를 클래스화
         public class UserInfo
         {
@@ -30,6 +36,7 @@ namespace GameChatSample {
             public List<string> RuidList = new List<string>();
         }
 
+        
 
         [Header("채팅방 이름 랜덤 생성")]
         public TextAsset CRnameCSVfile;
@@ -57,8 +64,8 @@ namespace GameChatSample {
         public Button CreatChatBtn;
 
         //채팅리스트 받아와서 id를 가져오기 위한 리스트, 이름 초기화
-        public string currentCRname = "";
-        public List<Channel> CList = new List<Channel>();
+        public static string currentCRname = "";
+        public static List<Channel> CList = new List<Channel>();
 
 
         //채팅방 이름이 보여질 UI 텍스트 참조
@@ -66,14 +73,18 @@ namespace GameChatSample {
 
         //chatmanager를 참조받아오기 위한 선언
         public ChatManager chatManager;
+        
 
         //내 말풍선 상대 말풍선 가리기 참조 위한 선언
+        AreaScript LastArea;
         public GameObject MyArea, ElseArea;
         public RectTransform ContentRect;
         //불러오려는 메시지가 마지막 메시지랑 같은지 판별하기 위한 전역변수 선언
         public Message LastMSG;
         //이전메시지의 시간을 받아오기 위한 변수 선언
         public Message xMSG;
+
+        public string CCName;
 
 
 
@@ -85,7 +96,8 @@ namespace GameChatSample {
         {
             //don't destroy 처리
             DontDestroyOnLoad(this.gameObject);
-
+            //chatManager = 
+            
 
 
 
@@ -103,7 +115,7 @@ namespace GameChatSample {
 
         //채팅방 이름 랜덤생성 및 채팅방 생성 함수
         //채팅방 이름 중복체크 기능 추가 필요
-        #region
+
         //랜덤 채팅방 이름 생성을 위한 csv파일 파싱 함수
         void ReadCSV()
         {
@@ -176,7 +188,7 @@ namespace GameChatSample {
             //요청에 대한 응답을 기다림
             yield return www.SendWebRequest();
 
-            Debug.Log("현재 생성된 채팅방 아이디는 : " + www.result);
+            //Debug.Log("현재 생성된 채팅방 아이디는 : " + www.result);
             //result값이 success라고 뜨는 상황
 
             if (www.isNetworkError || www.isHttpError)
@@ -193,15 +205,36 @@ namespace GameChatSample {
                 Debug.Log(result);
                 result = result.Substring(22, 36);
                 GameChat.subscribe(result);
+                GameChat.getChannel(result, null, (Channel channel, GameChatException Exception) =>
+                {
+                    if (Exception != null)
+                    {
+                        Debug.Log(Exception.message);
+                        Debug.Log(Exception.code);
+                        //에러 핸들링
+                        Debug.Log("get channel 에러");
+                        return;
+                    }
+                    CCName = channel.name;
+                });
+
+                Dictionary<string, object> newChatRoom = new Dictionary<string, object>
+                {
+
+                { "ChannelID", result }, //채널id
+                { "ChannelName", CCName }, //채널이름
+               
+                };
+  
+                FireStoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(newChatRoom);
             }
         }
 
-        #endregion
 
         //채팅방 정보 가져오는 함수
-        #region
 
-        public void getChannelID()
+
+        public static void getChannelID()
         {
 
             GameChat.getChannels(0, 1, (List<Channel> Channels, GameChatException Exception) =>
@@ -639,8 +672,39 @@ namespace GameChatSample {
 
         }
 
-       
+        public static int CountingNewMSG(string Channel_ID)
+        {
+            GameChat.getMessages(Channel_ID, 0, 1, "", "", "");
+            //채널id를 받아와서 최근 메시지 부터 비교, 개수를 카운팅
+            int newMSGint=0;
+            return newMSGint;
 
-        #endregion
+        }
+
+        public static int count;
+        public static int getCurrentMSG(string id)
+        {
+            GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
+            {
+
+                if (Exception != null)
+                {
+                    // Error 핸들링
+                    return;
+                }
+
+                int count = 0;
+                foreach (Message elem in Messages)
+                {
+                    string curMsgID = elem.message_id;
+                    if(curMsgID != PlayerPrefs.GetString("LastMSGID"))
+                    {
+                        count += 1;
+                    }
+                }
+
+            });
+            return count;
+        }
     }
 }
