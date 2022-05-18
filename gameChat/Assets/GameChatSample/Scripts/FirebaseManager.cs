@@ -118,7 +118,7 @@ public class FirebaseManager : MonoBehaviour
     {
         Query userRef = db.Collection("userInfo").WhereEqualTo("name", myname); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
         
-        if(userRef != null)
+        if(userRef != null) //유저 정보가 있으면
         {
             QuerySnapshot snapshot = await userRef.GetSnapshotAsync();
             foreach (DocumentSnapshot doc in snapshot.Documents)
