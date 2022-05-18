@@ -10,14 +10,16 @@ using Google;
 using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Extensions;
+using UnityEngine.SceneManagement;
 
 public class GoogleSignInDemo : MonoBehaviour
 {
+    
     public Text infoText;
     public string webClientId = "793745035944-glhfup1hj1am1qk1f9cql7i05mtg573t.apps.googleusercontent.com";
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
-
+    public bool LCheck = true;
     private void Awake()
     {
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
@@ -47,18 +49,25 @@ public class GoogleSignInDemo : MonoBehaviour
 
     private void OnSignIn()
     {
+        if (LCheck == true) { 
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
         AddToInformation("Calling SignIn");
-
+        
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
+        }
+        else
+        {
+            AddToInformation("이미 로그인 중입니다.");
+        }
     }
 
     private void OnSignOut()
     {
         AddToInformation("Calling SignOut");
         GoogleSignIn.DefaultInstance.SignOut();
+        LCheck = true;
     }
 
     public void OnDisconnect()
@@ -93,9 +102,10 @@ public class GoogleSignInDemo : MonoBehaviour
             AddToInformation("Welcome: " + task.Result.DisplayName + "!");
             AddToInformation("Email = " + task.Result.Email);
             AddToInformation("Google ID Token = " + task.Result.IdToken);
-
             AddToInformation("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
+            LCheck = false;
+            SceneManager.LoadScene("SignUp");
         }
     }
     
