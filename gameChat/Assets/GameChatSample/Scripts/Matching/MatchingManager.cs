@@ -4,6 +4,8 @@ using UnityEngine;
 using Firebase;
 using Firebase.Firestore;
 using Firebase.Extensions;
+using FireStoreScript;
+
 
 public class MatchingManager : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class MatchingManager : MonoBehaviour
         db = GameObject.Find("FirebaseManager").GetComponent<FirebaseManager>();
         username = PlayerPrefs.GetString("name");
         sex = PlayerPrefs.GetString("sex");
+
+        Debug.Log("현재 로그인 유저 닉네임 : " + username);
+        Debug.Log("현재 로그인 유저 성별 : " + sex);
     }
     // Update is called once per frame
     void Update()
@@ -39,7 +44,7 @@ public class MatchingManager : MonoBehaviour
 
     public void OnclickMatching() //매칭버튼 눌렀을 때 호출할 함수
     {
-        AddUser();
+        //AddUser();
         isActive = true; //매칭가능여부를 true로 바꿈
 
         Query query = db.db.Collection("matchingUsers").WhereEqualTo("name", username);
@@ -70,7 +75,41 @@ public class MatchingManager : MonoBehaviour
 
         if(PlayerPrefs.GetString("sex") == "여") //유저가 여성이라면
         {
-            Query maleRef = db.db.Collection("matchingRoom").WhereEqualTo("female", false); //여성 수가 3명이 다 차지 않은 방 찾기
+            Query femaleRef = db.db.Collection("matchingRoom").WhereEqualTo("female", false); //여성 수가 3명이 다 차지 않은 방 찾기
+            
+            if (femaleRef == null) //여성 유저가 3명이 다 차지 않은 방이 없다면
+            {
+                count = 1;
+                count_f = 1;
+                count_m = 0;
+                female = false;
+                male = false;
+                m1 = username;
+                m2 = null;
+                m3 = null;
+                m4 = null;
+                m5 = null;
+                m6 = null;
+
+                makeRoom(); //새로운 방 생성
+
+            }
+
+            else if (femaleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
+            {
+                await femaleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
+                {
+                    foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
+                    {
+                        Debug.Log("여성유저가 3명 미만인 방 : " + roomdoc.Id);
+                    }
+                });
+            }
+        }
+
+        else if (PlayerPrefs.GetString("sex") == "남") //유저가 남성이라면
+        {
+            Query maleRef = db.db.Collection("matchingRoom").WhereEqualTo("male", false); //남성 수가 3명이 다 차지 않은 방 찾기
             
             if (maleRef == null) //남성 유저가 3명이 다 차지 않은 방이 없다면
             {
@@ -90,51 +129,17 @@ public class MatchingManager : MonoBehaviour
 
             }
 
-            else if (maleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
+            else if(maleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
             {
                 await maleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
                 {
                     foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
                     {
-                        Debug.Log("여성유저가 2명 이하인 방 : "+ roomdoc.Id);
+                        Debug.Log("남성유저가 3명 미만인 방 : " + roomdoc.Id);
                     }
                 });
+                
             }
-        }
-
-        else if (PlayerPrefs.GetString("sex") == "남") //유저가 남성이라면
-        {
-            Query femaleRef = db.db.Collection("matchingRoom").WhereEqualTo("male", false); //남성 수가 3명이 다 차지 않은 방 찾기
-            
-            if (femaleRef == null) //남성 유저가 3명이 다 차지 않은 방이 없다면
-            {
-                count = 1;
-                count_f = 1;
-                count_m = 0;
-                female = false;
-                male = false;
-                m1 = username;
-                m2 = null;
-                m3 = null;
-                m4 = null;
-                m5 = null;
-                m6 = null;
-
-                makeRoom(); //새로운 방 생성
-
-            }
-
-            else if(femaleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
-            {
-                await femaleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
-                {
-                    foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
-                    {
-                        Debug.Log("여성유저가 2명 이하인 방 : " + roomdoc.Id);
-                    }
-                });
-            }
-
         }
         
     }
