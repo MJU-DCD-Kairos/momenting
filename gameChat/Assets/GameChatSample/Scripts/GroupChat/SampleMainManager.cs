@@ -363,7 +363,8 @@ namespace GameChatSample
             if (string.IsNullOrEmpty(msg.Trim()))
                 return;
             //(채널, 메시지)
-            GameChat.sendMessage(SampleGlobalData.G_ChannelList[DropdownSubscribeChannel.value].id, msg);
+
+            GameChat.sendMessage(newChatManager.CList[0].id, msg);
             
             InputSendMsg.text.Remove(0, InputSendMsg.text.Length);
             InputSendMsg.text = "";
@@ -510,8 +511,6 @@ namespace GameChatSample
         //채팅방 id로 메시지 이력 가져옴
         public void getMSG()
         {
-            Debug.Log("버튼 실행");
-            
             newChatManager.GetMSG();
         }
 
