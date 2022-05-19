@@ -1,12 +1,13 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Firestore;
 using Firebase.Extensions;
-using UnityEngine.UI;
+using UnityEngine.UI;   
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+
 
 namespace FireStoreScript {
     public class FirebaseManager : MonoBehaviour
@@ -17,11 +18,16 @@ namespace FireStoreScript {
         public InputField Age;//db 생성 테스트를 위한 아이디 인풋필드
         public InputField Sex;
         public InputField Token;
+        public Dropdown SSex;
+        public Dropdown AAge;
+        public Dropdown MMonth;
+        public Dropdown DDay;
+
 
         public string token;
         public string myname;
         public string sex;
-        public int age;
+        public string age;
         public string mbti;
         public int mannerLevel;
         public bool ispass;
@@ -132,7 +138,7 @@ namespace FireStoreScript {
 
             PlayerPrefs.SetString("name", myname); //이름
             PlayerPrefs.SetString("sex", sex); //성별
-            PlayerPrefs.SetInt("age", age); //나이
+            //PlayerPrefs.SetInt("age", age); //나이
             PlayerPrefs.SetString("mbti", mbti); //모래알유형
             PlayerPrefs.SetInt("mannerLevel", mannerLevel); //매너등급
 
@@ -197,14 +203,42 @@ namespace FireStoreScript {
             }
         }
 
+        public string newAge;
         public void makeUserInfoDB() //유저DB 생성 (userInfo)
         {
             myname = Name.text;
-            age = int.Parse(Age.text);
-            sex = Sex.text;
-            token = Token.text;
+            
+            string sex2 = SSex.options[SSex.value].text;
+            string age2 = AAge.options[AAge.value].text;
+            string mon = MMonth.options[MMonth.value].text;
+            string day = DDay.options[DDay.value].text;
+            sex = sex2;
+            age = age2;
+            //token = Token.text;
             ispass = true;
-            isActive = false;
+            //isActive = false;
+
+            //연령 구하기
+            newAge = DateTime.Now.ToString("yyyy");
+            Debug.Log(DateTime.Now.ToString("yyyy"));
+
+            newAge = (int.Parse(newAge.ToString()) - int.Parse(age2)).ToString();
+            Debug.Log("newAge1 :" + newAge);
+            if (int.Parse(DateTime.Now.ToString("MM")) == int.Parse(mon))
+            {
+                if(int.Parse(DateTime.Now.ToString("dd")) < int.Parse(day))
+                age =  newAge = (int.Parse(newAge) - 1).ToString();
+                
+            }
+            else if(int.Parse(DateTime.Now.ToString("MM")) < int.Parse(mon))
+            {
+                age = newAge = (int.Parse(newAge) - 1).ToString();
+            }
+            else
+            {
+                age = newAge;
+            }
+             
 
             Dictionary<string, object> user = new Dictionary<string, object>
         {
@@ -216,7 +250,7 @@ namespace FireStoreScript {
             { "isActive", isActive }, //매칭가능여부
             { "recentAccess", null }, //최근접속시간
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
-            {"token", token }, //토큰
+            //{"token", token }, //토큰
             { "mannerLevel", 1 } //매너등급 (기본 1등급으로 시작)
         };
 
