@@ -478,6 +478,7 @@ MonoBehaviour:
   ispass: 0
   isActive: 0
   isInMatchingDB: 0
+  passString: 
 --- !u!4 &135471768
 Transform:
   m_ObjectHideFlags: 0
@@ -505,15 +506,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: "\uB098\uC601"
-  sex: 
+  sex: "\uC5EC"
   isActive: 0
-  count: 2
-  count_f: 1
-  count_m: 1
+  gamechatchannel: 
+  count: 0
+  count_f: 0
+  count_m: 0
   female: 0
   male: 0
-  m1: "\uD61C\uB9B0"
-  m2: "\uD638\uBC15\uACE0\uAD6C"
+  m1: 
+  m2: 
   m3: 
   m4: 
   m5: 
@@ -602,7 +604,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 135471767}
-        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: FireStoreScript.FirebaseManager, Assembly-CSharp
         m_MethodName: isMatch_LoadData
         m_Mode: 1
         m_Arguments:
