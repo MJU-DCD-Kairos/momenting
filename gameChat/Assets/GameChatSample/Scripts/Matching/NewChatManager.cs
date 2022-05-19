@@ -17,6 +17,7 @@ using CM;
 using AS;
 
 using UnityEngine.Networking;
+using FireStoreScript;
 
 namespace GameChatSample {
     public class NewChatManager : MonoBehaviour

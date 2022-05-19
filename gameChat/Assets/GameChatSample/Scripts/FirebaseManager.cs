@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FirestoreScript {
+namespace FireStoreScript {
     public class FirebaseManager : MonoBehaviour
     {
         public static FirebaseFirestore db;
