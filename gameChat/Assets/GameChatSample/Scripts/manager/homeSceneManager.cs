@@ -34,11 +34,14 @@ public class homeSceneManager : MonoBehaviour
         //don't destroy로 살려서 넘어온 게임씬매니저의 스크립트를 변수에 담음
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
         //NCM = GameObject.Find("GameSceneManager").GetComponent<NewChatManager>();
-        
+        GameChatSample.NewChatManager.getChannelID();
+
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         ProfileBtn.onClick.AddListener(gSM.LoadScene_MyProfile_Sample3);
         MailBox.onClick.AddListener(gSM.LoadScene_MailBox);
         ChatList.onClick.AddListener(gSM.LoadScene_ChatList);
+
+        Invoke("makeGCList", 0.03f);
     }
 
     // Update is called once per frame

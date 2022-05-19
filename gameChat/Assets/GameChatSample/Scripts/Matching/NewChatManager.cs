@@ -15,11 +15,12 @@ using System.Threading.Tasks;
 
 using CM;
 using AS;
-
-using UnityEngine.Networking;
 using FireStoreScript;
 
-namespace GameChatSample {
+using UnityEngine.Networking;
+
+namespace GameChatSample
+{
     public class NewChatManager : MonoBehaviour
     {
 
@@ -27,7 +28,8 @@ namespace GameChatSample {
         [Header("매칭")]
         //매칭 쿨타임
         public bool canMatching = true;
-        
+
+
         //RTDB에 들어갈 유저 정보를 클래스화
         public class UserInfo
         {
@@ -37,7 +39,7 @@ namespace GameChatSample {
             public List<string> RuidList = new List<string>();
         }
 
-        
+
 
         [Header("채팅방 이름 랜덤 생성")]
         public TextAsset CRnameCSVfile;
@@ -74,7 +76,7 @@ namespace GameChatSample {
 
         //chatmanager를 참조받아오기 위한 선언
         public ChatManager chatManager;
-        
+
 
         //내 말풍선 상대 말풍선 가리기 참조 위한 선언
         AreaScript LastArea;
@@ -86,6 +88,7 @@ namespace GameChatSample {
         public Message xMSG;
 
         public string CCName;
+        public static List<string> CurChatInfo = new List<string>();
 
 
 
@@ -98,7 +101,7 @@ namespace GameChatSample {
             //don't destroy 처리
             DontDestroyOnLoad(this.gameObject);
             //chatManager = 
-            
+
 
 
 
@@ -226,8 +229,9 @@ namespace GameChatSample {
                 { "ChannelName", CCName }, //채널이름
                
                 };
-  
-                FireStoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(newChatRoom);
+
+                FirestoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(newChatRoom);
+
             }
         }
 
@@ -237,6 +241,7 @@ namespace GameChatSample {
 
         public static void getChannelID()
         {
+
 
             GameChat.getChannels(0, 1, (List<Channel> Channels, GameChatException Exception) =>
             {
@@ -255,15 +260,22 @@ namespace GameChatSample {
                     CList.Add(elem);
                     for (int i = 0; i < CList.Count; i++)
                     {
+
                         Debug.Log(i);
                         Debug.Log("겟채널 가져온 리스트의 id : " + CList[i].id);
                         currentCRname = CList[i].id.ToString();
                         Debug.Log("겟채널 가져온 리스트의 rawJson : " + CList[i].rawJson);
 
+                        /*
+                        if(i == CList.Count)
+                        {
+                            return (CList[0].id);
+                        }*/
+
                     }
                 }
             });
-            //Debug.Log(" CList[0].id: " + CList[0].id);
+
         }
 
         public void sendMSG()
@@ -569,7 +581,7 @@ namespace GameChatSample {
                                 Area.transform.SetParent(ContentRect.transform, false);
                                 Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
                                 Area.TextRect.GetComponent<Text>().text = elem.content;
-                                
+
 
                                 //텍스트가 두줄 이상인 경우 처리
                                 float X = Area.TextRect.sizeDelta.x + 400;
@@ -621,7 +633,7 @@ namespace GameChatSample {
                                 Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
                                 Area2.TextRect.GetComponent<Text>().text = elem.content;
                                 Area2.UserText.text = elem.sender.name;
-                               
+
 
                                 //텍스트가 두줄 이상인 경우 처리
                                 float X = Area2.TextRect.sizeDelta.x + 400;
@@ -677,15 +689,15 @@ namespace GameChatSample {
         {
             GameChat.getMessages(Channel_ID, 0, 1, "", "", "");
             //채널id를 받아와서 최근 메시지 부터 비교, 개수를 카운팅
-            int newMSGint=0;
+            int newMSGint = 0;
             return newMSGint;
 
         }
 
         public static int count;
-        public static int getCurrentMSG(string id)
+        public static int setNewMSGCount(string id)
         {
-            GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
+            GameChat.getMessages(id, 0, 100, "", "", "", (List<Message> Messages, GameChatException Exception) =>
             {
 
                 if (Exception != null)
@@ -698,14 +710,62 @@ namespace GameChatSample {
                 foreach (Message elem in Messages)
                 {
                     string curMsgID = elem.message_id;
-                    if(curMsgID != PlayerPrefs.GetString("LastMSGID"))
+                    if (curMsgID != PlayerPrefs.GetString("LastMSGID"))
                     {
                         count += 1;
+                        Debug.Log("안읽은 메시지: " + count);
                     }
                 }
 
+                CurChatInfo.Insert(4, count.ToString());
             });
             return count;
+        }
+
+
+        public static string curMsg = "";
+        public static string getCurMSG(string id)
+        {
+            Debug.Log("getCurMSG-id : " + id);
+            GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
+            {
+
+                if (Exception != null)
+                {
+                    // Error 핸들링
+                    return;
+                }
+
+                foreach (Message elem in Messages)
+                {
+                    CurChatInfo.Insert(1, elem.content);
+                }
+
+            });
+            Debug.Log("getCurMSG-Msg: " + curMsg);
+            return curMsg;
+        }
+
+        public static string curRoomName = "";
+        public static string getCurRoomName(string id)
+        {
+            Debug.Log("getCurRoomName-id : " + id);
+            GameChat.getChannel(id, null, (Channel channel, GameChatException Exception) =>
+            {
+                if (Exception != null)
+                {
+                    Debug.Log(Exception.message);
+                    Debug.Log(Exception.code);
+                    //에러 핸들링
+                    Debug.Log("get channel 에러");
+                    return;
+                }
+                CurChatInfo.Insert(0, channel.name);
+                CurChatInfo.Insert(2, channel.created_at.Substring(11, 8).ToString());
+                CurChatInfo.Insert(3, channel.created_at.Substring(0, 10).ToString());
+            });
+            Debug.Log("getCurRoomName-name: " + curRoomName);
+            return curRoomName;
         }
     }
 }

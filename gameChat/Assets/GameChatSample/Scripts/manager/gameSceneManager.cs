@@ -63,6 +63,7 @@ public class gameSceneManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         //TodayQ = GameObject.Find("TodayQ").GetComponent<>();
         //GameChat.initialize("e3558324-2d64-47d0-bd7a-6fa362824bd7");
+        PlayerPrefs.SetString("LastMSGID", "62860f665d257d31a779d5cf");
         
 
 
