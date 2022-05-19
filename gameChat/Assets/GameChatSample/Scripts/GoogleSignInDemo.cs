@@ -14,18 +14,24 @@ using UnityEngine.SceneManagement;
 
 public class GoogleSignInDemo : MonoBehaviour
 {
-    
+    public string GAA;
     public Text infoText;
     public string webClientId = "793745035944-glhfup1hj1am1qk1f9cql7i05mtg573t.apps.googleusercontent.com";
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
     public bool LCheck = true;
+    public string GmailAddress;
     private void Awake()
     {
         configuration = new GoogleSignInConfiguration { WebClientId = webClientId, RequestEmail = true, RequestIdToken = true };
         CheckFirebaseDependencies();
     }
-
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        GAA = PlayerPrefs.GetString("GoogleID");
+    }
+  
     private void CheckFirebaseDependencies()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -49,19 +55,21 @@ public class GoogleSignInDemo : MonoBehaviour
 
     private void OnSignIn()
     {
-        if (LCheck == true) { 
-        GoogleSignIn.Configuration = configuration;
-        GoogleSignIn.Configuration.UseGameSignIn = false;
-        GoogleSignIn.Configuration.RequestIdToken = true;
-        AddToInformation("Calling SignIn");
-        
-        GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
+        if (GAA == null) {
+            GoogleSignIn.Configuration = configuration;
+            GoogleSignIn.Configuration.UseGameSignIn = false;
+            GoogleSignIn.Configuration.RequestIdToken = true;
+            AddToInformation("Calling SignIn");
+
+            GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
         }
-        else
+        else if ( GAA != null)
         {
             AddToInformation("이미 로그인 중입니다.");
+            SceneManager.LoadScene("Home");
         }
     }
+
 
     private void OnSignOut()
     {
@@ -99,6 +107,7 @@ public class GoogleSignInDemo : MonoBehaviour
         }
         else
         {
+            GmailAddress = task.Result.Email;
             AddToInformation("Welcome: " + task.Result.DisplayName + "!");
             AddToInformation("Email = " + task.Result.Email);
             AddToInformation("Google ID Token = " + task.Result.IdToken);
@@ -148,6 +157,11 @@ public class GoogleSignInDemo : MonoBehaviour
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
     }
+    public void save()
+    {
+        PlayerPrefs.SetString("GoogleID", GmailAddress);
 
+
+    }
     private void AddToInformation(string str) { infoText.text += "\n" + str; }
 }
