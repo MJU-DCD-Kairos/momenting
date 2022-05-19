@@ -41,7 +41,7 @@ public class homeSceneManager : MonoBehaviour
         MailBox.onClick.AddListener(gSM.LoadScene_MailBox);
         ChatList.onClick.AddListener(gSM.LoadScene_ChatList);
 
-        Invoke("makeGCList", 0.03f);
+        
     }
 
     // Update is called once per frame

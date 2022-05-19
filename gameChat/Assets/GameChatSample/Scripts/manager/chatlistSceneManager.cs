@@ -37,8 +37,10 @@ public class chatlistSceneManager : MonoBehaviour
 
         //Invoke("makeGCList", 0.03f);
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
-        makeGCList();
         backToHome.onClick.AddListener(gSM.LoadScene_Home);
+        
+        makeGCList();
+        
     }
 
     // Update is called once per frame
@@ -58,17 +60,18 @@ public class chatlistSceneManager : MonoBehaviour
         GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
         ui.transform.SetParent(GameObject.Find("GCViewport").transform);
 
+        Debug.Log("### room_name ### : " + GameChatSample.NewChatManager.CurChatInfo[0]);
         ui.transform.GetChild(2).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[0]; //채팅방 이름
-        ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = RoomTimerText; //남은시간
+        ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[2]; //남은시간
         ui.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[4];//배지 수
-        if (int.Parse(GameChatSample.NewChatManager.CurChatInfo[4]) == 0) 
+        /*if (GameChatSample.NewChatManager.CurChatInfo[4] == "0") 
         {
             ui.transform.GetChild(1).transform.gameObject.SetActive(false);
         }
         else
         {
             ui.transform.GetChild(1).transform.gameObject.SetActive(true);
-        }
+        }*/
         ui.transform.GetChild(3).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[1]; //라스트 채팅내용
 
         //CurChatInfo[0]이름 [1]내용 [2]생성시간 [3]생성날짜 [4]새로운메시지수
@@ -81,7 +84,7 @@ public class chatlistSceneManager : MonoBehaviour
         RoomNewMSGCount = GameChatSample.NewChatManager.setNewMSGCount(id);
         
     }
-
+    /*
     public void getLostTime()
     {
         //string cTime = GameChatSample.NewChatManager.CList[0].created_at.Substring(11, 8);//생성시간
@@ -90,7 +93,7 @@ public class chatlistSceneManager : MonoBehaviour
         string cDay = GameChatSample.NewChatManager.CurChatInfo[3];
         string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
         string nDay = DateTime.Now.ToString("u").Substring(0, 10);
-        
+        Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
         TimeSpan goTime = Convert.ToDateTime(nTime) - Convert.ToDateTime(cTime);
 
         if (goTime.Days <= 0) 
@@ -106,22 +109,24 @@ public class chatlistSceneManager : MonoBehaviour
                     RoomTimerText = goTime.Minutes.ToString() + "분";
                 }
             }
-            
-            
+            RoomTimerText = "종료";
+
+
         }
 
-    }
+    }*/
 
-    IEnumerator makeGCList()
+    public void makeGCList()
     {
         id = GameChatSample.NewChatManager.CList[0].id.ToString().Replace(" ","");
         RoomContentsText = GameChatSample.NewChatManager.getCurMSG(id);
         RoomTitleText = GameChatSample.NewChatManager.getCurRoomName(id);
         GetCurrentChatCount(id);//배지 수 구하기
-        getLostTime();
+        
 
-        //makeRList();
-        return null;
+        Invoke("makeRList", 1f);
+
+     
     }
 
 }

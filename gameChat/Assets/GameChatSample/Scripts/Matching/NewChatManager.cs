@@ -88,7 +88,8 @@ namespace GameChatSample
         public Message xMSG;
 
         public string CCName;
-        public static List<string> CurChatInfo = new List<string>();
+        public static string[] CurChatInfo = new string[5];
+
 
 
 
@@ -100,7 +101,7 @@ namespace GameChatSample
         {
             //don't destroy 처리
             DontDestroyOnLoad(this.gameObject);
-            //chatManager = 
+
 
 
 
@@ -230,7 +231,7 @@ namespace GameChatSample
                
                 };
 
-                FirestoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(newChatRoom);
+                FireStoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(newChatRoom);
 
             }
         }
@@ -717,7 +718,7 @@ namespace GameChatSample
                     }
                 }
 
-                CurChatInfo.Insert(4, count.ToString());
+                CurChatInfo[4] = count.ToString();
             });
             return count;
         }
@@ -738,7 +739,7 @@ namespace GameChatSample
 
                 foreach (Message elem in Messages)
                 {
-                    CurChatInfo.Insert(1, elem.content);
+                    CurChatInfo[1] = elem.content;
                 }
 
             });
@@ -752,6 +753,8 @@ namespace GameChatSample
             Debug.Log("getCurRoomName-id : " + id);
             GameChat.getChannel(id, null, (Channel channel, GameChatException Exception) =>
             {
+                Debug.LogError("#### id ###: " + id);
+                Debug.LogError("#### channel ###: " + channel);
                 if (Exception != null)
                 {
                     Debug.Log(Exception.message);
@@ -760,12 +763,56 @@ namespace GameChatSample
                     Debug.Log("get channel 에러");
                     return;
                 }
-                CurChatInfo.Insert(0, channel.name);
-                CurChatInfo.Insert(2, channel.created_at.Substring(11, 8).ToString());
-                CurChatInfo.Insert(3, channel.created_at.Substring(0, 10).ToString());
+                CurChatInfo[0] = channel.name;
+                Debug.Log(channel.created_at);
+
+
+                CurChatInfo[2] = channel.created_at.Substring(11, 8).ToString();
+                CurChatInfo[3] = channel.created_at.Substring(0, 10).ToString();
+
+                getLostTime();
+
+
             });
-            Debug.Log("getCurRoomName-name: " + curRoomName);
+
             return curRoomName;
+        }
+
+        
+        
+
+
+        static void getLostTime()
+        {
+            string cTime = GameChatSample.NewChatManager.CurChatInfo[2];//생성시간
+            string cDay = GameChatSample.NewChatManager.CurChatInfo[3];//생성날짜
+            string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
+            string nDay = DateTime.Now.ToString("u").Substring(0, 10);//현재날짜
+            Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
+            TimeSpan goTime = Convert.ToDateTime(nTime) - Convert.ToDateTime(cTime);
+            Debug.Log("고타임   "+goTime.ToString());
+            Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
+            
+            if (goTime.Days <= 0)
+            {
+                if (goTime.Hours == 0)
+                {
+                    if (goTime.Minutes > 20)
+                    {
+                        CurChatInfo[2] = "종료";
+                    }
+                    else
+                    {
+                        CurChatInfo[2] = goTime.Minutes.ToString() + "분";
+                        //20분에서 경과 시간 빼주기
+                    }
+                }
+                else
+                {
+                    CurChatInfo[2] = "종료";
+                }
+                
+            }
         }
     }
 }
