@@ -4,7 +4,8 @@ using UnityEngine;
 using Firebase;
 using Firebase.Firestore;
 using Firebase.Extensions;
-using FirestoreScript;
+using FireStoreScript;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -16,6 +17,8 @@ public class MatchingManager : MonoBehaviour
     public bool isActive;
 
     public string gamechatchannel; //게임챗 채팅방 채널 ID 받아올 변수
+
+    CollectionReference matchingRoomRef = FireStoreScript.FirebaseManager.db.Collection("matchingRoom");
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +40,7 @@ public class MatchingManager : MonoBehaviour
     public void AddUser() //가입 시 한번만 실행(매칭DB에 문서 새로 생성해줌) -> 이 db가 필요있나? 어차피 닉네임, 성별은 playterprefs로 저장되고, isActive는 아예 필요없어보임
     {
         
-        DocumentReference Mref = FirestoreScript.FirebaseManager.db.Collection("matchingUsers").Document(username);
+        DocumentReference Mref = FireStoreScript.FirebaseManager.db.Collection("matchingUsers").Document(username);
         Mref.SetAsync(new Dictionary<string, object>()
         {
             {"name", username},
@@ -75,16 +78,80 @@ public class MatchingManager : MonoBehaviour
         matching();
 
     }
+
+    
     void matching() //MatchingRoom DB
     {
         //string roomId = null; //채팅방id 
 
         if(sex == "여") //유저가 여성이라면
         {
-            Query femaleRef = null;
-            Debug.Log("방찾기");
-            femaleRef = FirestoreScript.FirebaseManager.db.Collection("matchingRoom").WhereEqualTo("female", false); //여성 수가 3명이 다 차지 않은 방 찾기
-            if (female) //여성 유저가 3명이 다 차지 않은 방이 있다면
+            //Debug.Log("방찾기");
+            Query femaleRef = matchingRoomRef.WhereEqualTo("female", false).Limit(1); //여성 유저 2명 이하인 방 중에 1개만 반환 
+            ListenerRegistration listener = femaleRef.Listen(snapshot =>
+            {
+                foreach (DocumentSnapshot doc in snapshot.Documents)
+                {
+
+                    Debug.Log("join 가능한 방 : " + doc.Id);
+
+                    //doc.GetValue < "count" > //count의 value 받아와야함 
+                    count = count + 1; //현재 전체 유저 수 + 1 
+                    DocumentReference docRef = matchingRoomRef.Document(doc.Id);
+                    Dictionary<string, object> newUser = new Dictionary<string, object>
+                    {
+                        
+                        {"count", count}, //전체 유저 수 1 올려주기
+                        { "count_f" , count_f} //여성 유저 수 1 올려주기
+                    };
+                    docRef.UpdateAsync(newUser); //count 정보 업데이트
+                    
+                    count = 1;
+                    count_f = 1;
+                    count_m = 0;
+                    female = false;
+                    male = false;
+                    m1 = username;
+                    m2 = null;
+                    m3 = null;
+                    m4 = null;
+                    m5 = null;
+                    m6 = null;
+
+                    makeRoom(); //새로운 방 생성
+
+                }
+                /*
+                if (snapshot != null)
+                {
+                    foreach(DocumentSnapshot doc in snapshot.Documents)
+                    {
+                        Debug.Log("join 가능한 방 : " + doc.Id);
+                    }
+                    
+                }
+                else
+                {
+                    count = 1;
+                    count_f = 1;
+                    count_m = 0;
+                    female = false;
+                    male = false;
+                    m1 = username;
+                    m2 = null;
+                    m3 = null;
+                    m4 = null;
+                    m5 = null;
+                    m6 = null;
+
+                    makeRoom(); //새로운 방 생성
+                    Debug.Log("새로운 방 생성 필요");
+
+                }*/
+            });
+            listener.Stop();
+            /*
+            if (femaleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
             {
                 ListenerRegistration listener = femaleRef.Listen(snapshot =>
                 {
@@ -94,77 +161,91 @@ public class MatchingManager : MonoBehaviour
                     }
 
                 });
-
-
+                listener.Stop();
             }
             else //여성 유저가 3명이 다 차지 않은 방이 없다면
             {
-                femaleRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
-                {
-                    foreach (DocumentSnapshot roomdoc in task.Result.Documents)
-                    {
-                        count = 1;
-                        count_f = 1;
-                        count_m = 0;
-                        female = false;
-                        male = false;
-                        m1 = username;
-                        m2 = null;
-                        m3 = null;
-                        m4 = null;
-                        m5 = null;
-                        m6 = null;
+                count = 1;
+                count_f = 1;
+                count_m = 0;
+                female = false;
+                male = false;
+                m1 = username;
+                m2 = null;
+                m3 = null;
+                m4 = null;
+                m5 = null;
+                m6 = null;
 
-                        makeRoom(); //새로운 방 생성
-                        Debug.Log("새로운 방 생성 필요");
-                    }
-                });
-            }
+                makeRoom(); //새로운 방 생성
+                Debug.Log("새로운 방 생성 필요");
+            }*/
         }
 
-        
         else if (sex == "남") //유저가 남성이라면
         {
             Query maleRef = null;
-            maleRef = FirestoreScript.FirebaseManager.db.Collection("matchingRoom").WhereEqualTo("male", false); //남성 수가 3명이 다 차지 않은 방 찾기
-
+            maleRef = FireStoreScript.FirebaseManager.db.Collection("matchingRoom").WhereEqualTo("male", false); //남성 수가 3명이 다 차지 않은 방 찾기
             ListenerRegistration listener = maleRef.Listen(snapshot =>
             {
-                Debug.Log("callback male doc");
-                foreach (DocumentSnapshot doc in snapshot.Documents)
+                if (snapshot != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
                 {
-                    if (maleRef == null) //남성 유저가 3명이 다 차지 않은 방이 없다면
+                    foreach (DocumentSnapshot doc in snapshot.Documents)
                     {
-                        count = 1;
-                        count_f = 1;
-                        count_m = 0;
-                        female = false;
-                        male = false;
-                        m1 = username;
-                        m2 = null;
-                        m3 = null;
-                        m4 = null;
-                        m5 = null;
-                        m6 = null;
-
-                        makeRoom(); //새로운 방 생성
-                        Debug.Log("새로운 방 생성 필요");
-
-                    }
-                    else if (maleRef != null) //여성 유저가 3명이 다 차지 않은 방이 있다면
-                    {
-                        maleRef.GetSnapshotAsync().ContinueWithOnMainThread((QuerySnapshotTask) =>
-                        {
-                            foreach (DocumentSnapshot roomdoc in QuerySnapshotTask.Result.Documents)
-                            {
-                                Debug.Log("남성유저가 3명 미만인 방 : " + roomdoc.Id);
-                            }
-                        });
-
+                        Debug.Log("join 가능한 방 : " + doc.Id);
                     }
                 }
+                else //여성 유저가 3명이 다 차지 않은 방이 없다면
+                {
+                    count = 1;
+                    count_f = 1;
+                    count_m = 0;
+                    female = false;
+                    male = false;
+                    m1 = username;
+                    m2 = null;
+                    m3 = null;
+                    m4 = null;
+                    m5 = null;
+                    m6 = null;
+
+                    makeRoom(); //새로운 방 생성
+                    Debug.Log("새로운 방 생성 필요");
+
+                }
             });
+            listener.Stop();
+            /*
+            if (maleRef != null) //남성 유저가 3명이 다 차지 않은 방이 있다면
+            {
+                ListenerRegistration listener = maleRef.Listen(snapshot =>
+                {
+                    foreach (DocumentSnapshot doc in snapshot.Documents)
+                    {
+                        Debug.Log("join 가능한 방 : " + doc.Id);
+                    }
+
+                });
+                listener.Stop();
+            }
+            else //남성 유저가 3명이 다 차지 않은 방이 없다면
+            {
+                count = 1;
+                count_f = 0;
+                count_m = 1;
+                female = false;
+                male = false;
+                m1 = username;
+                m2 = null;
+                m3 = null;
+                m4 = null;
+                m5 = null;
+                m6 = null;
                 
+                makeRoom(); //새로운 방 생성
+                Debug.Log("새로운 방 생성 필요");
+            }
+            */
         }
         
     }
@@ -184,7 +265,7 @@ public class MatchingManager : MonoBehaviour
 
     public void makeRoom() //채팅방 생성
     {
-        string roomID = gamechatchannel; //채팅방 채널 할당
+        //string roomID = gamechatchannel; //채팅방 채널 할당
 
         Dictionary<string, object> room = new Dictionary<string, object>
         {
@@ -200,9 +281,9 @@ public class MatchingManager : MonoBehaviour
             {"m5" , m5 },
             {"m6" , m6 }
         };
-        FirestoreScript.FirebaseManager.db.Collection("matchingRoom").Document(roomID).SetAsync(room); //문서 새로 생성
+        FireStoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(room); //문서 새로 생성
 
-        Debug.Log(roomID + "채팅방 문서 생성됨");
+        Debug.Log("채팅방 문서 생성됨");
 
 
     }
