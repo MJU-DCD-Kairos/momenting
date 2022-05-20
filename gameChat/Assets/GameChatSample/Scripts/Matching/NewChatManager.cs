@@ -769,41 +769,51 @@ namespace GameChatSample
             return curRoomName;
         }
 
-        
-        
+
+
 
 
         static void getLostTime()
         {
             string cTime = GameChatSample.NewChatManager.CurChatInfo[2];//생성시간
             string cDay = GameChatSample.NewChatManager.CurChatInfo[3];//생성날짜
+            string c = cDay + " " + cTime;
             string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
             string nDay = DateTime.Now.ToString("u").Substring(0, 10);//현재날짜
-            Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
-            TimeSpan goTime = Convert.ToDateTime(nTime) - Convert.ToDateTime(cTime);
-            Debug.Log("고타임   "+goTime.ToString());
-            Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
-            
+            string n = nDay + " " + nTime;
+            //Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
+            //Debug.Log(c+ "/" +n );
+            //Debug.Log(Convert.ToDateTime(n)+"/"+ Convert.ToDateTime(c));
+            TimeSpan goTime = Convert.ToDateTime(n) - Convert.ToDateTime(c);
+            //Debug.Log("고타임   "+goTime.ToString());
+            //Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
+
             if (goTime.Days <= 0)
             {
                 if (goTime.Hours == 0)
                 {
                     if (goTime.Minutes > 20)
                     {
-                        CurChatInfo[2] = "종료";
+                        CurChatInfo[5] = "종료";
                     }
                     else
                     {
-                        CurChatInfo[2] = goTime.Minutes.ToString() + "분";
+                        CurChatInfo[5] = (20 - goTime.Minutes).ToString() + "분";
                         //20분에서 경과 시간 빼주기
                     }
                 }
                 else
                 {
-                    CurChatInfo[2] = "종료";
+                    CurChatInfo[5] = "종료";
                 }
-                
+
             }
+            else
+            {
+                CurChatInfo[5] = "종료";
+            }
+
         }
+
     }
 }
