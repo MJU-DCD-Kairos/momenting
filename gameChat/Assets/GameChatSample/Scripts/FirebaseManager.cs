@@ -22,6 +22,13 @@ namespace FireStoreScript {
         public Dropdown AAge;
         public Dropdown MMonth;
         public Dropdown DDay;
+        public GameObject DoubleCheckDim;
+        public GameObject HText;
+        public GameObject HTextError;
+        public GameObject FinishChecker;
+        public GameObject DoubleEnBtn;
+        public GameObject NextBtn;
+        public GameObject ErrorIndi;
 
 
         public string token;
@@ -182,7 +189,37 @@ namespace FireStoreScript {
 
             Debug.Log("isMatchToken 함수 실행됨");
         }
+        public string DCheck;
+        public async void DoubleCheck() //토큰 DB에서 정보 확인 (가입단에 들어감) 
+        {
+            Query nameQuery = db.Collection("userInfo").WhereEqualTo("name", Name.text);
+            QuerySnapshot snapshot = await nameQuery.GetSnapshotAsync();
+            foreach (DocumentSnapshot doc in snapshot.Documents)
+            {
+                Dictionary<string, object> docDictionary = doc.ToDictionary();
 
+                DCheck = docDictionary["name"] as string;
+
+
+            }
+            if (DCheck == Name.text)
+            {
+                Debug.Log("중복띠");
+                HText.SetActive(false);
+                HTextError.SetActive(true);
+                ErrorIndi.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("통과띠");
+                DoubleCheckDim.SetActive(true);
+                FinishChecker.SetActive(true);
+                DoubleEnBtn.SetActive(false);
+                NextBtn.SetActive(true);
+                
+            }
+
+        }
 
 
 
@@ -222,15 +259,18 @@ namespace FireStoreScript {
             newAge = DateTime.Now.ToString("yyyy");
             Debug.Log(DateTime.Now.ToString("yyyy"));
 
+            newAge = DateTime.Now.ToString("yyyy");
+            Debug.Log(DateTime.Now.ToString("yyyy"));
+
             newAge = (int.Parse(newAge.ToString()) - int.Parse(age2)).ToString();
             Debug.Log("newAge1 :" + newAge);
             if (int.Parse(DateTime.Now.ToString("MM")) == int.Parse(mon))
             {
-                if(int.Parse(DateTime.Now.ToString("dd")) < int.Parse(day))
-                age =  newAge = (int.Parse(newAge) - 1).ToString();
-                
+                if (int.Parse(DateTime.Now.ToString("dd")) < int.Parse(day))
+                    age = newAge = (int.Parse(newAge) - 1).ToString();
+
             }
-            else if(int.Parse(DateTime.Now.ToString("MM")) < int.Parse(mon))
+            else if (int.Parse(DateTime.Now.ToString("MM")) < int.Parse(mon))
             {
                 age = newAge = (int.Parse(newAge) - 1).ToString();
             }
@@ -238,7 +278,7 @@ namespace FireStoreScript {
             {
                 age = newAge;
             }
-             
+
 
             Dictionary<string, object> user = new Dictionary<string, object>
         {
@@ -247,17 +287,15 @@ namespace FireStoreScript {
             { "sex", sex }, //성별
             { "ispass", ispass }, //프로필통과여부 (기본 false 상태)
             { "mbti", null }, //모래알유형 
-            { "isActive", isActive }, //매칭가능여부
+            //{ "isActive", isActive }, //매칭가능여부
             { "recentAccess", null }, //최근접속시간
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             //{"token", token }, //토큰
             { "mannerLevel", 1 } //매너등급 (기본 1등급으로 시작)
         };
 
-            db.Collection("userInfo").Document(myname).SetAsync(user).ContinueWithOnMainThread(task =>
-            {
-            //Debug.Log(string.Format("추가된 문서 ID: {0}.", addUserInfo.Id));
-        });
+            db.Collection("userInfo").Document(myname).SetAsync(user);
+
 
         }
 
