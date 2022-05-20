@@ -507,19 +507,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: "\uB098\uC601"
   sex: "\uC5EC"
-  isActive: 0
-  gamechatchannel: 
   count: 0
-  count_f: 0
-  count_m: 0
+  f_count: 0
+  m_count: 0
   female: 0
   male: 0
-  m1: 
-  m2: 
-  m3: 
-  m4: 
-  m5: 
-  m6: 
+  member: []
 --- !u!1 &191709669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,7 +2425,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 135471769}
         m_TargetAssemblyTypeName: MatchingManager, Assembly-CSharp
-        m_MethodName: OnclickMatching
+        m_MethodName: matchingOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
