@@ -31,11 +31,11 @@ public class MatchingManager : MonoBehaviour
         Debug.Log("현재 로그인 유저 닉네임 : " + username);
         Debug.Log("현재 로그인 유저 성별 : " + sex);
     }
-    public void OnclickMatching() //매칭버튼 눌렀을 때 호출할 함수
+    
+    /*public void OnclickMatching() //매칭버튼 눌렀을 때 호출할 함수
     {
         matchingOn();
-        //await checkMembers();
-    }
+    }*/
     public async void matchingOn()
     {
         CollectionReference mrRef = FireStoreScript.FirebaseManager.db.Collection("matchingRoom"); //매칭룸 컬렉션 참조
