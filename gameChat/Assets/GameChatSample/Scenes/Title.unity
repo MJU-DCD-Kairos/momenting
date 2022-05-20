@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -389,6 +389,10 @@ MonoBehaviour:
   Age: {fileID: 0}
   Sex: {fileID: 0}
   Token: {fileID: 0}
+  SSex: {fileID: 0}
+  AAge: {fileID: 0}
+  MMonth: {fileID: 0}
+  DDay: {fileID: 0}
   token: 
   myname: 
   sex: 
@@ -398,6 +402,7 @@ MonoBehaviour:
   ispass: 0
   isActive: 0
   isInMatchingDB: 0
+  newAge: 
   passString: 
 --- !u!4 &135471768
 Transform:
@@ -3740,7 +3745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2073174397
 MonoBehaviour:
   m_ObjectHideFlags: 0

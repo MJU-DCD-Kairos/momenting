@@ -7,8 +7,7 @@ using Firebase.Extensions;
 using FireStoreScript;
 using System.Threading;
 using System.Threading.Tasks;
-
-
+using GameChatSample;
 
 public class MatchingManager : MonoBehaviour
 {
@@ -26,10 +25,14 @@ public class MatchingManager : MonoBehaviour
 
     void Start()
     {
-        username = PlayerPrefs.GetString("name");
-        sex = PlayerPrefs.GetString("여");
+        DontDestroyOnLoad(this.gameObject);
+        //username = PlayerPrefs.GetString("name");
+        //sex = PlayerPrefs.GetString("여");
+        username = "승현";
+        sex = "남";
         Debug.Log("현재 로그인 유저 닉네임 : " + username);
         Debug.Log("현재 로그인 유저 성별 : " + sex);
+        
     }
     
     /*public void OnclickMatching() //매칭버튼 눌렀을 때 호출할 함수
@@ -170,9 +173,11 @@ public class MatchingManager : MonoBehaviour
         {
             listener.Stop();
             Debug.Log("매칭종료됨");
+            StartCoroutine("CreateChatR");
+            
         }
     }
-
+    /*
     public void checkMembers() //채팅방 6명인지 확인하는 함수
     {
         Debug.Log("checkMembers 함수 실행됨");
@@ -195,7 +200,7 @@ public class MatchingManager : MonoBehaviour
         
         Debug.Log("전체유저수: " + count); 
     }
-
+    */
     void makeNewRoom() //채팅방 생성
     {
         Dictionary<string, object> room = new Dictionary<string, object>
@@ -207,9 +212,12 @@ public class MatchingManager : MonoBehaviour
             {"male" , false },
             {"member" , new List<object>() { username } }
         };
-
-        FireStoreScript.FirebaseManager.db.Collection("matchingRoom").AddAsync(room); //문서 새로 생성
-        //matchingRoomRef.AddAsync(room);
+        //문서 새로 생성
+        DocumentReference addmrRef = FireStoreScript.FirebaseManager.db.Collection("matchingRoom").Document();
+        addmrRef.SetAsync(room).ContinueWithOnMainThread(task =>
+        {
+            Debug.Log(addmrRef.Id);
+        });
         Debug.Log("채팅방 문서 생성됨");
     }
 
