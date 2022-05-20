@@ -34,11 +34,11 @@ namespace GameChatSample
 
         [Header("채팅방 이름 랜덤 생성")]
         public TextAsset CRnameCSVfile;
-        public string newCRname = "";
-        public int tableSize = 104;
+        public static string newCRname = "";
+        public static int tableSize = 104;
         string randomCRN;
         //각 클래스를 기반으로 배열 변수 생성
-        public CRNList ChatRoomNameList = new CRNList();
+        public static CRNList ChatRoomNameList = new CRNList();
 
         //각 값을 보유할 클래스 생성
         //[System.Serializable]
@@ -78,7 +78,7 @@ namespace GameChatSample
         //이전메시지의 시간을 받아오기 위한 변수 선언
         public Message xMSG;
 
-        public string CCName;
+        public static string CCName;
         public static string[] CurChatInfo = new string[5];
 
 
@@ -130,7 +130,7 @@ namespace GameChatSample
 
         //임의의 형용사 + 명사 7자 이하의 채팅방 이름 생성 함수
         //스트링 타입의 (adj + " " + noun)를 반환 "형용사 한칸띄고 명사"
-        public string makeChatRoomName()
+        public static string makeChatRoomName()
         {
             while (true)
             {
@@ -161,7 +161,7 @@ namespace GameChatSample
             StartCoroutine("CreateChatR");
         }
 
-        public IEnumerator CreateChatR()
+        public static IEnumerator CreateChatR()
         {
             string url = "https://dashboard-api.gamechat.naverncp.com/v1/api/project/e3558324-2d64-47d0-bd7a-6fa362824bd7/channel";
             string APIKey = "ec31cc21b559da9eb19eaec2dadcd50ed786857a740a561d";
