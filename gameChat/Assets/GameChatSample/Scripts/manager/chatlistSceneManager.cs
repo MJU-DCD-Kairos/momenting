@@ -40,6 +40,8 @@ public class chatlistSceneManager : MonoBehaviour
         backToHome.onClick.AddListener(gSM.LoadScene_Home);
         
         makeGCList();
+
+        _ = FireStoreScript.FirebaseManager.CRnameDoubleCheck();
         
     }
 
