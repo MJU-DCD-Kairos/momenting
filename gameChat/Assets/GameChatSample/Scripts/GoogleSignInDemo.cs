@@ -11,10 +11,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Extensions;
 using UnityEngine.SceneManagement;
+using FireStoreScript;
 
 public class GoogleSignInDemo : MonoBehaviour
 {
-    public string GAA;
+    public static FirebaseFirestore db;
+    public string GAA = null;
     public Text infoText;
     public string webClientId = "793745035944-glhfup1hj1am1qk1f9cql7i05mtg573t.apps.googleusercontent.com";
     private FirebaseAuth auth;
@@ -29,9 +31,11 @@ public class GoogleSignInDemo : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        GAA = PlayerPrefs.GetString("GoogleID");
+
+        Debug.Log(GAA.ToString());
+
     }
-  
+
     private void CheckFirebaseDependencies()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -55,7 +59,10 @@ public class GoogleSignInDemo : MonoBehaviour
 
     private void OnSignIn()
     {
-        if (GAA == null) {
+        GAA = PlayerPrefs.GetString("UTken");
+        Debug.LogError("#### 구글아이디: " + GAA);
+        if (GAA.Equals(""))
+        {
             GoogleSignIn.Configuration = configuration;
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
@@ -63,7 +70,7 @@ public class GoogleSignInDemo : MonoBehaviour
 
             GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
         }
-        else if ( GAA != null)
+        else
         {
             AddToInformation("이미 로그인 중입니다.");
             SceneManager.LoadScene("Home");
@@ -73,9 +80,10 @@ public class GoogleSignInDemo : MonoBehaviour
 
     private void OnSignOut()
     {
-        AddToInformation("Calling SignOut");
+        //AddToInformation("Calling SignOut");
         GoogleSignIn.DefaultInstance.SignOut();
         LCheck = true;
+        SceneManager.LoadScene("Title");
     }
 
     public void OnDisconnect()
@@ -107,17 +115,27 @@ public class GoogleSignInDemo : MonoBehaviour
         }
         else
         {
-            GmailAddress = task.Result.Email;
+            GmailAddress = task.Result.IdToken;
             AddToInformation("Welcome: " + task.Result.DisplayName + "!");
             AddToInformation("Email = " + task.Result.Email);
-            AddToInformation("Google ID Token = " + task.Result.IdToken);
+            AddToInformation("" + task.Result.IdToken.Length);
+            //AddToInformation("Google ID Token = " + task.Result.IdToken);
             AddToInformation("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
+
+            Dictionary<string, object> Tken = new Dictionary<string, object>
+        {
+            {"token", task.Result.IdToken }, //토큰
+        };
+
+            AddToInformation("아무거나");
+            db.Collection("userToken").Document(GmailAddress).SetAsync(Tken);
             LCheck = false;
+            AddToInformation("실행후");
             SceneManager.LoadScene("SignUp");
         }
     }
-    
+
     private void SignInWithGoogleOnFirebase(string idToken)
     {
         Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
@@ -159,7 +177,7 @@ public class GoogleSignInDemo : MonoBehaviour
     }
     public void save()
     {
-        PlayerPrefs.SetString("GoogleID", GmailAddress);
+        PlayerPrefs.SetString("UTken", GmailAddress);
 
 
     }
