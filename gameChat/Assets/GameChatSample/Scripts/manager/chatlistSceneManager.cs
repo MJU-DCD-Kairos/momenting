@@ -41,7 +41,8 @@ public class chatlistSceneManager : MonoBehaviour
         
         makeGCList();
 
-        _ = FireStoreScript.FirebaseManager.CRnameDoubleCheck();
+        object cRname = "¿‹¿Œ«— ∏È∫¿";
+        FireStoreScript.FirebaseManager.CRnameDoubleCheck(cRname);
         
     }
 

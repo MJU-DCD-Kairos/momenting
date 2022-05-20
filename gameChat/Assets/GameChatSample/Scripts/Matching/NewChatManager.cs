@@ -30,15 +30,6 @@ namespace GameChatSample
         public bool canMatching = true;
 
 
-        //RTDB에 들어갈 유저 정보를 클래스화
-        public class UserInfo
-        {
-            public string uid = "";
-            public string sex = "";
-            public bool isMatching = false; //매칭중인지 체크
-            public List<string> RuidList = new List<string>();
-        }
-
 
 
         [Header("채팅방 이름 랜덤 생성")]
@@ -167,7 +158,7 @@ namespace GameChatSample
         //채팅방 이름을 생성하여 새로운 채널을 생성하는 함수
         public void CallCreatCR()
         {
-            StartCoroutine(CreateChatR());
+            StartCoroutine("CreateChatR");
         }
 
         public IEnumerator CreateChatR()
