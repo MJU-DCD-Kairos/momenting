@@ -34,6 +34,22 @@ public class GoogleSignInDemo : MonoBehaviour
 
         Debug.Log(GAA.ToString());
 
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            //var dependencyStatus = task.Result;
+            if (task.Result == DependencyStatus.Available)
+            {
+                Debug.Log("파이어스토어 DB 연결 성공");
+                db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
+
+            }
+            else
+            {
+                Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
+            }
+        });
+
+        //FireStoreScript.FirebaseManager.db = null;
     }
 
     private void CheckFirebaseDependencies()
@@ -115,7 +131,11 @@ public class GoogleSignInDemo : MonoBehaviour
         }
         else
         {
-            GmailAddress = task.Result.IdToken;
+            
+            GmailAddress = task.Result.Email.Replace(".","");
+            
+            PlayerPrefs.SetString("GAddress", GmailAddress);
+            AddToInformation(GmailAddress);
             AddToInformation("Welcome: " + task.Result.DisplayName + "!");
             AddToInformation("Email = " + task.Result.Email);
             AddToInformation("" + task.Result.IdToken.Length);
@@ -123,18 +143,18 @@ public class GoogleSignInDemo : MonoBehaviour
             AddToInformation("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
 
-            Dictionary<string, object> Tken = new Dictionary<string, object>
-        {
-            {"token", task.Result.IdToken }, //토큰
-        };
-
-            AddToInformation("아무거나");
-            db.Collection("userToken").Document(GmailAddress).SetAsync(Tken);
-            LCheck = false;
-            AddToInformation("실행후");
-            SceneManager.LoadScene("SignUp");
+            
         }
     }
+    //public void testdb()
+    //{
+    //    Dictionary<string, object> Gml = new Dictionary<string, object>
+    //    {
+    //        {"token","testdb"}, //토큰
+    //    };
+
+    //    FireStoreScript.FirebaseManager.db.Collection("userToken").Document("testdb").SetAsync(Gml);
+    //}
 
     private void SignInWithGoogleOnFirebase(string idToken)
     {
@@ -151,6 +171,18 @@ public class GoogleSignInDemo : MonoBehaviour
             else
             {
                 AddToInformation("Sign In Successful.");
+
+        //        Dictionary<string, object> Gml = new Dictionary<string, object>
+        //{
+
+        //    {"token", GmailAddress } //토큰
+            
+        //};
+        //        AddToInformation("아무거나");
+        //        db.Collection("userInfo").Document(GmailAddress).SetAsync(Gml);
+                LCheck = false;
+                AddToInformation("실행후");
+                SceneManager.LoadScene("SignUp");
             }
         });
     }

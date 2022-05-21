@@ -29,7 +29,7 @@ namespace FireStoreScript {
         public GameObject DoubleEnBtn;
         public GameObject NextBtn;
         public GameObject ErrorIndi;
-
+        public string GAdd;
 
         public string token;
         public string myname;
@@ -279,7 +279,7 @@ namespace FireStoreScript {
                 age = newAge;
             }
 
-
+            GAdd = PlayerPrefs.GetString("GAddress");
             Dictionary<string, object> user = new Dictionary<string, object>
         {
             { "name", myname }, //닉네임
@@ -293,7 +293,13 @@ namespace FireStoreScript {
             //{"token", token }, //토큰
             { "mannerLevel", 1 } //매너등급 (기본 1등급으로 시작)
         };
-
+            Dictionary<string, object> Gml = new Dictionary<string, object>
+            {
+                { "name", myname },
+                { "GmailAddress", GAdd}
+            };
+            
+            db.Collection("userToken").Document(GAdd).SetAsync(Gml);
             db.Collection("userInfo").Document(myname).SetAsync(user);
 
 
