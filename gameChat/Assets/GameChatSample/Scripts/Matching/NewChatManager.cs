@@ -716,7 +716,7 @@ namespace GameChatSample
 
 
         public static string curMsg = "";
-        public static void getCurMSG(string id)
+        public static void getCurMSG(string id, System.Action<string, string> callBack)
         {
             GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
             {
@@ -734,8 +734,9 @@ namespace GameChatSample
 
                 }
 
-            });
-            Debug.Log("getCurMSG-Msg: " + curMsg);
+                callBack(id, curMsg);
+                Debug.Log("getCurMSG-Msg: " + curMsg);
+            });    
             
         }
 

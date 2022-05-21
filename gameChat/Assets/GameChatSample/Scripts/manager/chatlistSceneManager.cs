@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GameChatSample;
+using System.Threading.Tasks;
+using FireStoreScript;
+using Firebase.Firestore;
+using Firebase.Extensions;
+
 
 public class chatlistSceneManager : MonoBehaviour
 {
@@ -31,20 +36,22 @@ public class chatlistSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         //don't destroy로 살려서 넘어온 게임씬매니저의 스크립트를 변수에 담음
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
 
         //Invoke("makeGCList", 0.03f);
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         backToHome.onClick.AddListener(gSM.LoadScene_Home);
-        
-        makeGCList();
 
-        object cRname = "잔인한 면봉";
-        FireStoreScript.FirebaseManager.CRnameDoubleCheck(cRname);
+        //makeGCList();
+
+        //object cRname = "잔인한 면봉";
+        //FireStoreScript.FirebaseManInager.CRnameDoubleCheck(cRname);
         
+        InvokeRepeating("gotMyGClistInfo", 0f, 5f);
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -57,79 +64,178 @@ public class chatlistSceneManager : MonoBehaviour
                 //Application.Quit(); // 씬 종료 .(나가기)            위씬으로 이동이나 종료기능 둘중하나 원하시는것을 사용하시면 됩니다.
             }
         }
-    }
-    public void makeRList()
-    {
-        GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
-        ui.transform.SetParent(GameObject.Find("GCViewport").transform);
-
-        Debug.Log("### room_name ### : " + GameChatSample.NewChatManager.CurChatInfo[0]);
-        ui.transform.GetChild(2).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[0]; //채팅방 이름
-        ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[2]; //남은시간
-        ui.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[4];//배지 수
-        /*if (GameChatSample.NewChatManager.CurChatInfo[4] == "0") 
-        {
-            ui.transform.GetChild(1).transform.gameObject.SetActive(false);
-        }
-        else
-        {
-            ui.transform.GetChild(1).transform.gameObject.SetActive(true);
-        }*/
-        ui.transform.GetChild(3).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[1]; //라스트 채팅내용
-
-        //CurChatInfo[0]이름 [1]내용 [2]생성시간 [3]생성날짜 [4]새로운메시지수
-    }
-
-    public void GetCurrentChatCount(string id)
-    {
-        Debug.Log("GetCurrentChatCount시작 id는? : " + id);
-        //GameChatSample.NewChatManager.getChannelID();//firebase에서 id를 가져와야함. 변수에 id를 string으로 담은 다음
-        RoomNewMSGCount = GameChatSample.NewChatManager.setNewMSGCount(id);
         
     }
-    /*
-    public void getLostTime()
-    {
-        //string cTime = GameChatSample.NewChatManager.CList[0].created_at.Substring(11, 8);//생성시간
-        string cTime= GameChatSample.NewChatManager.CurChatInfo[2];
-        //string cDay = GameChatSample.NewChatManager.CList[0].created_at.Substring(0, 10);
-        string cDay = GameChatSample.NewChatManager.CurChatInfo[3];
-        string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
-        string nDay = DateTime.Now.ToString("u").Substring(0, 10);
-        Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
-        TimeSpan goTime = Convert.ToDateTime(nTime) - Convert.ToDateTime(cTime);
 
-        if (goTime.Days <= 0) 
+
+//DB "gameChatRoom" Collection에 접근해서 Document별 member의 nickName에 접근하여
+//유저 닉네임과 동일한 값이 있는 Document의 id, 채널id, openTime을 가져옴
+//가져온 채널id로 최근 메시지를 가져옴
+    public string testNickName = "현진";
+    public List<string[]> gSlotList = new List<string[]>();
+    public Dictionary<string, Text> gSlotMsgDict = new Dictionary<string, Text>();
+    public string[] cInfoList;
+
+
+    public void makeGCcard()
+    {
+        gotMyGClistInfo();
+
+    }
+    
+    public async Task gotMyGClistInfo()
+    {
+        gSlotList.Clear();
+        gSlotMsgDict.Clear();
+
+        Query alldocQauery = FirebaseManager.db.Collection("gameChatRoom");
+        QuerySnapshot alldocQauerySnapshot = await alldocQauery.GetSnapshotAsync();
+        foreach (DocumentSnapshot docSnapShot in alldocQauerySnapshot.Documents)
         {
-            if (goTime.Hours == 0)
+            Dictionary<string, object> docDictionary = docSnapShot.ToDictionary();
+            List<object> memberList = (List<object>)docDictionary["member"];
+            foreach (Dictionary<string, object> m in memberList)
             {
-                if (goTime.Minutes > 20)
+                if (m["nickName"].ToString() == testNickName)
                 {
-                    RoomTimerText = "종료";
-                }
-                else
-                {
-                    RoomTimerText = goTime.Minutes.ToString() + "분";
+                    cInfoList = new string[3];
+                    cInfoList[0] = docSnapShot.Id;
+                    //Debug.Log(docSnapShot.Id);
+                    //Debug.Log("겟타입"+docDictionary["openTime"]);
+                    
+                    cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
+                    //Debug.Log(NewChatManager.getLostTime(docDictionary["openTime"] as string));
+
+                    cInfoList[2] = docDictionary["channelID"] as string;// NewChatManager.curMsg;
+                    
+                    //Debug.Log(NewChatManager.getCurMSG(docDictionary["channelID"] as string));
+                    gSlotList.Add(cInfoList);
                 }
             }
-            RoomTimerText = "종료";
+        }
 
+        makeGCcardList();
+    }
+
+    public void makeGCcardList()
+    {
+        //Debug.LogError(GameObject.Find("GCViewport").transform.childCount);
+        if (0 < GameObject.Find("GCViewport").transform.childCount)
+        {
+            for (int n = 0; n < (GameObject.Find("GCViewport").transform.childCount); n++)
+            {
+                GameObject.Destroy(GameObject.Find("GCViewport").transform.GetChild(n).gameObject);
+            }
+        }
+
+        for (int i = 0; i < gSlotList.Count; i++)
+        {
+            Debug.Log(gSlotList[i][0] + "/" + gSlotList[i][1] + "/" + gSlotList[i][2]);
+
+            //프리팹 생성 후 뷰포트의 자식으로 설정
+            GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
+            ui.transform.SetParent(GameObject.Find("GCViewport").transform);
+
+            //채팅방 이름 넣기
+            ui.transform.GetChild(2).GetComponent<Text>().text = gSlotList[i][0];
+
+            //남은 시간 넣기
+            ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = gSlotList[i][1];
+
+            //최근 메시지 넣기
+            ui.transform.GetChild(3).GetComponent<Text>().text = "";// gSlotList[i][2];
+
+            gSlotMsgDict.Add(gSlotList[i][2], ui.transform.GetChild(3).GetComponent<Text>());
+            NewChatManager.getCurMSG(gSlotList[i][2], OnRecvMsg);
+            
+        }
+        
+    }
+
+    void OnRecvMsg(string id, string msg)
+    {
+        gSlotMsgDict[id].text = msg;
+    }
+
+
+
+
+        /*
+        List<GameObject> gslotList = new List<GameObject>();
+        public void makeRList()
+        {
+            GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
+            ui.transform.SetParent(GameObject.Find("GCViewport").transform);
+
+            Debug.Log("### room_name ### : " + GameChatSample.NewChatManager.CurChatInfo[0]);
+            ui.transform.GetChild(2).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[0]; //채팅방 이름
+            ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[2]; //남은시간
+            ui.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[4];//배지 수
+            /*if (GameChatSample.NewChatManager.CurChatInfo[4] == "0") 
+            {
+                ui.transform.GetChild(1).transform.gameObject.SetActive(false);
+            }
+            else
+            {
+                ui.transform.GetChild(1).transform.gameObject.SetActive(true);
+            }
+            ui.transform.GetChild(3).GetComponent<Text>().text = GameChatSample.NewChatManager.CurChatInfo[1]; //라스트 채팅내용
+
+            //CurChatInfo[0]이름 [1]내용 [2]생성시간 [3]생성날짜 [4]새로운메시지수
+
+            gslotList.Add(ui);
+        }
+
+        public void GetCurrentChatCount(string id)
+        {
+            Debug.Log("GetCurrentChatCount시작 id는? : " + id);
+            //GameChatSample.NewChatManager.getChannelID();//firebase에서 id를 가져와야함. 변수에 id를 string으로 담은 다음
+            RoomNewMSGCount = GameChatSample.NewChatManager.setNewMSGCount(id);
 
         }
 
-    }*/
+        public void getLostTime()
+        {
+            //string cTime = GameChatSample.NewChatManager.CList[0].created_at.Substring(11, 8);//생성시간
+            string cTime= GameChatSample.NewChatManager.CurChatInfo[2];
+            //string cDay = GameChatSample.NewChatManager.CList[0].created_at.Substring(0, 10);
+            string cDay = GameChatSample.NewChatManager.CurChatInfo[3];
+            string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
+            string nDay = DateTime.Now.ToString("u").Substring(0, 10);
+            Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
+            TimeSpan goTime = Convert.ToDateTime(nTime) - Convert.ToDateTime(cTime);
 
-    public void makeGCList()
-    {
-        id = GameChatSample.NewChatManager.CList[0].id.ToString().Replace(" ","");
-        RoomContentsText = GameChatSample.NewChatManager.getCurMSG(id);
-        RoomTitleText = GameChatSample.NewChatManager.getCurRoomName(id);
-        GetCurrentChatCount(id);//배지 수 구하기
-        
+            if (goTime.Days <= 0) 
+            {
+                if (goTime.Hours == 0)
+                {
+                    if (goTime.Minutes > 20)
+                    {
+                        RoomTimerText = "종료";
+                    }
+                    else
+                    {
+                        RoomTimerText = goTime.Minutes.ToString() + "분";
+                    }
+                }
+                RoomTimerText = "종료";
 
-        Invoke("makeRList", 1f);
 
-     
-    }
+            }
 
-}
+        }
+
+        public void makeGCList()
+        {
+            id = GameChatSample.NewChatManager.CList[0].id.ToString().Replace(" ","");
+            RoomContentsText = GameChatSample.NewChatManager.getCurMSG(id);
+            RoomTitleText = GameChatSample.NewChatManager.getCurRoomName(id);
+            GetCurrentChatCount(id);//배지 수 구하기
+
+
+            Invoke("makeRList", 1f);
+
+
+        }*/
+
+        }
