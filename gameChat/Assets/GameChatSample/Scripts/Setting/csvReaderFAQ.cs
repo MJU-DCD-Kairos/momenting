@@ -25,6 +25,7 @@ public class csvReaderFAQ : MonoBehaviour
         public string FAQbody;
     }
 
+
     //리스트를 보유할 클래스 생성
     public class FAQList
     {

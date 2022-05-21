@@ -8,6 +8,7 @@ public class settingSceneManager : MonoBehaviour
     //스크립트 받아오기위한 타입 변수 선언
     gameSceneManager gSM;
     public Button backToMyProfile;
+    public Button SignOut;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class settingSceneManager : MonoBehaviour
 
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         backToMyProfile.onClick.AddListener(gSM.LoadScene_MyProfile_Sample3);
+        SignOut.onClick.AddListener(gSM.LoadScene_Title);
     }
 
     // Update is called once per frame
