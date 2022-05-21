@@ -716,26 +716,27 @@ namespace GameChatSample
 
 
         public static string curMsg = "";
-        public static string getCurMSG(string id)
+        public static void getCurMSG(string id)
         {
-            Debug.Log("getCurMSG-id : " + id);
             GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
             {
 
                 if (Exception != null)
                 {
                     // Error 핸들링
-                    return;
+                    
                 }
 
                 foreach (Message elem in Messages)
                 {
-                    CurChatInfo[1] = elem.content;
+                    curMsg = elem.content;
+                    Debug.Log(elem.content);
+
                 }
 
             });
             Debug.Log("getCurMSG-Msg: " + curMsg);
-            return curMsg;
+            
         }
 
         public static string curRoomName = "";
@@ -761,7 +762,7 @@ namespace GameChatSample
                 CurChatInfo[2] = channel.created_at.Substring(11, 8).ToString();
                 CurChatInfo[3] = channel.created_at.Substring(0, 10).ToString();
 
-                getLostTime();
+                //getLostTime();
 
 
             });
@@ -773,20 +774,22 @@ namespace GameChatSample
 
 
 
-        static void getLostTime()
+        public static string getLostTime(string openTime)
         {
-            string cTime = GameChatSample.NewChatManager.CurChatInfo[2];//생성시간
-            string cDay = GameChatSample.NewChatManager.CurChatInfo[3];//생성날짜
-            string c = cDay + " " + cTime;
-            string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
-            string nDay = DateTime.Now.ToString("u").Substring(0, 10);//현재날짜
-            string n = nDay + " " + nTime;
+            //string cTime = GameChatSample.NewChatManager.CurChatInfo[2];//생성시간
+            //string cDay = GameChatSample.NewChatManager.CurChatInfo[3];//생성날짜
+            //string c = cDay + " " + cTime;
+            //string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
+            //string nDay = DateTime.Now.ToString("u").Substring(0, 10);//현재날짜
+            //string n = nDay + " " + nTime;
             //Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
             //Debug.Log(c+ "/" +n );
             //Debug.Log(Convert.ToDateTime(n)+"/"+ Convert.ToDateTime(c));
-            TimeSpan goTime = Convert.ToDateTime(n) - Convert.ToDateTime(c);
-            //Debug.Log("고타임   "+goTime.ToString());
-            //Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
+            //TimeSpan goTime = Convert.ToDateTime(n) - Convert.ToDateTime(c);
+            TimeSpan goTime = DateTime.Now-Convert.ToDateTime(openTime);
+            Debug.Log(Convert.ToDateTime(openTime) + "////" + DateTime.Now);
+            Debug.Log("고타임   "+goTime.ToString());
+            Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
 
             if (goTime.Days <= 0)
             {
@@ -794,23 +797,27 @@ namespace GameChatSample
                 {
                     if (goTime.Minutes > 20)
                     {
-                        CurChatInfo[5] = "종료";
+                        //CurChatInfo[5] = "종료";
+                        return "종료";
                     }
                     else
                     {
-                        CurChatInfo[5] = (20 - goTime.Minutes).ToString() + "분";
+                        return (20 - goTime.Minutes).ToString() + "분";
+                        //CurChatInfo[5] = (20 - goTime.Minutes).ToString() + "분";
                         //20분에서 경과 시간 빼주기
                     }
                 }
                 else
                 {
-                    CurChatInfo[5] = "종료";
+                    //CurChatInfo[5] = "종료";
+                    return "종료";
                 }
 
             }
             else
             {
-                CurChatInfo[5] = "종료";
+                return "종료";
+                //CurChatInfo[5] = "종료";
             }
 
         }
