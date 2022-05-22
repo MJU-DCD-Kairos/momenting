@@ -101,6 +101,7 @@ namespace GameChatSample
         {
             gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
             newChatManager = GameObject.Find("HomeSceneManager").GetComponent<NewChatManager>();
+            chatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
 
             stringBuilder.Clear();
 
@@ -238,17 +239,18 @@ namespace GameChatSample
 
         private void onConnected(string message)
         {
+            Debug.Log("######메시지 dasfadfadfasfadfa");
             PrintChatMessage(Color.blue, "[ 소켓서버와 연결되었습니다. ]");
         }
 
         private void onMessageReceived(Message message)
         {
-
+            Debug.Log("######메시지 받음");
             if (message.sender.id == UserId.text)
                 PrintChatMessage(Color.green, message);
             else
                 chatManager.Chat(false, message.content, message.sender.id , null);
-                PrintChatMessage(Color.black, message);
+                
 
         }
 
@@ -513,6 +515,7 @@ namespace GameChatSample
         //채팅방 id로 메시지 이력 가져옴
         public void getMSG()
         {
+            Debug.Log("########getMSG실행          #######");
             newChatManager.GetMSG();
         }
 

@@ -68,7 +68,7 @@ namespace GameChatSample
                 SceneManager.LoadSceneAsync("Home");
             };
             p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_BtnOne", "Connect Success !", "로그인이 완료되었습니다.", btn_info);
-
+            Debug.LogError("##### 로그인 완료");
         }
 
         void onErrorReceived(string message, GameChatException exception)
