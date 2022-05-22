@@ -20,6 +20,8 @@ using Firebase.Firestore;
 using Firebase.Extensions;
 
 using UnityEngine.Networking;
+using Prefebs;
+using CLCM;
 
 namespace GameChatSample
 {
@@ -56,29 +58,15 @@ namespace GameChatSample
         {
             public chatRoomName[] CRN;
         }
-        //테스트용 버튼
-        public Button CreatChatBtn;
+      
 
         //채팅리스트 받아와서 id를 가져오기 위한 리스트, 이름 초기화
         public static string currentCRname = "";
         public static List<Channel> CList = new List<Channel>();
 
 
-        //채팅방 이름이 보여질 UI 텍스트 참조
-        public Text ThisCRoomNameTitle;
-
         //chatmanager를 참조받아오기 위한 선언
         public ChatManager chatManager;
-
-
-        //내 말풍선 상대 말풍선 가리기 참조 위한 선언
-        AreaScript LastArea;
-        public GameObject MyArea, ElseArea;
-        public RectTransform ContentRect;
-        //불러오려는 메시지가 마지막 메시지랑 같은지 판별하기 위한 전역변수 선언
-        public Message LastMSG;
-        //이전메시지의 시간을 받아오기 위한 변수 선언
-        public Message xMSG;
 
         public static string CCName;
         public static string[] CurChatInfo = new string[5];
@@ -90,6 +78,8 @@ namespace GameChatSample
         public int usersex;
         public string docID; //도큐먼트 고유ID 참조하기 위해 필요
         public int countMembers;
+        public int fcount;
+        public int mcount;
         public static bool isMatchComplete = false;
         public ListenerRegistration listener;
         public ListenerRegistration listener2;
@@ -107,14 +97,16 @@ namespace GameChatSample
         public static string CREATETIME = "createTime";
         public static string OPENTIME = "openTime";
 
-
-
-
-
+        //스크립트 받아오기위한 타입 변수 선언
+        gameSceneManager gSM;
+        // 타이머 코드를 위한 변수 선언
+        public float time_current = 5f;
+        public GameObject Dialog_Matching_ReMatching; //매칭실패시 띄우는 다이얼로그
 
         // Start is called before the first frame update
         void Start()
         {
+            gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
             //don't destroy 처리
             DontDestroyOnLoad(this.gameObject);
 
@@ -123,6 +115,10 @@ namespace GameChatSample
 
             //도큐먼트 id초기화를 위한 과정// 필요함
             docID = "";
+            countMembers = 0; //채팅방멤버수 초기화
+            isMatchComplete = false; //채팅완료여부 초기화
+            fcount = 0; //여성멤버수 초기화
+            mcount = 0; //남성멤버수 초기화
             
             //매칭 과정을 위한 테스트설정
             username = "솔비";//유저 이름 임의설정
@@ -134,7 +130,22 @@ namespace GameChatSample
         // Update is called once per frame
         void Update()
         {
+            if (Prefebs.getGCID.clickCard == true)
+            {
+                GetMSG();
+            }
+        }
 
+
+        public bool startTimer = false; //3초 타이머
+
+        public void setTimer()
+        {
+            if (isMatchComplete)
+            {
+                startTimer = true; //씬전환 시 매칭대기 페이지에 잠시 머물도록 하기 위해 필요
+            }
+            
         }
 
 
@@ -157,12 +168,14 @@ namespace GameChatSample
             }
         }
 
+        public bool makeRoom = false;
+
         #region Matching
-        public async void matchingOn()
+        public void matchingOn()
         {
             CollectionReference roomRef = FirebaseManager.db.Collection(GAMECHAT_ROOM); //채팅룸 컬렉션 참조
             Query allroomRef = roomRef;
-            await allroomRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            allroomRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
             {
                 QuerySnapshot allroomSnapshot = task.Result;
                 foreach (DocumentSnapshot doc in allroomSnapshot.Documents)
@@ -179,8 +192,8 @@ namespace GameChatSample
 
                     if (open == "False")
                     {
-                        int fcount = 0;
-                        int mcount = 0;
+                        fcount = 0;
+                        mcount = 0;
                         foreach (Dictionary<string, object> m in memberList)
                         {
                             //Debug.Log(m[SEX]);
@@ -188,6 +201,7 @@ namespace GameChatSample
                             if (m[SEX].ToString() == "1")
                             {
                                 mcount++;
+                                
                             }
                             else
                             {
@@ -210,6 +224,7 @@ namespace GameChatSample
                             {
                                 roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
                                 fcount++;
+                                Debug.Log("여성수:"+fcount);
                             }
 
                         }
@@ -219,42 +234,43 @@ namespace GameChatSample
                             {
                                 roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
                                 mcount++;
+                                Debug.Log("남성수"+mcount);
                             }
                         }
-
-                        if (fcount + mcount == 6)
-                        {
-                            //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
-                            roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
-                            roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
-                            roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                        }
+                        countMembers = fcount + mcount;
+                        Debug.Log("전체유저수" + countMembers);
                         DocumentReference docRef = roomRef.Document(docID);
                         listener = docRef.Listen(snapshot =>
                         {
                             if (snapshot.Exists)
                             {
+                                
                                 Debug.Log("콜백");
-                                if (fcount + mcount == 6)
+                                if (countMembers == 6)
                                 {
                                     Debug.Log("6명 채워짐");
                                     //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
                                     roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
                                     roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
                                     roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                                    CallCreatCR(); //게임챗 채팅방 생성
+                                    
+                                    //StartCoroutine("CreateChatR"); //게임챗 채팅방 생성
+                                    //CallCreatCR();
                                     listener.Stop();
-                                    isMatchComplete = true; //매칭여부 true로 바꿈
+                                    //isMatchComplete = true; //매칭여부 true
+                                    //setTimer();
+
+                                    Invoke("showChatRoom", 5f);
                                 }
 
                             }
-
+                            
                             else
                             {
                                 Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id)); //재매칭 시도해야됨
                                 listener.Stop();
-                                //matchingOn(); //재매칭 시도 UI 띄워주기
-                                isMatchComplete = false; //매칭여부 false로 바꿈
+                                Dialog_Matching_ReMatching.SetActive(true);
+                                isMatchComplete = false; //매칭여부 false
                             }
 
                         });
@@ -264,16 +280,34 @@ namespace GameChatSample
 
                 }
 
-                makeNewRoom(); // 방을 새로 생성
+                makeNewRoom();
                 return;
             });
 
         }
 
-
-        async void makeNewRoom() //채팅방 생성
+        void showChatRoom()
         {
-            CallCreatCR();
+
+
+            gameSceneManager.LoadScene_GroupChat();
+
+
+        }
+
+        void makeNewRoom() //채팅방 생성
+        {
+            //StartCoroutine("Test");
+            StartCoroutine("CreateChatR");
+            //CallCreatCR();
+            //CreateChatR();
+            //string channelID = "Asdfasd";
+            //docID = "앙";
+            
+        }
+        
+        async void makeNewRoom2()
+        {
             string channelID = newChatRoom["ChannelID"].ToString(); //채팅방ID 저장 //현진처리
             docID = newChatRoom["ChannelName"].ToString(); //채팅방이름 저장
             Dictionary<string, object> addUser = new Dictionary<string, object> //member에 추가할 유저정보
@@ -293,10 +327,7 @@ namespace GameChatSample
         };
             //문서 새로 생성
             DocumentReference addmrRef = FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID);
-            await addmrRef.SetAsync(room).ContinueWithOnMainThread(task =>
-            {
-                Debug.Log(addmrRef.Id);
-            });
+            await addmrRef.SetAsync(room);
             await FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
             Debug.Log("채팅방 문서 생성됨");
 
@@ -304,19 +335,39 @@ namespace GameChatSample
             {
                 if (snapshot.Exists)
                 {
+                    Dictionary<string, object> docDictionary = snapshot.ToDictionary();
+                    List<object> memberList = (List<object>)docDictionary[MEMBER];
+
+                    foreach (Dictionary<string, object> m in memberList)
+                    {
+                        countMembers++;
+                    }
                     Debug.Log("새로운 문서 업데이트");
+                    if (countMembers == 6)
+                    {
+                        Debug.Log("6명 채워짐");
+                        //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
+                        addmrRef.UpdateAsync(ISOPEN, true); //채팅방 열림
+                        addmrRef.UpdateAsync(ISACTIVE, true); //채팅방 활성화
+                        addmrRef.UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
+                        //CreateChatR();
+                        listener.Stop();
+                        isMatchComplete = true; //매칭여부 true로 바꿈
+                        setTimer();
+
+                    }
                 }
                 else
                 {
                     Debug.Log(string.Format("새로 생성한 문서가 존재하지 않습니다!", snapshot.Id)); //재매칭 시도해야됨
                     listener2.Stop();
-                    matchingOn();
+                    Dialog_Matching_ReMatching.SetActive(true);
+                    newChatRoom.Clear();//채널id랑 채팅방이름 저장한 딕셔너리 초기화
+                    isMatchComplete = false; //매칭여부 false
                 }
 
             });
         }
-
-
 
 
         #endregion
@@ -348,14 +399,12 @@ namespace GameChatSample
             }
         }
 
-
-        //채팅방 이름을 생성하여 새로운 채널을 생성하는 함수
         public void CallCreatCR()
         {
             StartCoroutine("CreateChatR");
         }
 
-        public static IEnumerator CreateChatR()
+        IEnumerator CreateChatR()
         {
             string url = "https://dashboard-api.gamechat.naverncp.com/v1/api/project/e3558324-2d64-47d0-bd7a-6fa362824bd7/channel";
             string APIKey = "ec31cc21b559da9eb19eaec2dadcd50ed786857a740a561d";
@@ -388,74 +437,18 @@ namespace GameChatSample
             else
             {
                 Debug.Log("성공");
-
-                //DB의 유저 데이터에 해당 채팅방 코드로 접속하는 로직 추가 필요
-                Debug.Log(www.downloadHandler.text);
-                string result = www.downloadHandler.text;
-                Debug.Log(result);
-                result = result.Substring(22, 36);
-                GameChat.subscribe(result);
-                GameChat.getChannel(result, null, (Channel channel, GameChatException Exception) =>
-                {
-                    if (Exception != null)
-                    {
-                        Debug.Log(Exception.message);
-                        Debug.Log(Exception.code);
-                        //에러 핸들링
-                        Debug.Log("get channel 에러");
-                        return;
-                    }
-                    CCName = channel.name;
-                });
+                string result = www.downloadHandler.text.Substring(22, 36);
 
                 newChatRoom.Add("ChannelID", result);//채널 id
-                newChatRoom.Add("ChannelName", CCName);//채팅방이름
+                newChatRoom.Add("ChannelName", name);//채팅방이름
+                Debug.Log(result);
+                Debug.Log(name);
 
-
+                makeNewRoom2();
+                
             }
         }
-
-
-        //채팅방 정보 가져오는 함수
-
-
-        public static void getChannelID()
-        {
-            GameChat.getChannels(0, 1, (List<Channel> Channels, GameChatException Exception) =>
-            {
-                if (Exception != null)
-                {
-                    Debug.Log(Exception.message);
-                    Debug.Log(Exception.code);
-                    //에러 핸들링
-                    Debug.Log("get channel 에러");
-                    return;
-                }
-
-                foreach (Channel elem in Channels)
-                {
-                    Debug.Log("get channel 성공");
-                    CList.Add(elem);
-                    for (int i = 0; i < CList.Count; i++)
-                    {
-
-                        Debug.Log(i);
-                        Debug.Log("겟채널 가져온 리스트의 id : " + CList[i].id);
-                        currentCRname = CList[i].id.ToString();
-                        Debug.Log("겟채널 가져온 리스트의 rawJson : " + CList[i].rawJson);
-
-                        /*
-                        if(i == CList.Count)
-                        {
-                            return (CList[0].id);
-                        }*/
-
-                    }
-                }
-            });
-
-        }
-
+        
         public void sendMSG()
         {
             GameChat.sendMessage(CList[0].id, "메시지 전송");
@@ -463,361 +456,13 @@ namespace GameChatSample
 
         public void GetMSG()
         {
-            StartCoroutine("TestMSG"); //gettedCid);
-            
-            if (null != GameObject.Find("ThisRoomName"))
-            {
-                ThisCRoomNameTitle = GameObject.Find("ThisRoomName").GetComponent<Text>();
-                ThisCRoomNameTitle.text = "dd";
-            }
-            else
-            {
-                Debug.Log("룸 네임 찾지 못함");
-            }
-
-            if (null != GameObject.Find("GContent"))
-            {
-                ContentRect = GameObject.Find("GContent").GetComponent<RectTransform>();
-            }
-            else
-            {
-                Debug.Log("GContent찾지 못함");
-            }
+            chatlistSceneManager.isEqualName();
+            gameSceneManager.LoadScene_GroupChat();
+            Prefebs.getGCID.clickCard = false;
 
         }
 
-        public IEnumerator TestMSG(string id)
-        {
-            //마지막 채팅을 받아옴
-            GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
-            {
-
-                if (Exception != null)
-                {
-                    // Error 핸들링
-                    return;
-                }
-
-
-                foreach (Message elem in Messages)
-                {
-                    LastMSG = elem;
-                    //Debug.Log(LastMSG);
-                }
-            });
-
-
-            GameChat.getMessages(id, 0, 200, "", "", "asc", (List<Message> Messages, GameChatException Exception) =>
-            {
-
-                if (Exception != null)
-                {
-                    // Error 핸들링
-                    return;
-                }
-
-                int count = 0;
-                foreach (Message elem in Messages)
-                {
-                    if (LastMSG.message_id != elem.message_id)
-                    {
-                        if (count == 0)
-                        {
-                            xMSG = elem;
-                            Debug.LogError("이전: " + xMSG.content);
-                            if (SampleGlobalData.G_User.id == elem.sender.id)//나
-                            {
-                                Debug.Log("나_시간있음_최초");
-                                //메시지랑 시간만 표기
-                                AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                                Area.transform.SetParent(ContentRect.transform, false);
-                                Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                                Area.TextRect.GetComponent<Text>().text = elem.content;
-                                Debug.Log(elem.content);
-                                Area.TimeText.text = elem.created_at;
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 400;
-                                float Y = Area.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area.BoxRect.sizeDelta = new Vector2(X - i * 2, Area.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area.BoxRect);
-
-                                        if (Y != Area.TextRect.sizeDelta.y) { Area.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area.BoxRect.sizeDelta = new Vector2(X, Y);
-
-                            }
-                            else
-                            {
-                                Debug.Log("타인_시간있음_최초");
-                                //메시지, 이름, 시간표기
-                                AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                                Area2.transform.SetParent(ContentRect.transform, false);
-                                Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                                Area2.TextRect.GetComponent<Text>().text = elem.content;
-                                Area2.UserText.text = elem.sender.name;
-                                Area2.TimeText.text = elem.created_at;
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 400;
-                                float Y = Area2.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area2.BoxRect.sizeDelta = new Vector2(X - i * 2, Area2.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area2.BoxRect);
-
-                                        if (Y != Area2.TextRect.sizeDelta.y) { Area2.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area2.BoxRect.sizeDelta = new Vector2(X, Y);
-
-                            }
-                            count = 1;
-                        }
-                        else
-                        {
-                            if (xMSG.created_at == elem.created_at)
-                            {
-
-                                //이전 메시지랑 시간이 같으면
-                                if (SampleGlobalData.G_User.id == elem.sender.id)//나
-                                {
-                                    Debug.Log("나_시간없음");
-                                    //메시지만 표기
-                                    AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                                    Area.transform.SetParent(ContentRect.transform, false);
-                                    Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                                    Area.TextRect.GetComponent<Text>().text = elem.content;
-                                    Area.TimeText.text = "";
-                                    Debug.Log("타인 시간없음 :  " + (xMSG.created_at.ToString() == elem.created_at.ToString()));
-
-                                    //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area.TextRect.sizeDelta.x + 400;
-                                    float Y = Area.TextRect.sizeDelta.y;
-                                    if (Y > 700)
-                                    {
-                                        for (int i = 0; i < 200; i++)
-                                        {
-                                            Area.BoxRect.sizeDelta = new Vector2(X - i * 2, Area.BoxRect.sizeDelta.y);
-                                            chatManager.Fit(Area.BoxRect);
-
-                                            if (Y != Area.TextRect.sizeDelta.y) { Area.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                        }
-                                    }
-                                    else Area.BoxRect.sizeDelta = new Vector2(X, Y);
-
-                                }
-                                else
-                                {
-                                    Debug.Log("타인_시간없음");
-                                    //메시지, 이름 표기
-                                    AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                                    Area2.transform.SetParent(ContentRect.transform, false);
-                                    Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                                    Area2.TextRect.GetComponent<Text>().text = elem.content;
-                                    Area2.UserText.text = elem.sender.name;
-                                    Area2.TimeText.text = "";
-                                    Debug.Log("타인 시간없음 :  " + (xMSG.created_at.ToString() == elem.created_at.ToString()));
-
-
-                                    //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area2.TextRect.sizeDelta.x + 400;
-                                    float Y = Area2.TextRect.sizeDelta.y;
-                                    if (Y > 700)
-                                    {
-                                        for (int i = 0; i < 200; i++)
-                                        {
-                                            Area2.BoxRect.sizeDelta = new Vector2(X - i * 2, Area2.BoxRect.sizeDelta.y);
-                                            chatManager.Fit(Area2.BoxRect);
-
-                                            if (Y != Area2.TextRect.sizeDelta.y) { Area2.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                        }
-                                    }
-                                    else Area2.BoxRect.sizeDelta = new Vector2(X, Y);
-                                }
-                            }
-                            else
-                            {
-
-                                if (SampleGlobalData.G_User.id == elem.sender.id)//나
-                                {
-                                    Debug.Log("나_시간있음");
-                                    //나: 메시지랑 시간만 표기
-                                    AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                                    Area.transform.SetParent(ContentRect.transform, false);
-                                    Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                                    Area.TextRect.GetComponent<Text>().text = elem.content;
-                                    Area.TimeText.text = elem.created_at;
-
-                                    //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area.TextRect.sizeDelta.x + 400;
-                                    float Y = Area.TextRect.sizeDelta.y;
-                                    if (Y > 700)
-                                    {
-                                        for (int i = 0; i < 200; i++)
-                                        {
-                                            Area.BoxRect.sizeDelta = new Vector2(X - i * 2, Area.BoxRect.sizeDelta.y);
-                                            chatManager.Fit(Area.BoxRect);
-
-                                            if (Y != Area.TextRect.sizeDelta.y) { Area.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                        }
-                                    }
-                                    else Area.BoxRect.sizeDelta = new Vector2(X, Y);
-                                }
-                                else
-                                {
-                                    Debug.Log("타인_시간있음");
-                                    //메시지, 이름, 시간표기
-                                    AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                                    Area2.transform.SetParent(ContentRect.transform, false);
-                                    Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                                    Area2.TextRect.GetComponent<Text>().text = elem.content;
-                                    Area2.UserText.text = elem.sender.name;
-                                    Area2.TimeText.text = elem.created_at;
-
-                                    //텍스트가 두줄 이상인 경우 처리
-                                    float X = Area2.TextRect.sizeDelta.x + 400;
-                                    float Y = Area2.TextRect.sizeDelta.y;
-                                    if (Y > 700)
-                                    {
-                                        for (int i = 0; i < 200; i++)
-                                        {
-                                            Area2.BoxRect.sizeDelta = new Vector2(X - i * 2, Area2.BoxRect.sizeDelta.y);
-                                            chatManager.Fit(Area2.BoxRect);
-
-                                            if (Y != Area2.TextRect.sizeDelta.y) { Area2.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                        }
-                                    }
-                                    else Area2.BoxRect.sizeDelta = new Vector2(X, Y);
-                                }
-                            }
-                            //이전 메시지 초기화
-                            xMSG = elem;
-                            Debug.LogError("이후: " + xMSG.content);
-                        }
-                    }
-                    else
-                    {
-                        if (SampleGlobalData.G_User.id == elem.sender.id)
-                        {
-                            if (xMSG.created_at == elem.created_at)
-                            {
-                                //나_시간없음
-                                AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                                Area.transform.SetParent(ContentRect.transform, false);
-                                Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                                Area.TextRect.GetComponent<Text>().text = elem.content;
-
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 400;
-                                float Y = Area.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area.BoxRect.sizeDelta = new Vector2(X - i * 2, Area.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area.BoxRect);
-
-                                        if (Y != Area.TextRect.sizeDelta.y) { Area.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area.BoxRect.sizeDelta = new Vector2(X, Y);
-                            }
-                            else
-                            {
-                                //나_시간있음
-                                AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                                Area.transform.SetParent(ContentRect.transform, false);
-                                Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                                Area.TextRect.GetComponent<Text>().text = elem.content;
-                                Area.TimeText.text = elem.created_at;
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area.TextRect.sizeDelta.x + 400;
-                                float Y = Area.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area.BoxRect.sizeDelta = new Vector2(X - i * 2, Area.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area.BoxRect);
-
-                                        if (Y != Area.TextRect.sizeDelta.y) { Area.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area.BoxRect.sizeDelta = new Vector2(X, Y);
-                            }
-                        }
-                        else
-                        {
-                            if (xMSG.created_at == elem.created_at)
-                            {
-                                //타인_시간없음
-                                AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                                Area2.transform.SetParent(ContentRect.transform, false);
-                                Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                                Area2.TextRect.GetComponent<Text>().text = elem.content;
-                                Area2.UserText.text = elem.sender.name;
-
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 400;
-                                float Y = Area2.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area2.BoxRect.sizeDelta = new Vector2(X - i * 2, Area2.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area2.BoxRect);
-
-                                        if (Y != Area2.TextRect.sizeDelta.y) { Area2.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area2.BoxRect.sizeDelta = new Vector2(X, Y);
-                            }
-                            else
-                            {
-                                //타인_시간있음
-                                AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                                Area2.transform.SetParent(ContentRect.transform, false);
-                                Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                                Area2.TextRect.GetComponent<Text>().text = elem.content;
-                                Area2.UserText.text = elem.sender.name;
-                                Area2.TimeText.text = elem.created_at;
-
-                                //텍스트가 두줄 이상인 경우 처리
-                                float X = Area2.TextRect.sizeDelta.x + 400;
-                                float Y = Area2.TextRect.sizeDelta.y;
-                                if (Y > 700)
-                                {
-                                    for (int i = 0; i < 200; i++)
-                                    {
-                                        Area2.BoxRect.sizeDelta = new Vector2(X - i * 2, Area2.BoxRect.sizeDelta.y);
-                                        chatManager.Fit(Area2.BoxRect);
-
-                                        if (Y != Area2.TextRect.sizeDelta.y) { Area2.BoxRect.sizeDelta = new Vector2(X - (i * 2) + 2, Y); break; }
-                                    }
-                                }
-                                else Area2.BoxRect.sizeDelta = new Vector2(X, Y);
-                            }
-                        }
-                    }
-                }
-            });
-            yield return null;
-
-            yield return null;
-
-        }
-
+        
         public static int CountingNewMSG(string Channel_ID)
         {
             GameChat.getMessages(Channel_ID, 0, 1, "", "", "");
@@ -918,21 +563,9 @@ namespace GameChatSample
 
         public static string getLostTime(string openTime)
         {
-            //string cTime = GameChatSample.NewChatManager.CurChatInfo[2];//생성시간
-            //string cDay = GameChatSample.NewChatManager.CurChatInfo[3];//생성날짜
-            //string c = cDay + " " + cTime;
-            //string nTime = DateTime.Now.ToString("u").Substring(11, 8);//현재시간
-            //string nDay = DateTime.Now.ToString("u").Substring(0, 10);//현재날짜
-            //string n = nDay + " " + nTime;
-            //Debug.Log(cTime + "/" + cDay + "/" + nTime + "/" + nDay);
-            //Debug.Log(c+ "/" +n );
-            //Debug.Log(Convert.ToDateTime(n)+"/"+ Convert.ToDateTime(c));
-            //TimeSpan goTime = Convert.ToDateTime(n) - Convert.ToDateTime(c);
+            
             TimeSpan goTime = DateTime.Now-Convert.ToDateTime(openTime);
-            // Debug.Log(Convert.ToDateTime(openTime) + "////" + DateTime.Now);
-            //Debug.Log("고타임   "+goTime.ToString());
-            //Debug.Log("고타임데이  " + goTime.Days+"  고타임아워  " +goTime.Hours + "  고타임미닛  " + goTime.Minutes);
-
+            
             if (goTime.Days <= 0)
             {
                 if (goTime.Hours == 0)
