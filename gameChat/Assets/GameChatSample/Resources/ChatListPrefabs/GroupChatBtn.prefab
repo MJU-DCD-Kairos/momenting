@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9690c8bfcd47c419bb255a700a1bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 208
+  size: 224
   rt: {fileID: 0}
 --- !u!1 &8211848814328434812
 GameObject:
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9690c8bfcd47c419bb255a700a1bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 208
+  size: 224
   rt: {fileID: 0}
 --- !u!1 &8211848814667375194
 GameObject:
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9690c8bfcd47c419bb255a700a1bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 208
+  size: 224
   rt: {fileID: 0}
 --- !u!1 &8211848814826482959
 GameObject:
@@ -654,8 +654,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8.250575, y: -9.1673}
+  m_SizeDelta: {x: 16.50115, y: 18.3345}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8211848814826482995
 CanvasRenderer:
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9690c8bfcd47c419bb255a700a1bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 208
+  size: 224
   rt: {fileID: 0}
 --- !u!1 &8211848815578935242
 GameObject:
@@ -982,7 +982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: 0}
+  m_AnchoredPosition: {x: 68, y: 0}
   m_SizeDelta: {x: 448, y: 448}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &4398564910869643308
@@ -1133,7 +1133,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8608189255496444033}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -106.52399}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 8608189256052509487}
@@ -1287,8 +1287,9 @@ GameObject:
   - component: {fileID: 8608189255998010058}
   - component: {fileID: 8608189255998010059}
   - component: {fileID: 8608189255998010060}
+  - component: {fileID: 3263855476128947350}
   m_Layer: 5
-  m_Name: GroupChatBtn 1
+  m_Name: GroupChatBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1399,7 +1400,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8608189255998010059}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3263855476128947350}
+        m_TargetAssemblyTypeName: Prefebs.getGCID, Assembly-CSharp
+        m_MethodName: onclickNameReturn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3263855476128947350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8608189255998010062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73fb4ec280635b45ba1aea93358a628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8608189256052509472
 GameObject:
   m_ObjectHideFlags: 0
