@@ -368,7 +368,7 @@ namespace GameChatSample
                 return;
             //(채널, 메시지)
 
-            GameChat.sendMessage(NewChatManager.CList[0].id, msg);
+            GameChat.sendMessage(gameSceneManager.chatRID   , msg);
             
             InputSendMsg.text.Remove(0, InputSendMsg.text.Length);
             InputSendMsg.text = "";
@@ -521,7 +521,7 @@ namespace GameChatSample
 
         public void getChannelID()
         {
-            NewChatManager.getChannelID();
+            //NewChatManager.getChannelID();
         }
 
         #region Public_Interface

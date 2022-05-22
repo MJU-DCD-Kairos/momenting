@@ -19,6 +19,13 @@ public class gameSceneManager : MonoBehaviour
 
     public string creatChatCode;
 
+
+    //채팅리스트에서 채널 메시지 로드로 넘어갈 때 사용하는 채팅방 이름 및 채널 ID
+    public static string chatRname;
+    public static string chatRID;
+
+
+
     //GameObject TodayQ;
 
 
@@ -82,7 +89,7 @@ public class gameSceneManager : MonoBehaviour
     }
 
     //씬 네임으로 원하는 씬을 로드
-    void LoadScene(string name)
+    static void LoadScene(string name)
     {
         SceneManager.LoadScene(name);
     }
@@ -137,7 +144,7 @@ public class gameSceneManager : MonoBehaviour
 
     }
 
-    public void LoadScene_GroupChat()
+    public static void LoadScene_GroupChat()
     {
         LoadScene("SampleScene_Main");
     }

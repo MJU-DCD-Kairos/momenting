@@ -3,11 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using GameChatUnity;
+using AS;
+
 public class groupchatSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
     gameSceneManager gSM;
     public Button backToChatList;
+
+    public Text ThisCRoomNameTitle;
+    public RectTransform ContentRect;
+
+
+    //불러오려는 메시지가 마지막 메시지랑 같은지 판별하기 위한 전역변수 선언
+    public Message LastMSG;
+
+    //내 말풍선 상대 말풍선 가리기 참조 위한 선언
+    AreaScript LastArea;
+    public GameObject MyArea, ElseArea;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +32,12 @@ public class groupchatSceneManager : MonoBehaviour
 
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         backToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
+
+
+        //메시지를 로드하며 필요한 정보(채팅방 이름, 스크롤뷰 부모 개체 찾아옴)
+        ThisCRoomNameTitle.text = gameSceneManager.chatRname;
+
+        StartCoroutine("TestMSG", gameSceneManager.chatRID);
     }
     void update()
     {
@@ -33,4 +54,75 @@ public class groupchatSceneManager : MonoBehaviour
             }
         }
     }
+
+
+
+    //이전 메시지를 가져오는 함수
+    public IEnumerator TestMSG(string id)
+    {
+        //마지막 채팅을 받아옴
+        GameChat.getMessages(id, 0, 1, "", "", "", (List<Message> Messages, GameChatException Exception) =>
+        {
+
+            if (Exception != null)
+            {
+                // Error 핸들링
+                return;
+            }
+
+
+            foreach (Message elem in Messages)
+            {
+                LastMSG = elem;
+                Debug.Log(LastMSG.ToString());
+            }
+        });
+
+
+        GameChat.getMessages(id, 0, 200, "", "", "asc", (List<Message> Messages, GameChatException Exception) =>
+        {
+
+            if (Exception != null)
+            {
+                // Error 핸들링
+                return;
+            }
+
+            foreach (Message elem in Messages)
+            {
+                if (LastMSG.message_id != elem.message_id)
+                {
+                    Debug.LogError("@###@#@#@#@#@" + elem.content.ToString());
+                    if (GameChatSample.SampleGlobalData.G_User.id == elem.sender.id)
+                    {
+                        AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
+                        Area.transform.SetParent(ContentRect.transform, false);
+                        Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
+                        Area.TextRect.GetComponent<Text>().text = elem.content;
+                        Debug.Log(elem.content);
+                        Area.TimeText.text = elem.created_at;
+
+                    }
+                    else
+                    {
+                        AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
+                        Area2.transform.SetParent(ContentRect.transform, false);
+                        Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
+                        Area2.TextRect.GetComponent<Text>().text = elem.content;
+                        Area2.UserText.text = elem.sender.name;
+                        Area2.TimeText.text = elem.created_at;
+
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+        });
+        yield return null;
+    }
+
+
 }
