@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using GameChatSample;
 public class homeSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
@@ -11,11 +12,10 @@ public class homeSceneManager : MonoBehaviour
     public TextAsset csvFile;
 
     //매칭 화면에서 채팅으로 넘어가는 플로우 테스트용 타이머, 불변수 선언
-    bool isMatching = true;
+    //bool isMatching = true;
     // 타이머 코드를 위한 변수 선언
-    private float time_current = 5f;
-    private float time_Max = 5f;
-    private bool isEnded;
+    public float time_current = 5f;
+    private float time_Max = 60f;
     //매칭화면 활성화 여부 체크를 위한 오브젝트 참조
     public GameObject MatchingPage;
 
@@ -27,6 +27,9 @@ public class homeSceneManager : MonoBehaviour
     public Button ProfileBtn;
     public Button MailBox;
     public Button ChatList;
+    //public Button matchingBtn;
+
+    public bool startTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -55,67 +58,35 @@ public class homeSceneManager : MonoBehaviour
                 Application.Quit(); // 씬 종료 .(나가기)            위씬으로 이동이나 종료기능 둘중하나 원하시는것을 사용하시면 됩니다.
             }
         }
+
+        if(startTimer == true)
+        {
+            time_current = time_Max; //60초로 설정
+            Debug.Log("타이머 시작");
+            time_current -= Time.deltaTime; //60초 타이머 시작
+
+            if(NewChatManager.isMatchComplete == true) //매칭완료되면
+            {
+                time_current = 3f; //3초 대기
+                matchingScene(); 
+            }
+            else if(time_current ==0 && NewChatManager.isMatchComplete == false)//매칭 안된 상태로 60초 지났을 때
+            {
+                //매칭실패 DIALOG 띄워주기
+            }
+        }
     }
-
-
-
-
-
-
-
-
 
     //매칭 완료 시 채팅 플로우를 시작하는 씬을 로드하는 함수
     public void matchingScene()
     {
-        if(isMatching == true)
-        {
-            gSM.LoadScene_GroupChat();
-        }
-        else
-        {
-            Reset_Timer();
-            Check_Timer();
-        }
-        
+        startTimer = false;
+        gSM.LoadScene_GroupChat();
     }
 
-    // 타이머 코드
-    private void Check_Timer()
+    public void setTimer()
     {
-
-        if (0 < time_current)
-        {
-            time_current -= Time.deltaTime;
-            //Debug.Log(time_current);
-        }
-        else if (!isEnded)
-        {
-            End_Timer();
-        }
-
-
-    }
-
-    private void End_Timer()
-    {
-        Debug.Log("End");
-        time_current = 0;
-        //gSM.ReadCSV();
-   
-        //StartCoroutine(gSM.CreateChatRoom());
-       
-        //gSM.CreatChatCode();
-        
-        matchingScene();
-    }
-
-
-    private void Reset_Timer()
-    {
-        time_current = time_Max;
-        isEnded = false;
-        Debug.Log("Start");
+        startTimer = true;
     }
 
     //오늘의 질문 답변 시 다이얼로그 안뜸상태
