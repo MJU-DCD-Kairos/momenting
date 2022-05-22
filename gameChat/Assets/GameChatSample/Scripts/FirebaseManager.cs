@@ -18,6 +18,7 @@ namespace FireStoreScript {
         public InputField Age;//db 생성 테스트를 위한 아이디 인풋필드
         public InputField Sex;
         public InputField Token;
+        public InputField Introduction;
         public Dropdown SSex;
         public Dropdown AAge;
         public Dropdown MMonth;
@@ -31,6 +32,7 @@ namespace FireStoreScript {
         public GameObject ErrorIndi;
         public string GAdd;
 
+        public string myintroduction;
         public string token;
         public string myname;
         public string sex;
@@ -244,7 +246,7 @@ namespace FireStoreScript {
         public void makeUserInfoDB() //유저DB 생성 (userInfo)
         {
             myname = Name.text;
-            
+            myintroduction = Introduction.text;
             string sex2 = SSex.options[SSex.value].text;
             string age2 = AAge.options[AAge.value].text;
             string mon = MMonth.options[MMonth.value].text;
@@ -282,6 +284,7 @@ namespace FireStoreScript {
             GAdd = PlayerPrefs.GetString("GAddress");
             Dictionary<string, object> user = new Dictionary<string, object>
         {
+            { "Introduction", myintroduction},//한줄소개
             { "name", myname }, //닉네임
             { "age" , age  }, //나이
             { "sex", sex }, //성별
