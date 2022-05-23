@@ -80,7 +80,6 @@ namespace GameChatSample
         public int countMembers;
         public int fcount;
         public int mcount;
-        public static bool isMatchComplete = false;
         public ListenerRegistration listener;
         public ListenerRegistration listener2;
 
@@ -97,16 +96,20 @@ namespace GameChatSample
         public static string CREATETIME = "createTime";
         public static string OPENTIME = "openTime";
 
-        //스크립트 받아오기위한 타입 변수 선언
-        gameSceneManager gSM;
         // 타이머 코드를 위한 변수 선언
         public float time_current = 5f;
         public GameObject Dialog_Matching_ReMatching; //매칭실패시 띄우는 다이얼로그
 
+        //채팅방 정보 저장
+        public string channelID;
+
+        //채팅방 이름 더블체크
+        public static string nowChatName;
+        public static bool isDouble;
+
         // Start is called before the first frame update
         void Start()
         {
-            gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
             //don't destroy 처리
             DontDestroyOnLoad(this.gameObject);
 
@@ -116,7 +119,6 @@ namespace GameChatSample
             //도큐먼트 id초기화를 위한 과정// 필요함
             docID = "";
             countMembers = 0; //채팅방멤버수 초기화
-            isMatchComplete = false; //채팅완료여부 초기화
             fcount = 0; //여성멤버수 초기화
             mcount = 0; //남성멤버수 초기화
             
@@ -135,19 +137,6 @@ namespace GameChatSample
                 GetMSG();
             }
         }
-
-
-        public bool startTimer = false; //3초 타이머
-
-        public void setTimer()
-        {
-            if (isMatchComplete)
-            {
-                startTimer = true; //씬전환 시 매칭대기 페이지에 잠시 머물도록 하기 위해 필요
-            }
-            
-        }
-
 
         //채팅방 이름 랜덤생성 및 채팅방 생성 함수
         //채팅방 이름 중복체크 기능 추가 필요
@@ -168,11 +157,12 @@ namespace GameChatSample
             }
         }
 
-        public bool makeRoom = false;
-
         #region Matching
         public void matchingOn()
         {
+            fcount = 0;
+            mcount = 0;
+            countMembers = 0;
             CollectionReference roomRef = FirebaseManager.db.Collection(GAMECHAT_ROOM); //채팅룸 컬렉션 참조
             Query allroomRef = roomRef;
             allroomRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
@@ -180,38 +170,26 @@ namespace GameChatSample
                 QuerySnapshot allroomSnapshot = task.Result;
                 foreach (DocumentSnapshot doc in allroomSnapshot.Documents)
                 {
-                    docID = doc.Id;
-                    Debug.Log(docID);
-
                     Dictionary<string, object> docDictionary = doc.ToDictionary();
-                    //Debug.Log(docDictionary[MEMBER].GetType());
+                    docID = doc.Id; //채팅방이름 저장
+                    channelID = docDictionary[CHANNELID].ToString(); //채팅방아이디 저장
+
+                    gameSceneManager.chatRname = docID; //그룹챗 씬에서 로드할 채팅방 이름 저장
+                    gameSceneManager.chatRID = channelID; //그룹챗 씬에서 로드할 채널 ID 저장
 
                     List<object> memberList = (List<object>)docDictionary[MEMBER];
                     string open = docDictionary[ISOPEN].ToString();
-                    Debug.Log(open);
+                    Debug.Log(docID + open);
 
                     if (open == "False")
                     {
-                        fcount = 0;
-                        mcount = 0;
                         foreach (Dictionary<string, object> m in memberList)
                         {
-                            //Debug.Log(m[SEX]);
-
-                            if (m[SEX].ToString() == "1")
-                            {
-                                mcount++;
-                                
-                            }
-                            else
-                            {
-                                fcount++;
-                            }
-
+                            if (m[SEX].ToString() == "1") { mcount++; }
+                            else { fcount++; }
                         }
-                        Debug.Log("남성수: " + mcount + " 여성수: " + fcount);
-
-                        countMembers = fcount + mcount;
+                        countMembers = mcount + fcount;
+                        Debug.Log("기존 남성수 " + mcount + "+ 기존 여성수 " + fcount);
 
                         Dictionary<string, object> addUser = new Dictionary<string, object>
                 {
@@ -224,7 +202,7 @@ namespace GameChatSample
                             {
                                 roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
                                 fcount++;
-                                Debug.Log("여성수:"+fcount);
+                                Debug.Log("여성수:" + fcount);
                             }
 
                         }
@@ -237,40 +215,37 @@ namespace GameChatSample
                                 Debug.Log("남성수"+mcount);
                             }
                         }
-                        countMembers = fcount + mcount;
-                        Debug.Log("전체유저수" + countMembers);
+                        countMembers++;
+                        Debug.Log("업데이트된 전체유저수" + countMembers);
+                        string isopen = "";
+                        if (countMembers == 6) //내가 들어오고 유저수를 셌을 때 6명이면 채팅방 오픈/액티브를 트루로 바꿈
+                        {
+                            Debug.Log("6명 채워짐");
+                            //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
+                            roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
+                            roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
+                            roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
+                            isopen = "True";
+                        }
+
                         DocumentReference docRef = roomRef.Document(docID);
                         listener = docRef.Listen(snapshot =>
                         {
                             if (snapshot.Exists)
                             {
-                                
                                 Debug.Log("콜백");
-                                if (countMembers == 6)
+                                if (isopen == "True") //채팅방 오픈 값 트루이면
                                 {
-                                    Debug.Log("6명 채워짐");
-                                    //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
-                                    roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
-                                    roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
-                                    roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                                    
-                                    //StartCoroutine("CreateChatR"); //게임챗 채팅방 생성
-                                    //CallCreatCR();
                                     listener.Stop();
-                                    //isMatchComplete = true; //매칭여부 true
-                                    //setTimer();
-
                                     Invoke("showChatRoom", 5f);
                                 }
-
                             }
                             
                             else
                             {
-                                Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id)); //재매칭 시도해야됨
+                                Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id)); 
                                 listener.Stop();
-                                Dialog_Matching_ReMatching.SetActive(true);
-                                isMatchComplete = false; //매칭여부 false
+                                Dialog_Matching_ReMatching.SetActive(true); //매칭실패 다이얼로그
                             }
 
                         });
@@ -280,7 +255,9 @@ namespace GameChatSample
 
                 }
 
-                makeNewRoom();
+                //makeNewRoom();
+                Debug.Log("들어갈수 있는방 없음");
+                makeChatRoomName();
                 return;
             });
 
@@ -288,28 +265,21 @@ namespace GameChatSample
 
         void showChatRoom()
         {
-
-
             gameSceneManager.LoadScene_GroupChat();
-
 
         }
 
         void makeNewRoom() //채팅방 생성
         {
-            //StartCoroutine("Test");
             StartCoroutine("CreateChatR");
-            //CallCreatCR();
-            //CreateChatR();
-            //string channelID = "Asdfasd";
-            //docID = "앙";
-            
         }
         
         async void makeNewRoom2()
         {
-            string channelID = newChatRoom["ChannelID"].ToString(); //채팅방ID 저장 //현진처리
+            channelID = newChatRoom["ChannelID"].ToString(); //채팅방ID 저장
             docID = newChatRoom["ChannelName"].ToString(); //채팅방이름 저장
+            gameSceneManager.chatRname = docID;
+            gameSceneManager.chatRID = channelID;
             Dictionary<string, object> addUser = new Dictionary<string, object> //member에 추가할 유저정보
                 {
                     { NICKNAME , username },
@@ -335,26 +305,14 @@ namespace GameChatSample
             {
                 if (snapshot.Exists)
                 {
-                    Dictionary<string, object> docDictionary = snapshot.ToDictionary();
-                    List<object> memberList = (List<object>)docDictionary[MEMBER];
-
-                    foreach (Dictionary<string, object> m in memberList)
-                    {
-                        countMembers++;
-                    }
+                    Dictionary<string, object> doc = snapshot.ToDictionary();
+                    string isopen = doc[ISOPEN].ToString();
+                    Debug.Log(isopen);
                     Debug.Log("새로운 문서 업데이트");
-                    if (countMembers == 6)
+                    if (isopen == "True")
                     {
-                        Debug.Log("6명 채워짐");
-                        //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
-                        addmrRef.UpdateAsync(ISOPEN, true); //채팅방 열림
-                        addmrRef.UpdateAsync(ISACTIVE, true); //채팅방 활성화
-                        addmrRef.UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                        //CreateChatR();
-                        listener.Stop();
-                        isMatchComplete = true; //매칭여부 true로 바꿈
-                        setTimer();
-
+                        listener2.Stop();
+                        Invoke("showChatRoom", 5f);
                     }
                 }
                 else
@@ -363,7 +321,6 @@ namespace GameChatSample
                     listener2.Stop();
                     Dialog_Matching_ReMatching.SetActive(true);
                     newChatRoom.Clear();//채널id랑 채팅방이름 저장한 딕셔너리 초기화
-                    isMatchComplete = false; //매칭여부 false
                 }
 
             });
@@ -375,7 +332,7 @@ namespace GameChatSample
 
         //임의의 형용사 + 명사 7자 이하의 채팅방 이름 생성 함수
         //스트링 타입의 (adj + " " + noun)를 반환 "형용사 한칸띄고 명사"
-        public static string makeChatRoomName()
+        public async Task makeChatRoomName()
         {
             while (true)
             {
@@ -393,10 +350,48 @@ namespace GameChatSample
 
                 if (adjNum + nounNum + 1 < 8)
                 {
-                    Debug.Log(adj + " " + noun);
-                    return (adj + " " + noun);
+                    await CRdoubleCheck(adj + " " + noun);
+                    Debug.Log("함수 실행 후 ######" + isDouble.ToString());
+                    
+                    if (isDouble == false)
+                    {
+
+                        Debug.Log("이즈 더블 폴스임 "+adj + " " + noun);
+                        nowChatName = (adj + " " + noun);
+                        CallCreatCR();
+                        break;
+
+                    }
+                    else if(isDouble ==true)
+                    {
+                        Debug.Log("######같은 채팅방이름이라 다시 호출");
+                    }
+
+                    
                 }
             }
+
+
+        }
+
+        public static async Task CRdoubleCheck(string name)
+        {
+            DocumentReference docRef = FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(name);
+            await docRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            {
+                DocumentSnapshot snapshot = task.Result;
+                if (snapshot.Exists) 
+                {
+                    isDouble = true; //해당 이름이 이미 있음
+                    Debug.Log("채팅방 이름 이미 있음 : " + name);
+                    Debug.Log(isDouble.ToString());
+;               }
+                else
+                {
+                    isDouble = false;
+                    Debug.Log("채팅방 이름 없음");
+                }
+            });
         }
 
         public void CallCreatCR()
@@ -412,10 +407,11 @@ namespace GameChatSample
 
 
             WWWForm form = new WWWForm();
-            string name = makeChatRoomName();
+            //makeChatRoomName();
+            Debug.Log("####여기 이름있냐?####     " + nowChatName);
             //string projectID = "e3558324 - 2d64 - 47d0 - bd7a - 6fa362824bd7";
             //form.AddField("projectId", projectID);
-            form.AddField("name", name);
+            form.AddField("name", nowChatName);
 
 
             //웹 url 요청함 POST 요청
@@ -440,9 +436,9 @@ namespace GameChatSample
                 string result = www.downloadHandler.text.Substring(22, 36);
 
                 newChatRoom.Add("ChannelID", result);//채널 id
-                newChatRoom.Add("ChannelName", name);//채팅방이름
+                newChatRoom.Add("ChannelName", nowChatName);//채팅방이름
                 Debug.Log(result);
-                Debug.Log(name);
+                Debug.Log(nowChatName);
 
                 makeNewRoom2();
                 
