@@ -25,6 +25,7 @@ namespace GameChatSample
 
 
         PopupManager p_manager;
+        public Text username;
 
         #region LifeCycle
 
@@ -133,6 +134,11 @@ namespace GameChatSample
 
             p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_Input",
     "Update ProjectID", "변경할 프로젝트 아이디를 입력해주세요.", btn_info, input_info);
+        }
+
+        public void setNickName()
+        {
+            PlayerPrefs.SetString("nickName", username.text);
         }
     }
 }

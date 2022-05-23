@@ -74,7 +74,7 @@ namespace CLCM
         //DB "gameChatRoom" Collection에 접근해서 Document별 member의 nickName에 접근하여
         //유저 닉네임과 동일한 값이 있는 Document의 id, 채널id, openTime을 가져옴
         //가져온 채널id로 최근 메시지를 가져옴
-        public string testNickName = "현진";
+        public string userNickName = PlayerPrefs.GetString("nickName");
         public static List<string[]> gSlotList = new List<string[]>();
         public Dictionary<string, Text> gSlotMsgDict = new Dictionary<string, Text>();
         public string[] cInfoList;
@@ -99,7 +99,7 @@ namespace CLCM
                 List<object> memberList = (List<object>)docDictionary["member"];
                 foreach (Dictionary<string, object> m in memberList)
                 {
-                    if (m["nickName"].ToString() == testNickName)
+                    if (m["nickName"].ToString() == userNickName)
                     {
                         cInfoList = new string[3];
                         cInfoList[0] = docSnapShot.Id;
