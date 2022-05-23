@@ -136,9 +136,6 @@ namespace GameChatSample
     "Update ProjectID", "변경할 프로젝트 아이디를 입력해주세요.", btn_info, input_info);
         }
 
-        public void setNickName()
-        {
-            PlayerPrefs.SetString("nickName", username.text);
-        }
+        
     }
 }
