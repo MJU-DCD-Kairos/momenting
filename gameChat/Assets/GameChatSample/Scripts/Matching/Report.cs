@@ -47,7 +47,6 @@ public class Report : MonoBehaviour
         user3.text = groupchatSceneManager.chatRoom[4];
         user4.text = groupchatSceneManager.chatRoom[5];
         user5.text = groupchatSceneManager.chatRoom[6];
-
     }
     
     public void Report_SelectedUser()

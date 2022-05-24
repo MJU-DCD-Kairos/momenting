@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using GameChatUnity;
 using AS;
 using CM;
+using FireStoreScript;
+using Firebase.Firestore;
+using GameChatSample;
 
 namespace groupchatManager
 {

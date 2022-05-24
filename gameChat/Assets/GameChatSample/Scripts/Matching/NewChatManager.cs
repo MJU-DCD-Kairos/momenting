@@ -121,10 +121,10 @@ namespace GameChatSample
             countMembers = 0; //채팅방멤버수 초기화
             fcount = 0; //여성멤버수 초기화
             mcount = 0; //남성멤버수 초기화
-            
+
             //매칭 과정을 위한 테스트설정
-            username = "솔비";//유저 이름 임의설정
-            usersex = 2;//유저 성별 임의 설정
+            username = PlayerPrefs.GetString("GCN");
+            usersex = FirebaseManager.sex;
             Debug.Log("현재 로그인 유저 닉네임 : " + username);
             Debug.Log("현재 로그인 유저 성별 : " + usersex);
         }
