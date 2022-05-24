@@ -124,6 +124,7 @@ namespace GameChatSample
 
             //매칭 과정을 위한 테스트설정
             username = PlayerPrefs.GetString("GCName");
+            //username = "솔비";
             usersex = FirebaseManager.sex;
             Debug.Log("현재 로그인 유저 닉네임 : " + username);
             Debug.Log("현재 로그인 유저 성별 : " + usersex);

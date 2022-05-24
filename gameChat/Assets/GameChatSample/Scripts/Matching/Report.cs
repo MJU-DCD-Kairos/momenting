@@ -37,7 +37,7 @@ public class Report : MonoBehaviour
     {
         if (instance == null) instance = this;
         else if (instance != null) return;
-        getUserList();
+        Invoke("getUserList",3f);
     }
 
     public void getUserList()
