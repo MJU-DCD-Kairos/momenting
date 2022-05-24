@@ -51,6 +51,17 @@ namespace FireStoreScript {
         public bool isActive;
         public bool isInMatchingDB;
 
+
+        //키워드를 저장하기 위한 선언부
+        //키워드 카테고리별 리스트
+        public List<string> tendencyKW = new List<string>();
+        public List<string> interestKW = new List<string>();
+        public List<string> lifestyleKW = new List<string>();
+
+        //리스트를 색상 핵사코드값으로 저장할 딕셔너리 생성
+        public Dictionary<string, List<string>> KWdict = new Dictionary<string, List<string>>();
+
+
         public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate}
 
         public void Awake()
@@ -256,6 +267,61 @@ namespace FireStoreScript {
 
 
 
+        //리스트에 저장된 선택 키워드를 카테고리 구분하여 리스트에 넣음
+        public void KWcategory()
+        {
+            for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+            {
+                if (getKeywordList.saveKWlist[i] == "상큼발랄" ||
+                    getKeywordList.saveKWlist[i] == "32차원" ||
+                    getKeywordList.saveKWlist[i] == "긍정맨" ||
+                    getKeywordList.saveKWlist[i] == "핵인싸" ||
+                    getKeywordList.saveKWlist[i] == "일잘러" ||
+                    getKeywordList.saveKWlist[i] == "잠만보" ||
+                    getKeywordList.saveKWlist[i] == "감성충만" ||
+                    getKeywordList.saveKWlist[i] == "센스쟁이" ||
+                    getKeywordList.saveKWlist[i] == "분위기메이커" ||
+                    getKeywordList.saveKWlist[i] == "수다쟁이" ||
+                    getKeywordList.saveKWlist[i] == "과제마스터" ||
+                    getKeywordList.saveKWlist[i] == "유머러스" ||
+                    getKeywordList.saveKWlist[i] == "박학다식" ||
+                    getKeywordList.saveKWlist[i] == "인싸중에아싸" ||
+                    getKeywordList.saveKWlist[i] == "아싸중에인싸")
+                {
+                    //성향 카테고리 #ff8550
+                    tendencyKW.Add(getKeywordList.saveKWlist[i]);
+                }
+                else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
+                    getKeywordList.saveKWlist[i] == "저녁형" ||
+                    getKeywordList.saveKWlist[i] == "올빼미형" ||
+                    getKeywordList.saveKWlist[i] == "프로집콕러" ||
+                    getKeywordList.saveKWlist[i] == "프로외출러" ||
+                    getKeywordList.saveKWlist[i] == "밥보다 잠" ||
+                    getKeywordList.saveKWlist[i] == "하루다섯끼" ||
+                    getKeywordList.saveKWlist[i] == "워라밸" ||
+                    getKeywordList.saveKWlist[i] == "워커홀릭" ||
+                    getKeywordList.saveKWlist[i] == "벼락치기"
+                    )
+                {
+                    //관심 카테고리 #7043c0
+                    interestKW.Add(getKeywordList.saveKWlist[i]);
+                }
+                else
+                {
+                    //생활패턴 카테고리 #001130
+                    lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+                }
+            }
+            //for문 종료 후 해당 리스트들을 dict에 저장
+            KWdict.Add("#ff8550", tendencyKW);
+            KWdict.Add("#7043c0", interestKW);
+            KWdict.Add("#001130", lifestyleKW);
+        }
+
+
+
+
+
         public void makeUserData() //새로운유저 DB 생성
         {
             if (Name.text.Trim() != "" && Name.text.Trim() == "")
@@ -336,8 +402,9 @@ namespace FireStoreScript {
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             //{"token", token }, //토큰
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
-            { "GmailAddress", GAdd}
-            
+            { "GmailAddress", GAdd},
+            { "keyWord", KWdict }//키워드 딕셔너리 저장
+
         };
             db.Collection("userInfo").Document(myname).SetAsync(user);
 
