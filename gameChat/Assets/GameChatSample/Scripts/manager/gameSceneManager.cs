@@ -104,6 +104,7 @@ public class gameSceneManager : MonoBehaviour
     public void LoadScene_Home()
     {
         LoadScene("Home");
+        PlayerPrefs.SetString("GCName", "hj");
     }
 
     //Ãª¸®½ºÆ® ¾À È£Ãâ

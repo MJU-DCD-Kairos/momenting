@@ -74,7 +74,7 @@ namespace CLCM
         //DB "gameChatRoom" Collection에 접근해서 Document별 member의 nickName에 접근하여
         //유저 닉네임과 동일한 값이 있는 Document의 id, 채널id, openTime을 가져옴
         //가져온 채널id로 최근 메시지를 가져옴
-        public string userNickName = "현진"; //앱이 시작할 때, 유저 정보를 로드하는 과정을 마친 후 그 변수를 사용해야함.
+        public string userNickName = PlayerPrefs.GetString("GCN"); //앱이 시작할 때, 유저 정보를 로드하는 과정을 마친 후 그 변수를 사용해야함.
         public static List<string[]> gSlotList = new List<string[]>();
         public Dictionary<string, Text> gSlotMsgDict = new Dictionary<string, Text>();
         public string[] cInfoList;
