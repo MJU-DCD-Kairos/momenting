@@ -139,42 +139,42 @@ namespace GameChatSample
 
         
         //원하는 채널을 가져옴
-        public Channel ChannelGet()
-        {
-            //해당하는 채널id를 서버에서 받아와 호출하는 과정이 필요
-            string CHANNEL_ID=gSM.CreatChatCode();
-            if (null != CHANNEL_ID) 
-            {
-                //string CHANNEL_ID = gSM.creatChatCode;
-                GameChat.getChannel(CHANNEL_ID, (Channel Channel, GameChatException Exception) => {
+        //public Channel ChannelGet()
+        //{
+        //    //해당하는 채널id를 서버에서 받아와 호출하는 과정이 필요
+        //    string CHANNEL_ID=gSM.CreatChatCode();
+        //    if (null != CHANNEL_ID) 
+        //    {
+        //        //string CHANNEL_ID = gSM.creatChatCode;
+        //        GameChat.getChannel(CHANNEL_ID, (Channel Channel, GameChatException Exception) => {
 
-                    if (Exception != null)
-                    {
-                        Debug.Log("겟채널에러");
-                        // Error 핸들링
-                        return;
-                    }
+        //            if (Exception != null)
+        //            {
+        //                Debug.Log("겟채널에러");
+        //                // Error 핸들링
+        //                return;
+        //            }
 
-                    if (null != gSM.creatChatCode)
-                    {
-                        //handling channelInfo instance
-                        Debug.Log("겟채널성공");
-                        getC = Channel;
-                        Debug.Log(Channel.name);
-                        Debug.Log(Channel.data);
-                    }
+        //            if (null != gSM.creatChatCode)
+        //            {
+        //                //handling channelInfo instance
+        //                Debug.Log("겟채널성공");
+        //                getC = Channel;
+        //                Debug.Log(Channel.name);
+        //                Debug.Log(Channel.data);
+        //            }
 
-                    return;
-                });
+        //            return;
+        //        });
 
-            }
-            else
-            {
-                Debug.Log("리스트에서 받아온 값 없음");
-            }
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("리스트에서 받아온 값 없음");
+        //    }
 
-            return getC;
-        }
+        //    return getC;
+        //}
         
 
 
