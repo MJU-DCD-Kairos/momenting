@@ -25,7 +25,9 @@ namespace SUCM
         gameSceneManager gSM;
         GoogleSignInDemo GSD;
         public Button GoToHome;
-        
+        public GameObject KWpassBtn;
+
+
         //public GameObject[] Interests;
         //public GameObject[] Lifestyle;
 
@@ -35,6 +37,7 @@ namespace SUCM
 
         //선택된 키워드 개수 노출
         public Text IndicatorNum;
+        
 
 
         // Start is called before the first frame update
@@ -64,6 +67,21 @@ namespace SUCM
         public void getKWnum()
         {
             IndicatorNum.text = getKeywordList.KWcheckCount + "/" + "5";
+        }
+
+        public void setKWBtn()
+        {
+            if (getKeywordList.KWcheckCount > 1)
+            {
+                // 선택한 키워드 개수가 1개 이상이면 계속버튼 활성화
+                KWpassBtn.SetActive(true);
+            }
+            else
+            {
+                // 선택한 키워드 개수가 1개 미만이면 계속버튼 비활성화
+                KWpassBtn.SetActive(false);
+            }
+                
         }
         
         
