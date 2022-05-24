@@ -403,14 +403,42 @@ namespace FireStoreScript {
             //{"token", token }, //토큰
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd},
-            { "keyWord", KWdict }//키워드 딕셔너리 저장
-
+            {"keyWord", null }
         };
+
             db.Collection("userInfo").Document(myname).SetAsync(user);
+
+
+            //성향 딕셔너리 생성
+            Dictionary<string, object> KWdictArray1 = new Dictionary<string, object> {
+                { "", null}
+
+                };
+            //관심사 딕셔너리 생성
+            Dictionary<string, object> KWdictArray2 = new Dictionary<string, object> {
+                { "", null}
+
+                };
+            //라이프스타일 딕셔너리 생성
+            Dictionary<string, object> KWdictArray3 = new Dictionary<string, object> {
+                { "", null}
+            };
+
+
+            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
+                { "#ff8550", KWdictArray1},
+                { "#7043c0", KWdictArray2},
+                { "#001130", KWdictArray3}
+
+                };
+            
+            db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion( KWdictForFS));
 
             Dictionary<string, object> user2 = new Dictionary<string, object> {
             { "name", myname}
                 };
+
+            
             db.Collection("report").Document(myname).SetAsync(user2);
             PlayerPrefs.SetString("GCName", myname);
 
