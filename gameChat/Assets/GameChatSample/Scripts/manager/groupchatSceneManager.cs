@@ -5,12 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GameChatUnity;
 using AS;
+using CM;
 
 public class groupchatSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
     gameSceneManager gSM;
+    [SerializeField]
+    ChatManager chatManager;
+
     public Button backToChatList;
+
 
     public Text ThisCRoomNameTitle;
     public RectTransform ContentRect;
@@ -30,14 +35,18 @@ public class groupchatSceneManager : MonoBehaviour
         //don't destroy로 살려서 넘어온 게임씬매니저의 스크립트를 변수에 담음
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
 
+
         //버튼에 gSM의 로드씬 함수 리스너를 추가함
         backToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
-
+        
+        //해당 채널을 벗어날 때, 구독해제
+        //backToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
 
         //메시지를 로드하며 필요한 정보(채팅방 이름, 스크롤뷰 부모 개체 찾아옴)
         ThisCRoomNameTitle.text = gameSceneManager.chatRname;
 
         StartCoroutine("TestMSG", gameSceneManager.chatRID);
+
         Invoke("ScrollDown", 1f);
     }
     void update()
@@ -56,7 +65,7 @@ public class groupchatSceneManager : MonoBehaviour
         }
     }
 
-    void ScrollDown() => scrollBar.value = -3;
+    void ScrollDown() => scrollBar.value = 0;
 
     //이전 메시지를 가져오는 함수
     public IEnumerator TestMSG(string id)
@@ -91,55 +100,59 @@ public class groupchatSceneManager : MonoBehaviour
 
             foreach (Message elem in Messages)
             {
-                if (LastMSG.message_id != elem.message_id)
+                //if (LastMSG.message_id != elem.message_id)
                 {
-                    Debug.LogError("@###@#@#@#@#@" + elem.content.ToString());
+                    //Debug.LogError("@###@#@#@#@#@" + elem.content.ToString());
                     if (GameChatSample.SampleGlobalData.G_User.id == elem.sender.id)
                     {
-                        AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                        Area.transform.SetParent(ContentRect.transform, false);
-                        Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                        Area.TextRect.GetComponent<Text>().text = elem.content;
-                        Debug.Log(elem.content);
-                        Area.TimeText.text = elem.created_at;
+                        chatManager.Chat(true, elem.content, "나", elem.created_at, null);
+                        //Chat(bool isSend, string text, string user, Texture2D picture)
+
+                        //AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
+                        //Area.transform.SetParent(ContentRect.transform, false);
+                        //Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
+                        //Area.TextRect.GetComponent<Text>().text = elem.content;
+                        ////Debug.Log(elem.content);
+                        //Area.TimeText.text = elem.created_at;
 
                     }
                     else
                     {
-                        AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                        Area2.transform.SetParent(ContentRect.transform, false);
-                        Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                        Area2.TextRect.GetComponent<Text>().text = elem.content;
-                        Area2.UserText.text = elem.sender.name;
-                        Area2.TimeText.text = elem.created_at;
+                        chatManager.Chat(false, elem.content, elem.sender.name, elem.created_at, null);
+                        //AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
+                        //Area2.transform.SetParent(ContentRect.transform, false);
+                        //Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
+                        //Area2.TextRect.GetComponent<Text>().text = elem.content;
+                        //Area2.UserText.text = elem.sender.name;
+                        //Area2.TimeText.text = elem.created_at;
 
                     }
 
                 }
-                else
-                {
-                    if (GameChatSample.SampleGlobalData.G_User.id == elem.sender.id)
-                    {
-                        AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
-                        Area.transform.SetParent(ContentRect.transform, false);
-                        Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
-                        Area.TextRect.GetComponent<Text>().text = elem.content;
-                        Debug.Log(elem.content);
-                        Area.TimeText.text = elem.created_at;
+                //else
+                //{
+                //    if (GameChatSample.SampleGlobalData.G_User.id == elem.sender.id)
+                //    {
+                //        AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
+                //        Area.transform.SetParent(ContentRect.transform, false);
+                //        Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
+                //        Area.TextRect.GetComponent<Text>().text = elem.content;
+                //        Debug.Log(elem.content);
+                //        Area.TimeText.text = elem.created_at;
 
-                    }
-                    else
-                    {
-                        AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
-                        Area2.transform.SetParent(ContentRect.transform, false);
-                        Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
-                        Area2.TextRect.GetComponent<Text>().text = elem.content;
-                        Area2.UserText.text = elem.sender.name;
-                        Area2.TimeText.text = elem.created_at;
+                //    }
+                //    else
+                //    {
+                //        AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
+                //        Area2.transform.SetParent(ContentRect.transform, false);
+                //        Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
+                //        Area2.TextRect.GetComponent<Text>().text = elem.content;
+                //        Area2.UserText.text = elem.sender.name;
+                //        Area2.TimeText.text = elem.created_at;
 
-                    }
-                    break;
-                }
+                //    }
+                //    break;
+                //}
             }
         });
         yield return null;

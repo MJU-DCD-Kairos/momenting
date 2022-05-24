@@ -15,6 +15,10 @@ public class homeSceneManager : MonoBehaviour
     //매칭화면 활성화 여부 체크를 위한 오브젝트 참조
     public GameObject MatchingPage;
 
+    //가입승인 여부
+    public GameObject ispasscan;
+    public GameObject HomeCan;
+
     gameSceneManager gSM;
     FirebaseManager FbM;
     
@@ -41,7 +45,17 @@ public class homeSceneManager : MonoBehaviour
         MailBox.onClick.AddListener(gSM.LoadScene_MailBox);
         ChatList.onClick.AddListener(gSM.LoadScene_ChatList);
         //FirebaseManager.LoadData();
-
+        if(FirebaseManager.ispass == "false")
+        {
+            ispasscan.SetActive(true);
+            HomeCan.SetActive(false);
+        }
+        else
+        {
+            ispasscan.SetActive(false);
+            HomeCan.SetActive(true);
+        }
+      
 
     }
 

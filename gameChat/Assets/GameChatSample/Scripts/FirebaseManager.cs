@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityEngine;
 using Firebase;
 using Firebase.Firestore;
@@ -7,6 +9,7 @@ using UnityEngine.UI;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+
 
 
 namespace FireStoreScript {
@@ -30,16 +33,21 @@ namespace FireStoreScript {
         public GameObject DoubleEnBtn;
         public GameObject NextBtn;
         public GameObject ErrorIndi;
+        public GameObject thiss;
         public string GAdd;
 
-        public string myintroduction;
+        [Header("Get User Data")]
+        public static string GCN;
+        public static string myintroduction;
         public string token;
         public static string myname;
         public static int sex;
-        public string age;
+        public static string age;
         public string mbti;
+        public static string ispass;
         public int mannerLevel;
-        public bool ispass;
+
+
         public bool isActive;
         public bool isInMatchingDB;
 
@@ -51,10 +59,22 @@ namespace FireStoreScript {
             DontDestroyOnLoad(this.gameObject);
 
         }
-
-        public void Start()
+        public void OnEnable()
         {
 
+            
+
+        }
+        public void SetActivee()
+        {
+            thiss.SetActive(true);
+            
+        }
+        public void Start()
+        {
+            
+            GCN = "";
+            GCN = PlayerPrefs.GetString("GCName");
             //isMatchToken(); //토큰 정보 있는지 확인
             //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
             //Debug.Log("유저성별 : " + PlayerPrefs.GetString("sex"));
@@ -72,7 +92,7 @@ namespace FireStoreScript {
                     Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
                 }
             });
-
+            Invoke("LoadData", 0.3f);
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -114,29 +134,34 @@ namespace FireStoreScript {
             //await isMatchToken();
         }
 
-        public static async Task LoadData() //파이어스토어DB에서 유저정보 불러오는 함수
+        public async Task LoadData() //파이어스토어DB에서 유저정보 불러오는 함수
         {
-            Query userRef = db.Collection("userInfo").WhereEqualTo("name", myname); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
+            Query userRef = db.Collection("userInfo").WhereEqualTo("name", GCN); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
 
             if (userRef != null) //유저 정보가 있으면
             {
+                Debug.Log("유저가있다");
                 await userRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
                 {
                     QuerySnapshot snapshot = task.Result;
                     foreach (DocumentSnapshot doc in snapshot.Documents)
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
-                        myname = docDictionary["name"] as string;
-                       // sex = docDictionary["sex"] as int;
-                    //age = int.Parse(docDictionary["age"] as string);
-                    //mbti = docDictionary["mbti"] as string;
-                    //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
-                    Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
+                        ispass = docDictionary["ispass"] as string;
+                        sex = int.Parse(docDictionary["sex"].ToString());
+                        age = docDictionary["age"] as string;
+                        myintroduction = docDictionary["Introduction"] as string;
+                        //mbti = docDictionary["mbti"] as string;
+                        //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
+                        Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
                     //token = docDictionary["token"] as string;
                     //return;
                 }
-                    Debug.Log("닉네임 : " + myname);
+                    Debug.Log("닉네임 : " + GCN);
+                    Debug.Log("ispass :"+ ispass);
                     Debug.Log("성별 : " + sex);
+                    Debug.Log("나이 : " + age);
+                    Debug.Log("한줄소개 : " + myintroduction);
                 });
 
             }
@@ -270,7 +295,7 @@ namespace FireStoreScript {
             
             age = age2;
             //token = Token.text;
-            ispass = true;
+            ispass = "false";
             //isActive = false;
 
             //연령 구하기
@@ -409,29 +434,8 @@ namespace FireStoreScript {
         }
         */
 
-        public string passString;
-        public async Task LoadData_ispass() //파이어스토어DB에서 유저정보 불러오는 함수
-        {
-            Query pass = db.Collection("userInfo").WhereEqualTo("ispass", passString); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
-            QuerySnapshot snapshot = await pass.GetSnapshotAsync();
-            foreach (DocumentSnapshot doc in snapshot.Documents)
-            {
-                Dictionary<string, object> docDictionary = doc.ToDictionary();
 
-                passString = docDictionary["ispass"] as string;
-
-                if ("true" == passString)
-
-                {
-                    ispass = true;
-                }
-                else
-                {
-                    ispass = false;
-                }
-            }
-
-        }
+       
 
         public static bool isCheckedCRname = false;
         public static async Task<bool> CRnameDoubleCheck(object name)

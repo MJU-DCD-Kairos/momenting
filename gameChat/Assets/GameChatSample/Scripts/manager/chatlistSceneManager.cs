@@ -169,7 +169,7 @@ namespace CLCM
                     gameSceneManager.chatRID = gSlotList[i][2];
                     Debug.Log("#################전달ID ::" + gSlotList[i][2]);
                     gameSceneManager.chatRname = gSlotList[i][0];
-                    Debug.Log("#################전달ID ::" + gSlotList[i][0]);
+                    Debug.Log("#################전달채팅방이름 ::" + gSlotList[i][0]);
 
                 }
             }

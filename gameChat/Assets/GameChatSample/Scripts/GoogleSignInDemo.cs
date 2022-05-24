@@ -17,7 +17,7 @@ public class GoogleSignInDemo : MonoBehaviour
 {
     //public static FirebaseFirestore db;
     public string GAA = null;
-    public Text infoText;
+    //public Text infoText;
     public string webClientId = "793745035944-glhfup1hj1am1qk1f9cql7i05mtg573t.apps.googleusercontent.com";
     private FirebaseAuth auth;
     private GoogleSignInConfiguration configuration;
@@ -82,13 +82,13 @@ public class GoogleSignInDemo : MonoBehaviour
             GoogleSignIn.Configuration = configuration;
             GoogleSignIn.Configuration.UseGameSignIn = false;
             GoogleSignIn.Configuration.RequestIdToken = true;
-            AddToInformation("Calling SignIn");
+            //AddToInformation("Calling SignIn");
 
             GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
         }
         else
         {
-            AddToInformation("이미 로그인 중입니다.");
+            //AddToInformation("이미 로그인 중입니다.");
             SceneManager.LoadScene("Home");
         }
     }
@@ -104,7 +104,7 @@ public class GoogleSignInDemo : MonoBehaviour
 
     public void OnDisconnect()
     {
-        AddToInformation("Calling Disconnect");
+        //AddToInformation("Calling Disconnect");
         GoogleSignIn.DefaultInstance.Disconnect();
     }
 
@@ -117,17 +117,17 @@ public class GoogleSignInDemo : MonoBehaviour
                 if (enumerator.MoveNext())
                 {
                     GoogleSignIn.SignInException error = (GoogleSignIn.SignInException)enumerator.Current;
-                    AddToInformation("Got Error: " + error.Status + " " + error.Message);
+                    //AddToInformation("Got Error: " + error.Status + " " + error.Message);
                 }
                 else
                 {
-                    AddToInformation("Got Unexpected Exception?!?" + task.Exception);
+                    //AddToInformation("Got Unexpected Exception?!?" + task.Exception);
                 }
             }
         }
         else if (task.IsCanceled)
         {
-            AddToInformation("Canceled");
+            //AddToInformation("Canceled");
         }
         else
         {
@@ -135,12 +135,12 @@ public class GoogleSignInDemo : MonoBehaviour
             GmailAddress = task.Result.Email.Replace(".","");
             
             PlayerPrefs.SetString("GAddress", GmailAddress);
-            AddToInformation(GmailAddress);
-            AddToInformation("Welcome: " + task.Result.DisplayName + "!");
-            AddToInformation("Email = " + task.Result.Email);
-            AddToInformation("" + task.Result.IdToken.Length);
+           // AddToInformation(GmailAddress);
+            //AddToInformation("Welcome: " + task.Result.DisplayName + "!");
+            //AddToInformation("Email = " + task.Result.Email);
+            //AddToInformation("" + task.Result.IdToken.Length);
             //AddToInformation("Google ID Token = " + task.Result.IdToken);
-            AddToInformation("Email = " + task.Result.Email);
+            //AddToInformation("Email = " + task.Result.Email);
             SignInWithGoogleOnFirebase(task.Result.IdToken);
 
             
@@ -166,11 +166,12 @@ public class GoogleSignInDemo : MonoBehaviour
             if (ex != null)
             {
                 if (ex.InnerExceptions[0] is FirebaseException inner && (inner.ErrorCode != 0))
-                    AddToInformation("\nError code = " + inner.ErrorCode + " Message = " + inner.Message);
+                    Debug.Log("");
+                    //AddToInformation("\nError code = " + inner.ErrorCode + " Message = " + inner.Message);
             }
             else
             {
-                AddToInformation("Sign In Successful.");
+                //AddToInformation("Sign In Successful.");
 
         //        Dictionary<string, object> Gml = new Dictionary<string, object>
         //{
@@ -181,7 +182,7 @@ public class GoogleSignInDemo : MonoBehaviour
         //        AddToInformation("아무거나");
         //        db.Collection("userInfo").Document(GmailAddress).SetAsync(Gml);
                 LCheck = false;
-                AddToInformation("실행후");
+                //AddToInformation("실행후");
                 SceneManager.LoadScene("SignUp");
             }
         });
@@ -192,7 +193,7 @@ public class GoogleSignInDemo : MonoBehaviour
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
         GoogleSignIn.Configuration.RequestIdToken = true;
-        AddToInformation("Calling SignIn Silently");
+       // AddToInformation("Calling SignIn Silently");
 
         GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(OnAuthenticationFinished);
     }
@@ -203,7 +204,7 @@ public class GoogleSignInDemo : MonoBehaviour
         GoogleSignIn.Configuration.UseGameSignIn = true;
         GoogleSignIn.Configuration.RequestIdToken = false;
 
-        AddToInformation("Calling Games SignIn");
+        //AddToInformation("Calling Games SignIn");
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(OnAuthenticationFinished);
     }
@@ -213,5 +214,5 @@ public class GoogleSignInDemo : MonoBehaviour
 
 
     }
-    private void AddToInformation(string str) { infoText.text += "\n" + str; }
+    //private void AddToInformation(string str) { infoText.text += "\n" + str; }
 }

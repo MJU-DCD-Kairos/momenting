@@ -13038,7 +13038,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1095553723
 LightingSettings:
@@ -13679,6 +13679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88436ff9e07dcb40ba7650be368d050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chatManager: {fileID: 241223200}
   backToChatList: {fileID: 1626510645}
   ThisCRoomNameTitle: {fileID: 1391631036}
   ContentRect: {fileID: 266884326}
@@ -16269,7 +16270,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7b9e1bee06e8c4a44a5e97b016d8e0e8, type: 3}
+    m_Font: {fileID: 12800000, guid: b6c1f6f9ae86a0145bd4256c1d10acc1, type: 3}
     m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
@@ -19654,7 +19655,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1675765545
 GameObject:
@@ -20357,6 +20358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8853d795ae1a04c8b6615d22432acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chatManager: {fileID: 241223200}
   getC:
     rawJson: 
     id: 
@@ -20391,7 +20393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1823009513
 GameObject:
@@ -25086,7 +25088,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2292091907897467164
 GameObject:

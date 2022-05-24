@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using FireStoreScript;
+using System.Text;
+using System;
 
 public class myprofileSceneManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class myprofileSceneManager : MonoBehaviour
     public Button goToTest;
     public string GCN;
     public Text txtName;
+    public Text txtAge;
+    public Text txtIntro;
+    public Text txtSex;
 
 
 
@@ -38,6 +43,18 @@ public class myprofileSceneManager : MonoBehaviour
 
         //프로필 이름 받아오기   
         txtName.text = GCN;
+        txtAge.text = FirebaseManager.age;
+        txtIntro.text = FirebaseManager.myintroduction;
+        if(FirebaseManager.sex == 1)
+        {
+            txtSex.text = "남";
+        }
+        else
+        {
+            txtSex.text = "여";
+        }
+        
+        
     }
 
     // Update is called once per frame

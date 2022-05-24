@@ -7,6 +7,7 @@ using GameChatUnity;
 using GameChatUnity.SimpleJSON;
 using GameChatUnity.SocketIO;
 using CM;
+using FireStoreScript;
 // using GameChatUnity.Extension;
 
 namespace GameChatSample
@@ -15,6 +16,7 @@ namespace GameChatSample
     {
         //채팅 내용을 불러오기 위한 new chat manager선언
         NewChatManager newChatManager;
+        [SerializeField]
         ChatManager chatManager;
 
         gameSceneManager gSM;
@@ -82,26 +84,29 @@ namespace GameChatSample
         private void OnEnable()
         {
             Debug.Log("[OnEnable] MainScene");
-            GameChat.dispatcher.onConnected += onConnected;
             GameChat.dispatcher.onDisconnected += onDisconnected;
             GameChat.dispatcher.onErrorReceived += onErrorReceived;
             GameChat.dispatcher.onMessageReceived += onMessageReceived;
+            Debug.LogError(gameSceneManager.chatRID);
+            GameChat.subscribe(gameSceneManager.chatRID);
         }
 
         private void OnDisable()
         {
             Debug.Log("[OnDisable] MainScene");
-            GameChat.dispatcher.onConnected -= onConnected;
             GameChat.dispatcher.onDisconnected -= onDisconnected;
             GameChat.dispatcher.onErrorReceived -= onErrorReceived;
             GameChat.dispatcher.onMessageReceived -= onMessageReceived;
+            GameChat.unsubscribe(gameSceneManager.chatRID);
         }
 
         private void Start()
         {
+            //DontDestroyOnLoad(this.gameObject);
+
             gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
             newChatManager = GameObject.Find("HomeSceneManager").GetComponent<NewChatManager>();
-            chatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+            //chatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
 
             stringBuilder.Clear();
 
@@ -234,19 +239,23 @@ namespace GameChatSample
 
         #region Chatting EventListener
 
-        private void onConnected(string message)
-        {
-            Debug.Log("######메시지 dasfadfadfasfadfa");
-            PrintChatMessage(Color.blue, "[ 소켓서버와 연결되었습니다. ]");
-        }
-
         private void onMessageReceived(Message message)
         {
             Debug.Log("######메시지 받음");
-            if (message.sender.id == UserId.text)
+            Debug.LogError("########챗매니저"+chatManager);
+            Debug.LogError("########메세지" + message);
+
+
+            if (message.sender.id == FirebaseManager.GCN)
+            {
+                Debug.LogError("########메세지" + message);
                 PrintChatMessage(Color.green, message);
+            }
             else
-                chatManager.Chat(false, message.content, message.sender.id , null);
+            {
+                Debug.LogError("########메세지센더" + message.sender);
+                chatManager.Chat(false, message.content, message.sender.id, "", null);
+            }
         }
 
         private void onDisconnected(string message)
@@ -353,7 +362,7 @@ namespace GameChatSample
         public void ClickBtnSendMessage()
         {
             //ClearTranslateMessage();
-            chatManager.Chat(true, messageInput.text, "나", null);
+            chatManager.Chat(true, messageInput.text, "나", "", null);
             
             string msg = InputSendMsg.text;
 
@@ -361,7 +370,7 @@ namespace GameChatSample
                 return;
             //(채널, 메시지)
 
-            GameChat.sendMessage(gameSceneManager.chatRID   , msg);
+            GameChat.sendMessage(gameSceneManager.chatRID, msg);
             
             InputSendMsg.text.Remove(0, InputSendMsg.text.Length);
             InputSendMsg.text = "";

@@ -103,8 +103,8 @@ namespace CM{
         }
         public void ReceiveMessage(string text)
         {
-            if (MineToggle.isOn) Chat(true, text, "나", null);
-            else Chat(false, text, "타인", null);
+            if (MineToggle.isOn) Chat(true, text, "나", "", null);
+            else Chat(false, text, "타인", "", null);
         }
 
 
@@ -224,7 +224,7 @@ namespace CM{
 
 
 
-        public void Chat(bool isSend, string text, string user, Texture2D picture)
+        public void Chat(bool isSend, string text, string user,string time, Texture2D picture)
         {
             if (text.Trim() == "") return;
 
@@ -265,19 +265,24 @@ namespace CM{
             }
             else Area.BoxRect.sizeDelta = new Vector2(X, Y);
 
-
-            // 현재 것에 분까지 나오는 날짜와 유저이름 대입
-            DateTime t = DateTime.Now;
-            Area.Time = t.ToString("yyyy-MM-dd-HH-mm");
             Area.User = user;
 
+            DateTime t = DateTime.Now;
+            // 현재 것에 분까지 나오는 날짜와 유저이름 대입
+            if (time == "")
+            {                
+                Area.Time = t.ToString("yyyy-MM-dd-HH-mm");            
 
-            // 현재 것은 항상 새로운 시간 대입
-            int hour = t.Hour;
-            if (t.Hour == 0) hour = 12;
-            else if (t.Hour > 12) hour -= 12;
-            Area.TimeText.text = (t.Hour > 12 ? "오후 " : "오전 ") + hour + ":" + t.Minute.ToString("D2");
-
+                // 현재 것은 항상 새로운 시간 대입
+                int hour = t.Hour;
+                if (t.Hour == 0) hour = 12;
+                else if (t.Hour > 12) hour -= 12;
+                Area.TimeText.text = (t.Hour > 12 ? "오후 " : "오전 ") + hour + ":" + t.Minute.ToString("D2");
+            }
+            else
+            {
+                Area.TimeText.text = time;
+            }
 
             // 이전 것과 같으면 이전 시간, 꼬리 없애기
             bool isSame = LastArea != null && LastArea.Time == Area.Time && LastArea.User == Area.User;
@@ -296,26 +301,29 @@ namespace CM{
 
 
             // 이전 것과 날짜가 다르면 날짜영역 보이기
-            if (LastArea != null && LastArea.Time.Substring(0, 10) != Area.Time.Substring(0, 10))
+            if (time == "")
             {
-                Transform CurDateArea = Instantiate(DateArea).transform;
-                CurDateArea.SetParent(ContentRect.transform, false);
-                CurDateArea.SetSiblingIndex(CurDateArea.GetSiblingIndex() - 1);
 
-                string week = "";
-                switch (t.DayOfWeek)
+                if (LastArea != null && LastArea.Time.Substring(0, 10) != Area.Time.Substring(0, 10))
                 {
-                    case DayOfWeek.Sunday: week = "일"; break;
-                    case DayOfWeek.Monday: week = "월"; break;
-                    case DayOfWeek.Tuesday: week = "화"; break;
-                    case DayOfWeek.Wednesday: week = "수"; break;
-                    case DayOfWeek.Thursday: week = "목"; break;
-                    case DayOfWeek.Friday: week = "금"; break;
-                    case DayOfWeek.Saturday: week = "토"; break;
-                }
-                CurDateArea.GetComponent<AreaScript>().DateText.text = t.Year + "년 " + t.Month + "월 " + t.Day + "일 " + week + "요일";
-            }
+                    Transform CurDateArea = Instantiate(DateArea).transform;
+                    CurDateArea.SetParent(ContentRect.transform, false);
+                    CurDateArea.SetSiblingIndex(CurDateArea.GetSiblingIndex() - 1);
 
+                    string week = "";
+                    switch (t.DayOfWeek)
+                    {
+                        case DayOfWeek.Sunday: week = "일"; break;
+                        case DayOfWeek.Monday: week = "월"; break;
+                        case DayOfWeek.Tuesday: week = "화"; break;
+                        case DayOfWeek.Wednesday: week = "수"; break;
+                        case DayOfWeek.Thursday: week = "목"; break;
+                        case DayOfWeek.Friday: week = "금"; break;
+                        case DayOfWeek.Saturday: week = "토"; break;
+                    }
+                    CurDateArea.GetComponent<AreaScript>().DateText.text = t.Year + "년 " + t.Month + "월 " + t.Day + "일 " + week + "요일";
+                }
+            }
 
 
 

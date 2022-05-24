@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GameChatUnity;using System.Collections.Generic;
+using GameChatUnity;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -50,7 +51,7 @@ namespace GameChatSample
             if (GCN != "")
             {
                 Debug.Log("로됨로됨");
-                goHomerightaway();
+                Invoke("goHomerightaway", 3f);
             }
             else
             {
@@ -58,14 +59,7 @@ namespace GameChatSample
             }
         }
 
-        public void setsds()
-        {
-          // PlayerPrefs.SetString("GCName","please");
-        }
-        public void gogohome()
-        {
-            SceneManager.LoadScene("Title");
-        }
+  
 
 
 
@@ -87,19 +81,21 @@ namespace GameChatSample
 
         #region EventListener
 
-        void onConnected(string messge)
+        void onConnected(string message)
         {
+            //Debug.LogError("##### 로그인 완료");
             SampleGlobalData.G_isSocketConnected = true;
 
-            CustomizedPopup.PopupButtonInfo[] btn_info = new CustomizedPopup.PopupButtonInfo[1];
-            btn_info[0].callback = () =>
-            {
-                LoadingPanel.SetActive(false);
-                SceneManager.LoadScene("Home");
-            };
-            p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_BtnOne", "Connect Success !", "로그인이 완료되었습니다.", btn_info);
-            Debug.LogError("##### 로그인 완료");
+            //CustomizedPopup.PopupButtonInfo[] btn_info = new CustomizedPopup.PopupButtonInfo[1];
+            //btn_info[0].callback = () =>
+            //{
+            //    LoadingPanel.SetActive(false);
+            //    SceneManager.LoadScene("Home");
+            //};
+            //p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_BtnOne", "Connect Success !", "로그인이 완료되었습니다.", btn_info);
 
+            Debug.LogError("##### 로그인 완료");
+            SceneManager.LoadScene("Home");
         }
 
         void onErrorReceived(string message, GameChatException exception)
@@ -159,7 +155,6 @@ namespace GameChatSample
                 SampleGlobalData.G_isConnected = true;
                 SampleGlobalData.G_User = user;
 
-                SceneManager.LoadScene("Home");
             });           
         }
         #endregion
