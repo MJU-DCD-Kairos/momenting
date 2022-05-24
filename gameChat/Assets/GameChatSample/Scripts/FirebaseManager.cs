@@ -337,8 +337,14 @@ namespace FireStoreScript {
             //{"token", token }, //토큰
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd}
+            
         };
             db.Collection("userInfo").Document(myname).SetAsync(user);
+
+            Dictionary<string, object> user2 = new Dictionary<string, object> {
+            { "name", myname}
+                };
+            db.Collection("report").Document(myname).SetAsync(user2);
             PlayerPrefs.SetString("GCName", myname);
 
 

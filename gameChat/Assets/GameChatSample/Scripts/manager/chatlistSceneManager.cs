@@ -139,24 +139,34 @@ namespace CLCM
                 ui.transform.SetParent(GameObject.Find("GCViewport").transform);
 
                 //채팅방 이름 넣기
-                ui.transform.GetChild(2).GetComponent<Text>().text = gSlotList[i][0];
+                ui.transform.GetChild(1).GetComponent<Text>().text = gSlotList[i][0];
 
                 //남은 시간 넣기
-                ui.transform.GetChild(4).transform.GetChild(1).GetComponent<Text>().text = gSlotList[i][1];
+                ui.transform.GetChild(3).transform.GetChild(0).GetComponent<Text>().text = gSlotList[i][1];
 
                 //최근 메시지 넣기
-                ui.transform.GetChild(3).GetComponent<Text>().text = "";// gSlotList[i][2];
+                ui.transform.GetChild(2).GetComponent<Text>().text = "";// gSlotList[i][2];
 
-                gSlotMsgDict.Add(gSlotList[i][2], ui.transform.GetChild(3).GetComponent<Text>());
+                gSlotMsgDict.Add(gSlotList[i][2], ui.transform.GetChild(2).GetComponent<Text>());
                 NewChatManager.getCurMSG(gSlotList[i][2], OnRecvMsg);
 
             }
 
         }
-
+        //public Text badge;
+        //public int badgeN = 0;
         void OnRecvMsg(string id, string msg)
         {
             gSlotMsgDict[id].text = msg;
+            //if(ui.transform.GetChild(3).GetComponent<Text>().text == msg)
+            //{
+            //    Debug.Log("암것도");
+            //}
+            //else
+            //{
+            //    badgeN ++ ;
+            //    badge = badgeN.ToString();
+            //}
         }
 
 

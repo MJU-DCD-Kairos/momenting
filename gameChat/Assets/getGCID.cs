@@ -28,7 +28,7 @@ namespace Prefebs
         public void onclickNameReturn()
         {
 
-            thisRoomName = this.transform.GetChild(2).gameObject.GetComponent<Text>().text;
+            thisRoomName = this.transform.GetChild(1).gameObject.GetComponent<Text>().text;
             Debug.Log("##########thisRoomName" + thisRoomName);
             clickCard = true;
         }
