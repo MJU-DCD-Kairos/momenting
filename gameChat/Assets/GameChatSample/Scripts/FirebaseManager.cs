@@ -34,8 +34,8 @@ namespace FireStoreScript {
 
         public string myintroduction;
         public string token;
-        public string myname;
-        public string sex;
+        public static string myname;
+        public static int sex;
         public string age;
         public string mbti;
         public int mannerLevel;
@@ -44,29 +44,34 @@ namespace FireStoreScript {
         public bool isInMatchingDB;
 
         public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate}
-        public void Start()
+
+        public void Awake()
         {
             //씬매니저 파괴 방지를 위한 코드
             DontDestroyOnLoad(this.gameObject);
 
+        }
+
+        public void Start()
+        {
+
+            //isMatchToken(); //토큰 정보 있는지 확인
+            //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
+            //Debug.Log("유저성별 : " + PlayerPrefs.GetString("sex"));
+
             Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
             {
-            //var dependencyStatus = task.Result;
-            if (task.Result == DependencyStatus.Available)
+                var dependencyStatus = task.Result;
+                if (task.Result == DependencyStatus.Available)
                 {
                     Debug.Log("파이어스토어 DB 연결 성공");
                     db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
-
-            }
+                }
                 else
                 {
                     Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
                 }
             });
-
-            //isMatchToken(); //토큰 정보 있는지 확인
-            //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
-            //Debug.Log("유저성별 : " + PlayerPrefs.GetString("sex"));
 
         }
 
@@ -96,8 +101,8 @@ namespace FireStoreScript {
             }
             else
             {
-                Debug.Log("유저성별: " + Sex.text);
-                sex = Sex.text;
+               // Debug.Log("유저성별: " + Sex.text);
+                //sex = Sex.text;
             }
 
         }
@@ -109,7 +114,7 @@ namespace FireStoreScript {
             //await isMatchToken();
         }
 
-        private async Task LoadData() //파이어스토어DB에서 유저정보 불러오는 함수
+        public static async Task LoadData() //파이어스토어DB에서 유저정보 불러오는 함수
         {
             Query userRef = db.Collection("userInfo").WhereEqualTo("name", myname); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
 
@@ -122,7 +127,7 @@ namespace FireStoreScript {
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
                         myname = docDictionary["name"] as string;
-                        sex = docDictionary["sex"] as string;
+                       // sex = docDictionary["sex"] as int;
                     //age = int.Parse(docDictionary["age"] as string);
                     //mbti = docDictionary["mbti"] as string;
                     //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
@@ -146,7 +151,7 @@ namespace FireStoreScript {
             Debug.Log("LocalData 함수 실행됨");
 
             PlayerPrefs.SetString("name", myname); //이름
-            PlayerPrefs.SetString("sex", sex); //성별
+            //PlayerPrefs.SetString("sex", sex); //성별
             //PlayerPrefs.SetInt("age", age); //나이
             PlayerPrefs.SetString("mbti", mbti); //모래알유형
             PlayerPrefs.SetInt("mannerLevel", mannerLevel); //매너등급
@@ -247,11 +252,22 @@ namespace FireStoreScript {
         {
             myname = Name.text;
             myintroduction = Introduction.text;
-            string sex2 = SSex.options[SSex.value].text;
+
+            if(SSex.options[SSex.value].text == ("남자"))
+            {
+                int sex2 = 1;
+                sex = sex2;
+            }
+            else
+            {
+                int sex2 = 2;
+                sex = sex2;
+            }
+            //string sex2 = SSex.options[SSex.value].text;
             string age2 = AAge.options[AAge.value].text;
             string mon = MMonth.options[MMonth.value].text;
             string day = DDay.options[DDay.value].text;
-            sex = sex2;
+            
             age = age2;
             //token = Token.text;
             ispass = true;
@@ -294,16 +310,11 @@ namespace FireStoreScript {
             { "recentAccess", null }, //최근접속시간
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             //{"token", token }, //토큰
-            { "mannerLevel", 1 } //매너등급 (기본 1등급으로 시작)
+            { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
+            { "GmailAddress", GAdd}
         };
-            Dictionary<string, object> Gml = new Dictionary<string, object>
-            {
-                { "name", myname },
-                { "GmailAddress", GAdd}
-            };
-            
-            db.Collection("userToken").Document(GAdd).SetAsync(Gml);
             db.Collection("userInfo").Document(myname).SetAsync(user);
+            PlayerPrefs.SetString("GCName", myname);
 
 
         }
@@ -382,7 +393,7 @@ namespace FireStoreScript {
         }
         public void mbtiType() //모래알유형 DB
         {
-
+       
         }
 
         public void mannerDB()

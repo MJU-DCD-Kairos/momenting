@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GameChatSample;
+using FireStoreScript;
+
 public class homeSceneManager : MonoBehaviour
 {
     //스크립트 받아오기위한 타입 변수 선언
@@ -12,8 +14,10 @@ public class homeSceneManager : MonoBehaviour
 
     //매칭화면 활성화 여부 체크를 위한 오브젝트 참조
     public GameObject MatchingPage;
-    gameSceneManager gSM;
 
+    gameSceneManager gSM;
+    FirebaseManager FbM;
+    
     //오늘의 질문 답변 여부 체크
     
 
@@ -28,6 +32,7 @@ public class homeSceneManager : MonoBehaviour
     {
         //don't destroy로 살려서 넘어온 게임씬매니저의 스크립트를 변수에 담음
         gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
+        FbM = GameObject.Find("FirebaseManager").GetComponent<FirebaseManager>();
         //NCM = GameObject.Find("GameSceneManager").GetComponent<NewChatManager>();
         //NewChatManager.getChannelID();
 
@@ -35,8 +40,9 @@ public class homeSceneManager : MonoBehaviour
         ProfileBtn.onClick.AddListener(gSM.LoadScene_MyProfile_Sample3);
         MailBox.onClick.AddListener(gSM.LoadScene_MailBox);
         ChatList.onClick.AddListener(gSM.LoadScene_ChatList);
+        //FirebaseManager.LoadData();
 
-        
+
     }
 
     void Update()
