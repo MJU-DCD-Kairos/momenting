@@ -74,9 +74,10 @@ namespace GameChatSample
 
 
         //매칭을 위한 선언부
-        public string username;
+        public static string username;
         public int usersex;
         public string docID; //도큐먼트 고유ID 참조하기 위해 필요
+        public string channelID; //채팅방 정보 저장
         public int countMembers;
         public int fcount;
         public int mcount;
@@ -100,8 +101,7 @@ namespace GameChatSample
         public float time_current = 5f;
         public GameObject Dialog_Matching_ReMatching; //매칭실패시 띄우는 다이얼로그
 
-        //채팅방 정보 저장
-        public string channelID;
+        
 
         //채팅방 이름 더블체크
         public static string nowChatName;
