@@ -100,7 +100,7 @@ namespace groupchatManager
                         for (int i = 0; i < chatRoom.Count; i++)
                         {
                             Debug.Log(chatRoom[i]);
-                            if (chatRoom[i] == PlayerPrefs.GetString("GCN")) { mynameIdx = i; }
+                            if (chatRoom[i] == PlayerPrefs.GetString("GCName")) { mynameIdx = i; }
                         }
                         chatRoom.RemoveAt(mynameIdx); //내 닉네임을 리스트에서 삭제
                     }
