@@ -22,7 +22,7 @@ public class groupchatSceneManager : MonoBehaviour
     //내 말풍선 상대 말풍선 가리기 참조 위한 선언
     AreaScript LastArea;
     public GameObject MyArea, ElseArea;
-    
+    public Scrollbar scrollBar;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +38,7 @@ public class groupchatSceneManager : MonoBehaviour
         ThisCRoomNameTitle.text = gameSceneManager.chatRname;
 
         StartCoroutine("TestMSG", gameSceneManager.chatRID);
+        Invoke("ScrollDown", 1f);
     }
     void update()
     {
@@ -55,7 +56,7 @@ public class groupchatSceneManager : MonoBehaviour
         }
     }
 
-
+    void ScrollDown() => scrollBar.value = -3;
 
     //이전 메시지를 가져오는 함수
     public IEnumerator TestMSG(string id)
@@ -117,6 +118,26 @@ public class groupchatSceneManager : MonoBehaviour
                 }
                 else
                 {
+                    if (GameChatSample.SampleGlobalData.G_User.id == elem.sender.id)
+                    {
+                        AreaScript Area = Instantiate(MyArea).GetComponent<AreaScript>();
+                        Area.transform.SetParent(ContentRect.transform, false);
+                        Area.BoxRect.sizeDelta = new Vector2(1000, Area.BoxRect.sizeDelta.y);
+                        Area.TextRect.GetComponent<Text>().text = elem.content;
+                        Debug.Log(elem.content);
+                        Area.TimeText.text = elem.created_at;
+
+                    }
+                    else
+                    {
+                        AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
+                        Area2.transform.SetParent(ContentRect.transform, false);
+                        Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
+                        Area2.TextRect.GetComponent<Text>().text = elem.content;
+                        Area2.UserText.text = elem.sender.name;
+                        Area2.TimeText.text = elem.created_at;
+
+                    }
                     break;
                 }
             }

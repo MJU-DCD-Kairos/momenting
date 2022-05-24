@@ -13,7 +13,17 @@ public class myprofileSceneManager : MonoBehaviour
     public Button goToChatList;
     public Button goToSetting;
     public Button goToTest;
+    public string GCN;
+    public Text txtName;
 
+
+
+    void Awake()
+    {
+        GCN = "";
+        GCN = PlayerPrefs.GetString("GCName");
+        Debug.Log(GCN + "불러옴");
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +35,9 @@ public class myprofileSceneManager : MonoBehaviour
         goToChatList.onClick.AddListener(gSM.LoadScene_ChatList);
         goToSetting.onClick.AddListener(gSM.LoadScene_Setting);
         goToTest.onClick.AddListener(gSM.LoadScene_TypeTest);
+
+        //프로필 이름 받아오기   
+        txtName.text = GCN;
     }
 
     // Update is called once per frame

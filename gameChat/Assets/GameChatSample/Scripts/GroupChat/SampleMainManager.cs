@@ -112,9 +112,6 @@ namespace GameChatSample
             {
                 Nickname.text = user.nickname;
             }
-
-            
-
             GetProfileImage();
             poolSubscription = new HashSet<string>();
             //getChannel();
@@ -250,15 +247,12 @@ namespace GameChatSample
                 PrintChatMessage(Color.green, message);
             else
                 chatManager.Chat(false, message.content, message.sender.id , null);
-                
-
         }
 
         private void onDisconnected(string message)
         {
             poolSubscription.Clear();
             RefreshSubscribeStateUI();
-
             PrintChatMessage(Color.red, "[ 소켓서버와의 연결이 끊어졌습니다. ]");
         }
 
@@ -304,7 +298,6 @@ namespace GameChatSample
                         Debug.Log("elem없음");
                     }
                 }
-               
                 callback();
             });
         }
@@ -538,8 +531,6 @@ namespace GameChatSample
                 _color = Color.green;
             else
                 _color = Color.black;
-
-
             //** [Start] If NOT use GameChat Extension
             GameObject msgObject = Resources.Load<GameObject>("Normal_Text");
             if (msgObject == null)
@@ -560,11 +551,7 @@ namespace GameChatSample
             _target.color = _color;
             _target.text = _msg;
             //** [End] If NOT use GameChat Extension
-
-
-
             ////** [Start] If use GameChat Extension
-
             //GameObject msgObject = Resources.Load<GameObject>("TMP_Text");
             //if (msgObject == null)
             //{

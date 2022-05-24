@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GameChatUnity;
+using GameChatUnity;using System.Collections.Generic;
+using UnityEngine;
 
 
 
@@ -20,13 +21,12 @@ namespace GameChatSample
         [SerializeField]
         string initProjectID;
 
-        [SerializeField]
-        Text ProjectID;
+
 
 
         PopupManager p_manager;
         public Text username;
-
+        public string GCN;
         #region LifeCycle
 
         void Awake()
@@ -35,10 +35,39 @@ namespace GameChatSample
 
             string init_project = "";
             init_project = initProjectID.Trim();
-            ProjectID.text = init_project;
+
 
             GameChat.initialize(init_project);
+
+            
         }
+        void Start()
+        {
+            
+            GCN = "";
+            GCN = PlayerPrefs.GetString("GCName");
+            
+            if (GCN != "")
+            {
+                Debug.Log("로됨로됨");
+                goHomerightaway();
+            }
+            else
+            {
+                Debug.Log("로그인안돼있어용");
+            }
+        }
+
+        public void setsds()
+        {
+          // PlayerPrefs.SetString("GCName","please");
+        }
+        public void gogohome()
+        {
+            SceneManager.LoadScene("Title");
+        }
+
+
 
         private void OnEnable()
         {
@@ -66,10 +95,11 @@ namespace GameChatSample
             btn_info[0].callback = () =>
             {
                 LoadingPanel.SetActive(false);
-                SceneManager.LoadSceneAsync("Home");
+                SceneManager.LoadScene("Home");
             };
             p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_BtnOne", "Connect Success !", "로그인이 완료되었습니다.", btn_info);
             Debug.LogError("##### 로그인 완료");
+
         }
 
         void onErrorReceived(string message, GameChatException exception)
@@ -117,24 +147,23 @@ namespace GameChatSample
             });
         }
 
+        public void goHomerightaway()
+        {
+            string opt_user_id = GCN.Trim();
+
+
+
+            GameChat.connect(opt_user_id, (Member user, GameChatException exception) =>
+            {
+                
+                SampleGlobalData.G_isConnected = true;
+                SampleGlobalData.G_User = user;
+
+                SceneManager.LoadScene("Home");
+            });           
+        }
         #endregion
 
-        public void ClickBtnChangeProject()
-        {
-            InputPopup.PopupButtonInfo[] btn_info = new InputPopup.PopupButtonInfo[1];
-
-            btn_info[0].callback = (string[] inputs) =>
-            {
-                ProjectID.text = inputs[0];
-                GameChat.initialize(inputs[0]);
-            };
-
-            string _profile = string.IsNullOrEmpty(ProjectID.text) ? "Enter Profile Image Url" : ProjectID.text.Trim();
-            string[] input_info = new string[1] { ProjectID.text };
-
-            p_manager.ShowCustomPopup(PopupRoot, "GameChatPopup_Input",
-    "Update ProjectID", "변경할 프로젝트 아이디를 입력해주세요.", btn_info, input_info);
-        }
 
         
     }

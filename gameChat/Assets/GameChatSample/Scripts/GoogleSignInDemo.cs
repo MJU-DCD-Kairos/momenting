@@ -15,7 +15,7 @@ using FireStoreScript;
 
 public class GoogleSignInDemo : MonoBehaviour
 {
-    public static FirebaseFirestore db;
+    //public static FirebaseFirestore db;
     public string GAA = null;
     public Text infoText;
     public string webClientId = "793745035944-glhfup1hj1am1qk1f9cql7i05mtg573t.apps.googleusercontent.com";
@@ -32,42 +32,42 @@ public class GoogleSignInDemo : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
 
-        Debug.Log(GAA.ToString());
 
-        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        {
-            //var dependencyStatus = task.Result;
-            if (task.Result == DependencyStatus.Available)
-            {
-                Debug.Log("파이어스토어 DB 연결 성공");
-                db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
 
-            }
-            else
-            {
-                Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
-            }
-        });
+        //Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    //var dependencyStatus = task.Result;
+        //    if (task.Result == DependencyStatus.Available)
+        //    {
+        //        Debug.Log("파이어스토어 DB 연결 성공");
+               // db = FirebaseFirestore.DefaultInstance; //Cloud Firestore 인스턴스 초기화
+
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
+        //    }
+        //});
 
         //FireStoreScript.FirebaseManager.db = null;
     }
 
     private void CheckFirebaseDependencies()
     {
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        {
-            if (task.IsCompleted)
-            {
-                if (task.Result == DependencyStatus.Available)
+        //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        //{
+        //    if (task.IsCompleted)
+        //    {
+        //        if (task.Result == DependencyStatus.Available)
                     auth = FirebaseAuth.DefaultInstance;
-                else
-                    AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
-            }
-            else
-            {
-                AddToInformation("Dependency check was not completed. Error : " + task.Exception.Message);
-            }
-        });
+        //        else
+        //            AddToInformation("Could not resolve all Firebase dependencies: " + task.Result.ToString());
+        //    }
+        //    else
+        //    {
+        //        AddToInformation("Dependency check was not completed. Error : " + task.Exception.Message);
+        //    }
+        //});
     }
 
     public void SignInWithGoogle() { OnSignIn(); }
