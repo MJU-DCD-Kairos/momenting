@@ -54,12 +54,12 @@ namespace FireStoreScript {
 
         //키워드를 저장하기 위한 선언부
         //키워드 카테고리별 리스트
-        public List<string> tendencyKW = new List<string>();
-        public List<string> interestKW = new List<string>();
-        public List<string> lifestyleKW = new List<string>();
+        //public List<string> tendencyKW = new List<string>();
+        //public List<string> interestKW = new List<string>();
+        //public List<string> lifestyleKW = new List<string>();
 
         //리스트를 색상 핵사코드값으로 저장할 딕셔너리 생성
-        public Dictionary<string, List<string>> KWdict = new Dictionary<string, List<string>>();
+        public Dictionary<string, string> KWdict = new Dictionary<string, string>();
 
 
         public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate}
@@ -85,6 +85,7 @@ namespace FireStoreScript {
         {
             
             GCN = "";
+
             GCN = PlayerPrefs.GetString("GCName");
             //isMatchToken(); //토큰 정보 있는지 확인
             //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
@@ -289,7 +290,7 @@ namespace FireStoreScript {
                     getKeywordList.saveKWlist[i] == "아싸중에인싸")
                 {
                     //성향 카테고리 #ff8550
-                    tendencyKW.Add(getKeywordList.saveKWlist[i]);
+                    KWdict.Add(getKeywordList.saveKWlist[i], "#ff8550");
                 }
                 else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
                     getKeywordList.saveKWlist[i] == "저녁형" ||
@@ -304,18 +305,20 @@ namespace FireStoreScript {
                     )
                 {
                     //관심 카테고리 #7043c0
-                    interestKW.Add(getKeywordList.saveKWlist[i]);
+                    //interestKW.Add(getKeywordList.saveKWlist[i]);
+                    KWdict.Add(getKeywordList.saveKWlist[i], "#7043c0");
                 }
                 else
                 {
                     //생활패턴 카테고리 #001130
-                    lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+                    //lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+                    KWdict.Add(getKeywordList.saveKWlist[i], "#001130");
                 }
             }
             //for문 종료 후 해당 리스트들을 dict에 저장
-            KWdict.Add("#ff8550", tendencyKW);
-            KWdict.Add("#7043c0", interestKW);
-            KWdict.Add("#001130", lifestyleKW);
+            //KWdict.Add("#ff8550", tendencyKW);
+            //KWdict.Add("#7043c0", interestKW);
+            //KWdict.Add("#001130", lifestyleKW);
         }
 
 
@@ -401,7 +404,7 @@ namespace FireStoreScript {
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd},
-            { "keyWord", ""}
+            //{ "keyWord", KWdict.ToDictionary}
         };
 
             db.Collection("userInfo").Document(myname).SetAsync(user);
@@ -418,18 +421,18 @@ namespace FireStoreScript {
             //Dictionary<string, object> KWdictArray3 = new Dictionary<string, object> {
             //};
 
-            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
-                //{ "#ff8550", KWdictArray1},
-                //    { "#7043c0", KWdictArray2},
-                //    { "#001130", KWdictArray3}
-                { "#ff8550", new List<object>() { } },
-                { "#7043c0", new List<object>() { } },
-                { "#001130", new List<object>() { } }
+            //Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
+            //    //{ "#ff8550", KWdictArray1},
+            //    //    { "#7043c0", KWdictArray2},
+            //    //    { "#001130", KWdictArray3}
+            //    { "#ff8550", new List<object>() { } },
+            //    { "#7043c0", new List<object>() { } },
+            //    { "#001130", new List<object>() { } }
 
-            };
+            //};
 
             //KWdictForFS["keyWord"] = KWdictArray1;
-            db.Collection("userInfo").Document(myname).UpdateAsync("keyWord",FieldValue.ArrayUnion(KWdictForFS));
+            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord",FieldValue.ArrayUnion(KWdictForFS));
             //KWdictForFS["keyWord"] = KWdictArray2;
             //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion(KWdictForFS));
             //KWdictForFS["keyWord"] = KWdictArray3;
