@@ -11252,11 +11252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7181852568582181210, guid: 27f2bbd85c3df064194b9c0a5110f1d4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7181852568582181210, guid: 27f2bbd85c3df064194b9c0a5110f1d4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7609394908215112765, guid: 27f2bbd85c3df064194b9c0a5110f1d4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -15812,7 +15812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 720, y: -1748}
+  m_AnchoredPosition: {x: 720, y: -2804}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &516603323
@@ -30670,6 +30670,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90630f8174c8357459ac59043d5e6cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: {fileID: 6762973809581706071}
+  desc: {fileID: 6762973809261293462}
+  MbtiType: 
+  noTypeHead: {fileID: 516603321}
+  MyType: {fileID: 6762973811249855381}
 --- !u!4 &1092444794
 Transform:
   m_ObjectHideFlags: 0
@@ -57579,7 +57584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 120, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 144}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6762973809581706068
