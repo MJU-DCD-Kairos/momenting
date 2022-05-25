@@ -23,7 +23,8 @@ public class gameSceneManager : MonoBehaviour
     //채팅리스트에서 채널 메시지 로드로 넘어갈 때 사용하는 채팅방 이름 및 채널 ID
     public static string chatRname;
     public static string chatRID;
-    public static string oTime;
+    public static Dictionary<string, string> IDoTime;
+
 
 
 
@@ -72,6 +73,7 @@ public class gameSceneManager : MonoBehaviour
         //TodayQ = GameObject.Find("TodayQ").GetComponent<>();
         //GameChat.initialize("e3558324-2d64-47d0-bd7a-6fa362824bd7");
         //PlayerPrefs.SetString("LastMSGID", "62860f665d257d31a779d5cf");
+
         
 
 
@@ -88,6 +90,7 @@ public class gameSceneManager : MonoBehaviour
         
 
     }
+
 
     //씬 네임으로 원하는 씬을 로드
     static void LoadScene(string name)

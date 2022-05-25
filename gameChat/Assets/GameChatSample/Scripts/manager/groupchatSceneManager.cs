@@ -40,9 +40,11 @@ namespace groupchatManager
 
         //채팅방 실시간 남은시간 업데이트
         public Text timeText;
+
         //채팅방 시간 종료 시 인풋필드 비활성화
         public InputField messageIF;
-        public static float sec =0f;
+        
+        
         [Header("elseProfile")]
         public Text elseName1;
         public Text elseAge1;
@@ -77,7 +79,9 @@ namespace groupchatManager
             ThisCRoomNameTitle.text = gameSceneManager.chatRname;
 
             StartCoroutine("TestMSG", gameSceneManager.chatRID);
-
+            
+            InvokeRepeating("checkTRtime", 0f, 5f);
+            
             Invoke("ScrollDown", 1f);
             LoadUsersData();
 
@@ -97,9 +101,27 @@ namespace groupchatManager
                 }
             }
 
-            gotTime();
+            //gotTime();
 
         }
+
+
+        //5초에 한번 채팅방 잔여 시간 체크를 시작 인보크리피팅으로 호출
+        public void checkTRtime()
+        {
+           timeText.text = NewChatManager.getLostTime(gameSceneManager.IDoTime[gameSceneManager.chatRID]);
+
+            if (timeText.text == "종료")
+            {
+                messageIF.interactable = false;
+            }
+            else
+            {
+                messageIF.interactable = true;
+            }
+        }
+
+
 
         async void LoadUsersData()
         {
@@ -232,21 +254,21 @@ namespace groupchatManager
             yield return null;
         }
 
-        public void gotTime()
-        {
-            TimeSpan time = DateTime.Now - Convert.ToDateTime(gameSceneManager.oTime);
-            if (time.Minutes > 20f)
-            {
-                timeText.text = "종료";
-                messageIF.interactable = false;
+        //public void gotTime()
+        //{
+        //    TimeSpan time = DateTime.Now - Convert.ToDateTime(gameSceneManager.oTime);
+        //    if (time.Minutes > 20)
+        //    {
+        //        timeText.text = "종료";
+        //        messageIF.interactable = false;
 
-            }
-            else
-            {
-                timeText.text = time.Minutes.ToString();
+        //    }
+        //    else
+        //    {
+        //        timeText.text = time.Minutes.ToString() + "분";
                 
-            }
-        }
+        //    }
+        //}
 
     }
 }

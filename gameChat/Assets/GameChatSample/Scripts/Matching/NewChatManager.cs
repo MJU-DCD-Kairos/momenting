@@ -227,7 +227,7 @@ namespace GameChatSample
                             roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
                             roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
                             roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                            gameSceneManager.oTime = System.DateTime.Now.ToString();
+                            gameSceneManager.IDoTime.Add(roomRef.Document(docID).Id.ToString(), System.DateTime.Now.ToString());
                             isopen = "True";
                         }
 
@@ -310,6 +310,7 @@ namespace GameChatSample
                 {
                     Dictionary<string, object> doc = snapshot.ToDictionary();
                     string isopen = doc[ISOPEN].ToString();
+                    gameSceneManager.IDoTime.Add(doc[CHANNELID].ToString(), doc[ISOPEN].ToString());
                     Debug.Log(isopen);
                     Debug.Log("새로운 문서 업데이트");
                     if (isopen == "True")
@@ -563,7 +564,7 @@ namespace GameChatSample
         public static string getLostTime(string openTime)
         {
             
-            TimeSpan goTime = DateTime.Now-Convert.ToDateTime(openTime);
+            TimeSpan goTime = DateTime.Now - Convert.ToDateTime(openTime);
             
             if (goTime.Days <= 0)
             {
