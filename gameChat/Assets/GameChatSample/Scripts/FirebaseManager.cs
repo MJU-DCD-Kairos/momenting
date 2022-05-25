@@ -20,7 +20,7 @@ namespace FireStoreScript {
         public static FirebaseFirestore db;
 
         [SerializeField]
-        groupchatSceneManager groupchatSceneManager;
+        groupchatSceneManager gsManager;
 
         public InputField Name;
         public InputField Age;//db 생성 테스트를 위한 아이디 인풋필드
@@ -48,9 +48,18 @@ namespace FireStoreScript {
         public static string myname;
         public static int sex;
         public static string age;
-        public string mbti;
+        public static string mbti;
         public static string ispass;
         public int mannerLevel;
+
+
+        [Header("Get Else Data")]
+
+        public static string Elseintroduction;
+        public static string ElseName;
+        public static int ElseSex;
+        public static string ElseAge;
+        public static string ElseMbti;
 
 
         public bool isActive;
@@ -193,42 +202,28 @@ namespace FireStoreScript {
 
             if (userRef != null) //유저 정보가 있으면
             {
-                
-                Debug.Log("다른사람찾음");
+
+        Debug.Log("다른사람찾음");
                 await userRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
                 {
                     QuerySnapshot snapshot = task.Result;
                     foreach (DocumentSnapshot doc in snapshot.Documents)
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
-                        ispass = docDictionary["ispass"] as string;
-                        sex = int.Parse(docDictionary["sex"].ToString());
-                        age = docDictionary["age"] as string;
-                        myintroduction = docDictionary["Introduction"] as string;
-                        //mbti = docDictionary["mbti"] as string;
+                ElseSex = int.Parse(docDictionary["sex"].ToString());
+                ElseAge = docDictionary["age"] as string;
+                Elseintroduction = docDictionary["Introduction"] as string;
+                        ElseMbti = docDictionary["mbti"] as string;
                         //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
                         Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
                         //token = docDictionary["token"] as string;
                         //return;
                     }
-                    Debug.Log("닉네임 : " + userN);
-                    Debug.Log("ispass :" + ispass);
-                    Debug.Log("성별 : " + sex);
-                    Debug.Log("나이 : " + age);
-                    Debug.Log("한줄소개 : " + myintroduction);
-                    groupchatSceneManager.elseName.text = userN;
-                    if(sex == 1)
-                    {
-                        groupchatSceneManager.elseSex.text = "남";
-                    }
-                    else
-                    {
-                        groupchatSceneManager.elseSex.text = "여";
-                    }
-                    groupchatSceneManager.elseAge.text = age;
-                    groupchatSceneManager.elseIntro.text = myintroduction;
-                });
+                 
+                    
 
+                });
+                
             }
             else
             {
@@ -394,6 +389,23 @@ namespace FireStoreScript {
             }
         }
 
+
+        public static string MbtiType;
+        public static void mbtiData()
+        {
+            MbtiType = PlayerPrefs.GetString("MBTIResert");
+            Dictionary<string, object> user = new Dictionary<string, object>
+        {
+
+            { "mbti", MbtiType }, //모래알유형 
+            
+        };
+
+
+            db.Collection("userInfo").Document(myname).SetAsync(user);
+        }
+        
+
         public string newAge;
         public void makeUserInfoDB() //유저DB 생성 (userInfo)
         {
@@ -478,7 +490,9 @@ namespace FireStoreScript {
 
 
         }
+        
     }
+    
 
         /*
         public void sendRequestDB() //받은신청, 보낸신청 DB

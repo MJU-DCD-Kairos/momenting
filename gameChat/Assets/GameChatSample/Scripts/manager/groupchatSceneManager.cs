@@ -10,6 +10,7 @@ using CM;
 using FireStoreScript;
 using Firebase.Firestore;
 using GameChatSample;
+using ElsePrefab;
 
 namespace groupchatManager
 {
@@ -43,22 +44,17 @@ namespace groupchatManager
 
         //채팅방 시간 종료 시 인풋필드 비활성화
         public InputField messageIF;
-        
-        
-        [Header("elseProfile")]
+
+
+        /*
         public Text elseName1;
         public Text elseAge1;
         public Text elseSex1;
-        public Text elseMbti1;
+        //public Text elseMbti1;
         public Text elseIntro1;
-
-        public static Text elseName;
-        public static Text elseAge;
-        public static Text elseSex;
-        public static Text elseMbti;
-        public static Text elseIntro;
-
-
+        //public Text mbtiHead1;
+        //public Text mbtiDes1;
+        */
 
 
 
@@ -80,12 +76,14 @@ namespace groupchatManager
 
             StartCoroutine("TestMSG", gameSceneManager.chatRID);
             
-            InvokeRepeating("checkTRtime", 0f, 5f);
+            
             
             Invoke("ScrollDown", 1f);
             LoadUsersData();
 
-            
+            //InvokeRepeating("checkTRtime", 2f, 5f);
+
+
 
         }
         void update()
@@ -102,24 +100,43 @@ namespace groupchatManager
             }
 
             //gotTime();
-
-        }
-
-
-        //5초에 한번 채팅방 잔여 시간 체크를 시작 인보크리피팅으로 호출
-        public void checkTRtime()
-        {
-           timeText.text = NewChatManager.getLostTime(gameSceneManager.IDoTime[gameSceneManager.chatRID]);
-
-            if (timeText.text == "종료")
+            if(GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.activeSelf == true)
             {
-                messageIF.interactable = false;
+                //ElseFill();
+            }
+        }
+        /*
+        //타인정보불러오기
+        public void ElseFill()
+        {
+
+            elseName1.text = ElseProfileManager.userName2;
+            elseAge1.text = FirebaseManager.ElseAge;
+            elseIntro1.text = FirebaseManager.Elseintroduction;
+            if (FirebaseManager.ElseSex == 1)
+            {
+                elseSex1.text = "남";
             }
             else
             {
-                messageIF.interactable = true;
+                elseSex1.text = "여";
             }
         }
+        */
+        //5초에 한번 채팅방 잔여 시간 체크를 시작 인보크리피팅으로 호출
+        //public void checkTRtime()
+        //{
+        //   timeText.text = NewChatManager.getLostTime(gameSceneManager.IDoTime[gameSceneManager.chatRID]);
+
+        //    if (timeText.text == "종료")
+        //    {
+        //        messageIF.interactable = false;
+        //    }
+        //    else
+        //    {
+        //        messageIF.interactable = true;
+        //    }
+        //}
 
 
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 //using Newtonsoft.Json;
 //using System.IO;
 using System;
+using FireStoreScript;
 
 public class TypeTestManager : MonoBehaviour
 {
@@ -340,6 +341,8 @@ public class TypeTestManager : MonoBehaviour
 
         Debug.Log("MBTI타입초기대입"+MbtiType);
         PlayerPrefs.SetString("MBTIResert", MbtiType.ToString());
+        FirebaseManager.mbtiData();
+
         //string Result = PlayerPrefs.GetString("MBTIResert");
         //Debug.Log("플레이어프렙스저장정보" + Result);
     }

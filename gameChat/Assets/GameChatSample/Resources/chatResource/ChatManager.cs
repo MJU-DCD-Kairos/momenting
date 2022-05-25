@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using System.Text;
 using AS;
+using groupchatManager;
 
 
 namespace CM{
@@ -141,7 +142,7 @@ namespace CM{
 
             ReadCSV();
             scrollBar.value = 0.00001f;
-            currentTime = startingTime;
+            //currentTime = groupchatSceneManager.sec;
             RandomQuestion();
             RQuestion();
             SA();
