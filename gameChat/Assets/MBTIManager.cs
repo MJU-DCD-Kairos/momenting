@@ -10,6 +10,8 @@ public class MBTIManager : MonoBehaviour
     public Text header;
     public Text desc;
     public string MbtiType;
+    public GameObject noTypeHead;
+    public GameObject MyType;
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +99,11 @@ else if (MbtiType == "ESFJ")
 {
             header.text = "어깨동무 모래알";
             desc.text = "인화를 중시하는 타고난 협력자예요. 다른 사람들을 잘 돕고 정이 많아 사람을 좋아해요.";
+        }
+        else if (MbtiType == "")
+        {
+            noTypeHead.SetActive(true);
+            MyType.SetActive(false);
         }
     }
 }

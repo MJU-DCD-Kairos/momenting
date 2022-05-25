@@ -42,6 +42,23 @@ namespace groupchatManager
         public Text timeText;
         //채팅방 시간 종료 시 인풋필드 비활성화
         public InputField messageIF;
+        public static float sec =0f;
+        [Header("elseProfile")]
+        public Text elseName1;
+        public Text elseAge1;
+        public Text elseSex1;
+        public Text elseMbti1;
+        public Text elseIntro1;
+
+        public static Text elseName;
+        public static Text elseAge;
+        public static Text elseSex;
+        public static Text elseMbti;
+        public static Text elseIntro;
+
+
+
+
 
         // Start is called before the first frame update
         void Start()
@@ -64,7 +81,7 @@ namespace groupchatManager
             Invoke("ScrollDown", 1f);
             LoadUsersData();
 
-            InvokeRepeating("gotTime", 0f, 30f);
+            
 
         }
         void update()
@@ -80,7 +97,7 @@ namespace groupchatManager
                 }
             }
 
-            
+            gotTime();
 
         }
 
@@ -175,7 +192,7 @@ namespace groupchatManager
                     }
                         else
                         {
-                            chatManager.Chat(false, elem.content, elem.sender.name, elem.created_at, null);
+                            chatManager.Chat(false, elem.content, elem.sender.id, elem.created_at, null);
                         //AreaScript Area2 = Instantiate(ElseArea).GetComponent<AreaScript>();
                         //Area2.transform.SetParent(ContentRect.transform, false);
                         //Area2.BoxRect.sizeDelta = new Vector2(1000, Area2.BoxRect.sizeDelta.y);
@@ -217,8 +234,8 @@ namespace groupchatManager
 
         public void gotTime()
         {
-            TimeSpan time = DateTime.Now - DateTime.Parse(gameSceneManager.oTime);
-            if (time.Minutes > 20)
+            TimeSpan time = DateTime.Now - Convert.ToDateTime(gameSceneManager.oTime);
+            if (time.Minutes > 20f)
             {
                 timeText.text = "종료";
                 messageIF.interactable = false;
@@ -226,7 +243,9 @@ namespace groupchatManager
             }
             else
             {
-                timeText.text = time.Minutes.ToString()+"분";
+                timeText.text = time.Minutes.ToString();
+                sec = time.Minutes * 60f;
+
             }
         }
 

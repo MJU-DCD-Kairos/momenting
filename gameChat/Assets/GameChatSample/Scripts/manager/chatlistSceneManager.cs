@@ -28,6 +28,7 @@ namespace CLCM
         public string RoomTimerText = "00:00";
         public string RoomContentsText = "콘텐츠내용을 입력";
         public int RoomNewMSGCount = 0;
+        public string userNickName;
 
 
         public string id = "";
@@ -52,7 +53,8 @@ namespace CLCM
             //FireStoreScript.FirebaseManInager.CRnameDoubleCheck(cRname);
 
             InvokeRepeating("gotMyGClistInfo", 0f, 5f);
-        }
+            userNickName = PlayerPrefs.GetString("GCName");
+    }
 
 
 
@@ -74,7 +76,7 @@ namespace CLCM
         //DB "gameChatRoom" Collection에 접근해서 Document별 member의 nickName에 접근하여
         //유저 닉네임과 동일한 값이 있는 Document의 id, 채널id, openTime을 가져옴
         //가져온 채널id로 최근 메시지를 가져옴
-        public string userNickName = PlayerPrefs.GetString("GCN"); //앱이 시작할 때, 유저 정보를 로드하는 과정을 마친 후 그 변수를 사용해야함.
+        //PlayerPrefs.GetString("GCN"); //앱이 시작할 때, 유저 정보를 로드하는 과정을 마친 후 그 변수를 사용해야함.
         public static List<string[]> gSlotList = new List<string[]>();
         public Dictionary<string, Text> gSlotMsgDict = new Dictionary<string, Text>();
         public string[] cInfoList;
@@ -106,7 +108,7 @@ namespace CLCM
                         //Debug.Log("겟타입"+docDictionary["openTime"]);
 
                         cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
-                        gameSceneManager.oTime = NewChatManager.getLostTime(docDictionary["openTime"] as string);
+                        gameSceneManager.oTime = docDictionary["openTime"] as string;
 
                         //Debug.Log(NewChatManager.getLostTime(docDictionary["openTime"] as string));
 

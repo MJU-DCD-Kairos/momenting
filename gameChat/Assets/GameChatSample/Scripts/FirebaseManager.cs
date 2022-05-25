@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+using groupchatManager;
 
 
 
@@ -17,6 +18,9 @@ namespace FireStoreScript {
     public class FirebaseManager : MonoBehaviour
     {
         public static FirebaseFirestore db;
+
+        [SerializeField]
+        groupchatSceneManager groupchatSceneManager;
 
         public InputField Name;
         public InputField Age;//db 생성 테스트를 위한 아이디 인풋필드
@@ -183,7 +187,54 @@ namespace FireStoreScript {
                 Debug.Log("유저정보 없음");
             }
         }
+        public static async Task ElseData(string userN) //파이어스토어DB에서 유저정보 불러오는 함수
+        {
+            Query userRef = db.Collection("userInfo").WhereEqualTo("name", userN); //입력한 닉네임과 일치하는 쿼리 찾아서 참조
 
+            if (userRef != null) //유저 정보가 있으면
+            {
+                
+                Debug.Log("다른사람찾음");
+                await userRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+                {
+                    QuerySnapshot snapshot = task.Result;
+                    foreach (DocumentSnapshot doc in snapshot.Documents)
+                    {
+                        Dictionary<string, object> docDictionary = doc.ToDictionary();
+                        ispass = docDictionary["ispass"] as string;
+                        sex = int.Parse(docDictionary["sex"].ToString());
+                        age = docDictionary["age"] as string;
+                        myintroduction = docDictionary["Introduction"] as string;
+                        //mbti = docDictionary["mbti"] as string;
+                        //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
+                        Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
+                        //token = docDictionary["token"] as string;
+                        //return;
+                    }
+                    Debug.Log("닉네임 : " + userN);
+                    Debug.Log("ispass :" + ispass);
+                    Debug.Log("성별 : " + sex);
+                    Debug.Log("나이 : " + age);
+                    Debug.Log("한줄소개 : " + myintroduction);
+                    groupchatSceneManager.elseName.text = userN;
+                    if(sex == 1)
+                    {
+                        groupchatSceneManager.elseSex.text = "남";
+                    }
+                    else
+                    {
+                        groupchatSceneManager.elseSex.text = "여";
+                    }
+                    groupchatSceneManager.elseAge.text = age;
+                    groupchatSceneManager.elseIntro.text = myintroduction;
+                });
+
+            }
+            else
+            {
+                Debug.Log("유저정보 없음");
+            }
+        }
         void LocalData() //유저데이터 로컬 저장 (가입단에 들어감)
         {
             Debug.Log("LocalData 함수 실행됨");
@@ -412,35 +463,8 @@ namespace FireStoreScript {
             //{ "keyWord", KWdict.ToDictionary}
         };
 
-            
-            //성향 딕셔너리 생성
-            //Dictionary<string, object> KWdictArray1 = new Dictionary<string, object> {
 
-            //};
-            ////관심사 딕셔너리 생성
-            //Dictionary<string, object> KWdictArray2 = new Dictionary<string, object> {
-            //    };
-            ////라이프스타일 딕셔너리 생성
-            //Dictionary<string, object> KWdictArray3 = new Dictionary<string, object> {
-            //};
-
-            //Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
-            //    //{ "#ff8550", KWdictArray1},
-            //    //    { "#7043c0", KWdictArray2},
-            //    //    { "#001130", KWdictArray3}
-            //    { "#ff8550", new List<object>() { } },
-            //    { "#7043c0", new List<object>() { } },
-            //    { "#001130", new List<object>() { } }
-
-            //};
-
-            //KWdictForFS["keyWord"] = KWdictArray1;
-            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord",FieldValue.ArrayUnion(KWdictForFS));
-            //KWdictForFS["keyWord"] = KWdictArray2;
-            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion(KWdictForFS));
-            //KWdictForFS["keyWord"] = KWdictArray3;
-            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion(KWdictForFS));
-
+            db.Collection("userInfo").Document(myname).SetAsync(user);
             Dictionary<string, object> user2 = new Dictionary<string, object> {
             { "name", myname}
                 };
@@ -607,7 +631,7 @@ namespace FireStoreScript {
             //doc.TryGetValue<>(, )
         }*/
 
-    }
+    
 }
 
 
