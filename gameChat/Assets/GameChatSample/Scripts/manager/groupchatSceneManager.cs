@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,11 @@ namespace groupchatManager
         public static List<string> chatRoom = new List<string>(); //채팅방 정보 저장하기 위한 리스트
         public int mynameIdx; //내 닉네임을 리스트에서 제거하기 위해 선언
 
+        //채팅방 실시간 남은시간 업데이트
+        public Text timeText;
+        //채팅방 시간 종료 시 인풋필드 비활성화
+        public InputField messageIF;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -56,13 +62,13 @@ namespace groupchatManager
             StartCoroutine("TestMSG", gameSceneManager.chatRID);
 
             Invoke("ScrollDown", 1f);
-
             LoadUsersData();
+
+            InvokeRepeating("gotTime", 0f, 30f);
+
         }
         void update()
         {
-
-
             // Update is called once per frame
             if (Application.platform == RuntimePlatform.Android)  // 플렛폼 정보 .
             {
@@ -73,6 +79,9 @@ namespace groupchatManager
                                                         //Application.Quit(); // 씬 종료 .(나가기)            위씬으로 이동이나 종료기능 둘중하나 원하시는것을 사용하시면 됩니다.
                 }
             }
+
+            
+
         }
 
         async void LoadUsersData()
@@ -206,6 +215,20 @@ namespace groupchatManager
             yield return null;
         }
 
+        public void gotTime()
+        {
+            TimeSpan time = DateTime.Now - DateTime.Parse(gameSceneManager.oTime);
+            if (time.Minutes > 20)
+            {
+                timeText.text = "종료";
+                messageIF.interactable = false;
+
+            }
+            else
+            {
+                timeText.text = (20 - int.Parse(time.Minutes.ToString())).ToString()+"분";
+            }
+        }
 
     }
 }
