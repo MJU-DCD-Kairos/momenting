@@ -564,54 +564,54 @@ namespace FireStoreScript {
 
        
 
-        public static bool isCheckedCRname = false;
-        public static async Task<bool> CRnameDoubleCheck(object name)
-        {
-            DocumentReference docRef = db.Collection("gameChatRoom").Document("chatRoomNameDoubleCheck");
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-            if (snapshot.Exists)
-            {
-                int bcount = 0;
-                Dictionary<string, object> crArray = snapshot.ToDictionary();
-                foreach (KeyValuePair<string, object> pair in crArray)
-                {
-                    Debug.Log(pair.Key);
-                    Debug.Log(pair.Value);
-                    foreach (string crName in (List<string>)pair.Value)
-                    {
-                        Debug.LogError("foreach문 진입 확인 로그");
-                        if (crName.Equals(name.ToString()) == false)
-                        {
-                            bcount += 0; //기존 이름과 같지 않음일때는 0을 더해줌
+        //public static bool isCheckedCRname = false;
+        //public static async Task<bool> CRnameDoubleCheck(object name)
+        //{
+        //    DocumentReference docRef = db.Collection("gameChatRoom").Document("chatRoomNameDoubleCheck");
+        //    DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+        //    if (snapshot.Exists)
+        //    {
+        //        int bcount = 0;
+        //        Dictionary<string, object> crArray = snapshot.ToDictionary();
+        //        foreach (KeyValuePair<string, object> pair in crArray)
+        //        {
+        //            Debug.Log(pair.Key);
+        //            Debug.Log(pair.Value);
+        //            foreach (string crName in (List<string>)pair.Value)
+        //            {
+        //                Debug.LogError("foreach문 진입 확인 로그");
+        //                if (crName.Equals(name.ToString()) == false)
+        //                {
+        //                    bcount += 0; //기존 이름과 같지 않음일때는 0을 더해줌
                             
-                        }
-                        else
-                        {
-                            bcount += 1; //기존 이름과 같은 이름일때는 1을 더해줌
-                            break;
-                        }
+        //                }
+        //                else
+        //                {
+        //                    bcount += 1; //기존 이름과 같은 이름일때는 1을 더해줌
+        //                    break;
+        //                }
 
-                    }
-                    Debug.LogError("#####isCheckedCRname#####" + isCheckedCRname);
-                }
-                if (bcount > 0)
-                {
-                    isCheckedCRname = false;
-                    Debug.LogError("#####false#####" + isCheckedCRname);
-                }
-                else
-                {
-                    isCheckedCRname = true;
-                    Debug.LogError("#####true#####" + isCheckedCRname);
-                }
-                Debug.Log("카운트  " + bcount);
-            }
-            else
-            {
-                //Console.WriteLine("Document {0} does not exist!", snapshot.Id);
-            }
-            return isCheckedCRname;
-        }
+        //            }
+        //            Debug.LogError("#####isCheckedCRname#####" + isCheckedCRname);
+        //        }
+        //        if (bcount > 0)
+        //        {
+        //            isCheckedCRname = false;
+        //            Debug.LogError("#####false#####" + isCheckedCRname);
+        //        }
+        //        else
+        //        {
+        //            isCheckedCRname = true;
+        //            Debug.LogError("#####true#####" + isCheckedCRname);
+        //        }
+        //        Debug.Log("카운트  " + bcount);
+        //    }
+        //    else
+        //    {
+        //        //Console.WriteLine("Document {0} does not exist!", snapshot.Id);
+        //    }
+        //    return isCheckedCRname;
+        //}
 
         /*
         public string ChannelID;
