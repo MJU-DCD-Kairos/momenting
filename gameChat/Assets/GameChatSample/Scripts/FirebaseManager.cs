@@ -394,6 +394,24 @@ namespace FireStoreScript {
             }
 
             GAdd = PlayerPrefs.GetString("GAddress");
+
+
+            ArrayList KWarray = new ArrayList();
+            for (int i = 0; i < tendencyKW.Count; i++)
+            {
+                string kw = tendencyKW[i];
+                KWarray.Add(kw);
+            }
+
+            DocumentReference docRef = db.Collection("usreInfo").Document(myname);
+            Dictionary<string, object> docData = new Dictionary<string, object>
+            {
+
+            };
+            docData.Add("tendencyKW", KWarray);
+            db.Collection("userInfo").Document(myname).SetAsync(docData);
+
+
             Dictionary<string, object> user = new Dictionary<string, object>
         {
             { "Introduction", myintroduction},//한줄소개
@@ -443,25 +461,11 @@ namespace FireStoreScript {
                 };
 
 
-            ArrayList KWarray = new ArrayList();
-            foreach (string kw in tendencyKW)
-            {
-                KWarray.Add(kw)
-            }
-
-            DocumentReference docRef = db.Collection("usreInfo").Document(myname);
-            Dictionary<string, object> docData = new Dictionary<string, object>
-            {
-
-            };
-            docData.Add("tendencyKW", KWarray);
-
-
-
+      
             db.Collection("report").Document(myname).SetAsync(user2);
             PlayerPrefs.SetString("GCName", myname);
 
-            db.Collection("userInfo").Document(myname).SetAsync(docData);
+            
 
 
         }
