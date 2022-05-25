@@ -177,6 +177,7 @@ namespace GameChatSample
 
                     gameSceneManager.chatRname = docID; //그룹챗 씬에서 로드할 채팅방 이름 저장
                     gameSceneManager.chatRID = channelID; //그룹챗 씬에서 로드할 채널 ID 저장
+                    
 
                     List<object> memberList = (List<object>)docDictionary[MEMBER];
                     string open = docDictionary[ISOPEN].ToString();
@@ -226,6 +227,7 @@ namespace GameChatSample
                             roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
                             roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
                             roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
+                            gameSceneManager.oTime = System.DateTime.Now.ToString();
                             isopen = "True";
                         }
 

@@ -244,8 +244,7 @@ namespace groupchatManager
             else
             {
                 timeText.text = time.Minutes.ToString();
-                sec = time.Minutes * 60f;
-
+                
             }
         }
 

@@ -108,7 +108,7 @@ namespace CLCM
                         //Debug.Log("겟타입"+docDictionary["openTime"]);
 
                         cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
-                        gameSceneManager.oTime = docDictionary["openTime"] as string;
+                       
 
                         //Debug.Log(NewChatManager.getLostTime(docDictionary["openTime"] as string));
 
@@ -162,15 +162,7 @@ namespace CLCM
         void OnRecvMsg(string id, string msg)
         {
             gSlotMsgDict[id].text = msg;
-            //if(ui.transform.GetChild(3).GetComponent<Text>().text == msg)
-            //{
-            //    Debug.Log("암것도");
-            //}
-            //else
-            //{
-            //    badgeN ++ ;
-            //    badge = badgeN.ToString();
-            //}
+           
         }
 
 
