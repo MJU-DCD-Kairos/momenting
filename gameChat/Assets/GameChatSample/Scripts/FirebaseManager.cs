@@ -401,37 +401,33 @@ namespace FireStoreScript {
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd},
-            {"keyWord", null }
+            { "keyWord", ""}
         };
 
             db.Collection("userInfo").Document(myname).SetAsync(user);
 
 
             //성향 딕셔너리 생성
-            Dictionary<string, object> KWdictArray1 = new Dictionary<string, object> {
-                { "", null}
+            //Dictionary<string, object> KWdictArray1 = new Dictionary<string, object> {
+                  
+            //};
+            ////관심사 딕셔너리 생성
+            //Dictionary<string, object> KWdictArray2 = new Dictionary<string, object> {
+            //    };
+            ////라이프스타일 딕셔너리 생성
+            //Dictionary<string, object> KWdictArray3 = new Dictionary<string, object> {
+            //};
 
-                };
-            //관심사 딕셔너리 생성
-            Dictionary<string, object> KWdictArray2 = new Dictionary<string, object> {
-                { "", null}
+            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
+                //{ "#ff8550", KWdictArray1},
+                //    { "#7043c0", KWdictArray2},
+                //    { "#001130", KWdictArray3}
+                { "#ff8550", new List<object>() { } },
+                { "#7043c0", new List<object>() { } },
+                { "#001130", new List<object>() { } }
 
-                };
-            //라이프스타일 딕셔너리 생성
-            Dictionary<string, object> KWdictArray3 = new Dictionary<string, object> {
-                { "", null}
             };
 
-            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> { };
-            //    { "#ff8550", KWdictArray1},
-            //    { "#7043c0", KWdictArray2},
-            //    { "#001130", KWdictArray3}
-
-            //    };
-
-            KWdictForFS.Add("#ff8550", KWdictArray1);
-            KWdictForFS.Add("#7043c0", KWdictArray2);
-            KWdictForFS.Add("#001130", KWdictArray3);
             //KWdictForFS["keyWord"] = KWdictArray1;
             db.Collection("userInfo").Document(myname).UpdateAsync("keyWord",FieldValue.ArrayUnion(KWdictForFS));
             //KWdictForFS["keyWord"] = KWdictArray2;
