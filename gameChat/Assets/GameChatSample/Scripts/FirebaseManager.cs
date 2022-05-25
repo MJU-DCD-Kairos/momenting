@@ -189,7 +189,7 @@ namespace FireStoreScript {
             PlayerPrefs.SetString("name", myname); //이름
             //PlayerPrefs.SetString("sex", sex); //성별
             //PlayerPrefs.SetInt("age", age); //나이
-            PlayerPrefs.SetString("mbti", mbti); //모래알유형
+            //PlayerPrefs.SetString("mbti", mbti); //모래알유형
             PlayerPrefs.SetInt("mannerLevel", mannerLevel); //매너등급
 
             PlayerPrefs.Save();
@@ -397,10 +397,8 @@ namespace FireStoreScript {
             { "sex", sex }, //성별
             { "ispass", ispass }, //프로필통과여부 (기본 false 상태)
             { "mbti", null }, //모래알유형 
-            //{ "isActive", isActive }, //매칭가능여부
             { "recentAccess", null }, //최근접속시간
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
-            //{"token", token }, //토큰
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd},
             {"keyWord", null }
@@ -424,15 +422,22 @@ namespace FireStoreScript {
                 { "", null}
             };
 
+            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> { };
+            //    { "#ff8550", KWdictArray1},
+            //    { "#7043c0", KWdictArray2},
+            //    { "#001130", KWdictArray3}
 
-            Dictionary<string, object> KWdictForFS = new Dictionary<string, object> {
-                { "#ff8550", KWdictArray1},
-                { "#7043c0", KWdictArray2},
-                { "#001130", KWdictArray3}
+            //    };
 
-                };
-            
-            db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion( KWdictForFS));
+            KWdictForFS.Add("#ff8550", KWdictArray1);
+            KWdictForFS.Add("#7043c0", KWdictArray2);
+            KWdictForFS.Add("#001130", KWdictArray3);
+            //KWdictForFS["keyWord"] = KWdictArray1;
+            db.Collection("userInfo").Document(myname).UpdateAsync("keyWord",FieldValue.ArrayUnion(KWdictForFS));
+            //KWdictForFS["keyWord"] = KWdictArray2;
+            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion(KWdictForFS));
+            //KWdictForFS["keyWord"] = KWdictArray3;
+            //db.Collection("userInfo").Document(myname).UpdateAsync("keyWord", FieldValue.ArrayUnion(KWdictForFS));
 
             Dictionary<string, object> user2 = new Dictionary<string, object> {
             { "name", myname}
