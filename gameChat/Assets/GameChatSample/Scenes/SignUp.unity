@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10041,9 +10041,6 @@ MonoBehaviour:
   mannerLevel: 0
   isActive: 0
   isInMatchingDB: 0
-  tendencyKW: []
-  interestKW: []
-  lifestyleKW: []
   DCheck: 
   newAge: 
 --- !u!4 &1607876114
@@ -10259,6 +10256,51 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4713224894853206689, guid: ede8a10906c9f4545bad65f9278cf309, type: 3}
   m_PrefabInstance: {fileID: 5403176180188560145}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1669767748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1669767750}
+  - component: {fileID: 1669767749}
+  m_Layer: 0
+  m_Name: CountManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1669767749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669767748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5972d039f3e4ec438a1677751813659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stt: {fileID: 7969522531223145113}
+  counting: {fileID: 6501897250780958700}
+--- !u!4 &1669767750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669767748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.4873613, y: 0.929231, z: -0.7250487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681850876
 GameObject:
   m_ObjectHideFlags: 0
@@ -14284,7 +14326,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 432}
-  m_SizeDelta: {x: 240, y: 24}
+  m_SizeDelta: {x: 144, y: 24}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &336710131438473394
 MonoBehaviour:
@@ -14306,7 +14348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b8d8a94804a5ab4389af8bd8c7590ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76db33823b5af5b428f480a74d09baa2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14533,7 +14575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -15348,7 +15389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -16752,7 +16792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -16769,7 +16808,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -18197,6 +18235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490139131064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18209,6 +18248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490357114169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18221,6 +18261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490372921003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18233,6 +18274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490384695371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18245,6 +18287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490437736512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18257,6 +18300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490504566794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18269,6 +18313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490614791664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18281,6 +18326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490730034293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18293,6 +18339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490829858392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18305,6 +18352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160490987577643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18317,6 +18365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491024465739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18329,6 +18378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491304301836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18341,6 +18391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491367835370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18353,6 +18404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491430611669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18365,6 +18417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491504270156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18377,6 +18430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491540406383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18389,6 +18443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491638826934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18401,6 +18456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491729123711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18413,6 +18469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491738659049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18425,6 +18482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491768281066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18437,6 +18495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &2604160491806945423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18449,6 +18508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!224 &2604222103467136039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23979,7 +24039,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 432}
-  m_SizeDelta: {x: 96, y: 24}
+  m_SizeDelta: {x: 144, y: 24}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &5403176178944730446
 MonoBehaviour:
@@ -24001,7 +24061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae2148b9ae2811d4e8900c4a1dfbe391, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6891f06c3c3b62a45942c52c751253c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30345,7 +30405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -30501,7 +30560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -30736,7 +30794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -31129,7 +31186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -31404,7 +31460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -31560,7 +31615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -31597,7 +31651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -32069,7 +32122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -32423,7 +32475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -33404,7 +33455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -33659,7 +33709,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -34290,7 +34339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -34507,7 +34555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -34754,7 +34801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -34821,7 +34867,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -35076,7 +35121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -35233,7 +35277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -35292,7 +35335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -35547,7 +35589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -36178,7 +36219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -36414,7 +36454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -36552,7 +36591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -36965,7 +37003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -37024,7 +37061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -37271,7 +37307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -37436,7 +37471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -37593,7 +37627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -37750,7 +37783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -38065,7 +38097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -38222,7 +38253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -38371,7 +38401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -41642,7 +41671,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 34a0603780c547d44a1f727058638c21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 642cd606b0036764fad89cdfc14d9a2f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -41669,7 +41698,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 432}
-  m_SizeDelta: {x: 96, y: 24}
+  m_SizeDelta: {x: 144, y: 24}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!223 &6501897250671734120
 Canvas:
@@ -43452,7 +43481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -43646,7 +43674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -43764,7 +43791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -43999,7 +44025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -44430,7 +44455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -44548,7 +44572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -44742,7 +44765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -44898,7 +44920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45054,7 +45075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45172,7 +45192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45328,7 +45347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45484,7 +45502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45640,7 +45657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -45913,7 +45929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85292b694d9834d9f100c403b9b6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delKWlist: []
   notCount: 0
   notAdd: 0
   overKWsnackBar: {fileID: 0}
@@ -47038,7 +47053,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1669767749}
+        m_TargetAssemblyTypeName: countManager, Assembly-CSharp
+        m_MethodName: CountT
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 1, g: 0.52156866, b: 0.3137255, a: 1}
   m_CustomCaretColor: 1
   m_SelectionColor: {r: 1, g: 0.52156866, b: 0.3137255, a: 1}
@@ -47681,6 +47708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd934e7067bb614b827e9147dff6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IntText: {fileID: 0}
 --- !u!114 &8339870434616246623
 MonoBehaviour:
   m_ObjectHideFlags: 0

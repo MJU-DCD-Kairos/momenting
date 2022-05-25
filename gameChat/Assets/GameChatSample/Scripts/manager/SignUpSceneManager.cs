@@ -100,9 +100,9 @@ namespace SUCM
                 age = newAge;
             }
 
-            PreAge.text = Mage.options[Mage.value].text;
+            PreAge.text = newAge;
             PreName.text = Mname.text;
-            PreSex.text = age;
+            PreSex.text = Msex.options[Msex.value].text;
             PreIntro.text = Mintro.text;
 
 
