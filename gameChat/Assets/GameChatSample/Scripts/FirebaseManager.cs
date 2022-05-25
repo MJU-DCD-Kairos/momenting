@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -54,15 +55,15 @@ namespace FireStoreScript {
 
         //키워드를 저장하기 위한 선언부
         //키워드 카테고리별 리스트
-        //public List<string> tendencyKW = new List<string>();
-        //public List<string> interestKW = new List<string>();
-        //public List<string> lifestyleKW = new List<string>();
+        public List<string> tendencyKW = new List<string>();
+        public List<string> interestKW = new List<string>();
+        public List<string> lifestyleKW = new List<string>();
 
         //리스트를 색상 핵사코드값으로 저장할 딕셔너리 생성
         public Dictionary<string, string> KWdict = new Dictionary<string, string>();
 
 
-        public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate}
+        public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate }
 
         public void Awake()
         {
@@ -73,17 +74,17 @@ namespace FireStoreScript {
         public void OnEnable()
         {
 
-            
+
 
         }
         public void SetActivee()
         {
             thiss.SetActive(true);
-            
+
         }
         public void Start()
         {
-            
+
             GCN = "";
 
             GCN = PlayerPrefs.GetString("GCName");
@@ -133,7 +134,7 @@ namespace FireStoreScript {
             }
             else
             {
-               // Debug.Log("유저성별: " + Sex.text);
+                // Debug.Log("유저성별: " + Sex.text);
                 //sex = Sex.text;
             }
 
@@ -166,11 +167,11 @@ namespace FireStoreScript {
                         //mbti = docDictionary["mbti"] as string;
                         //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
                         Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
-                    //token = docDictionary["token"] as string;
-                    //return;
-                }
+                        //token = docDictionary["token"] as string;
+                        //return;
+                    }
                     Debug.Log("닉네임 : " + GCN);
-                    Debug.Log("ispass :"+ ispass);
+                    Debug.Log("ispass :" + ispass);
                     Debug.Log("성별 : " + sex);
                     Debug.Log("나이 : " + age);
                     Debug.Log("한줄소개 : " + myintroduction);
@@ -260,7 +261,7 @@ namespace FireStoreScript {
                 FinishChecker.SetActive(true);
                 DoubleEnBtn.SetActive(false);
                 NextBtn.SetActive(true);
-                
+
             }
 
         }
@@ -290,7 +291,8 @@ namespace FireStoreScript {
                     getKeywordList.saveKWlist[i] == "아싸중에인싸")
                 {
                     //성향 카테고리 #ff8550
-                    KWdict.Add(getKeywordList.saveKWlist[i], "#ff8550");
+                    tendencyKW.Add(getKeywordList.saveKWlist[i]);
+                    //KWdict.Add(getKeywordList.saveKWlist[i], "#ff8550");
                 }
                 else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
                     getKeywordList.saveKWlist[i] == "저녁형" ||
@@ -305,14 +307,14 @@ namespace FireStoreScript {
                     )
                 {
                     //관심 카테고리 #7043c0
-                    //interestKW.Add(getKeywordList.saveKWlist[i]);
-                    KWdict.Add(getKeywordList.saveKWlist[i], "#7043c0");
+                    interestKW.Add(getKeywordList.saveKWlist[i]);
+                    //KWdict.Add(getKeywordList.saveKWlist[i], "#7043c0");
                 }
                 else
                 {
                     //생활패턴 카테고리 #001130
-                    //lifestyleKW.Add(getKeywordList.saveKWlist[i]);
-                    KWdict.Add(getKeywordList.saveKWlist[i], "#001130");
+                    lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+                    //KWdict.Add(getKeywordList.saveKWlist[i], "#001130");
                 }
             }
             //for문 종료 후 해당 리스트들을 dict에 저장
@@ -347,7 +349,7 @@ namespace FireStoreScript {
             myname = Name.text;
             myintroduction = Introduction.text;
 
-            if(SSex.options[SSex.value].text == ("남자"))
+            if (SSex.options[SSex.value].text == ("남자"))
             {
                 int sex2 = 1;
                 sex = sex2;
@@ -361,7 +363,7 @@ namespace FireStoreScript {
             string age2 = AAge.options[AAge.value].text;
             string mon = MMonth.options[MMonth.value].text;
             string day = DDay.options[DDay.value].text;
-            
+
             age = age2;
             //token = Token.text;
             ispass = "false";
@@ -407,12 +409,10 @@ namespace FireStoreScript {
             //{ "keyWord", KWdict.ToDictionary}
         };
 
-            db.Collection("userInfo").Document(myname).SetAsync(user);
-
-
+            
             //성향 딕셔너리 생성
             //Dictionary<string, object> KWdictArray1 = new Dictionary<string, object> {
-                  
+
             //};
             ////관심사 딕셔너리 생성
             //Dictionary<string, object> KWdictArray2 = new Dictionary<string, object> {
@@ -442,12 +442,30 @@ namespace FireStoreScript {
             { "name", myname}
                 };
 
-            
+
+            ArrayList KWarray = new ArrayList();
+            foreach (string kw in tendencyKW)
+            {
+                KWarray.Add(kw)
+            }
+
+            DocumentReference docRef = db.Collection("usreInfo").Document(myname);
+            Dictionary<string, object> docData = new Dictionary<string, object>
+            {
+
+            };
+            docData.Add("tendencyKW", KWarray);
+
+
+
             db.Collection("report").Document(myname).SetAsync(user2);
             PlayerPrefs.SetString("GCName", myname);
 
+            db.Collection("userInfo").Document(myname).SetAsync(docData);
+
 
         }
+    }
 
         /*
         public void sendRequestDB() //받은신청, 보낸신청 DB
