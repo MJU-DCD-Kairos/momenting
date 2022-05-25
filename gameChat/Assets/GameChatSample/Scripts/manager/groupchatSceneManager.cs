@@ -220,13 +220,13 @@ namespace groupchatManager
             TimeSpan time = DateTime.Now - DateTime.Parse(gameSceneManager.oTime);
             if (time.Minutes > 20)
             {
-                timeText.text = "종료" + time.Minutes.ToString(); +"/"+ gameSceneManager.oTime ;
+                timeText.text = "종료";
                 messageIF.interactable = false;
 
             }
             else
             {
-                timeText.text = (20 - int.Parse(time.Minutes.ToString())).ToString()+"분";
+                timeText.text = time.Minutes.ToString()+"분";
             }
         }
 
