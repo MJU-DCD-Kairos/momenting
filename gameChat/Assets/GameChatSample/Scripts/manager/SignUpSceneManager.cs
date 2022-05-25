@@ -26,6 +26,16 @@ namespace SUCM
         GoogleSignInDemo GSD;
         public Button GoToHome;
         public GameObject KWpassBtn;
+        public Text PreName;
+        public Text PreAge;
+        public Text PreSex;
+        public Text PreIntro;
+        public InputField Mname;
+        public Dropdown Mage;
+        public Dropdown MMon;
+        public Dropdown Mday;
+        public Dropdown Msex;
+        public InputField Mintro;
 
 
         //public GameObject[] Interests;
@@ -52,11 +62,50 @@ namespace SUCM
             GoToHome.onClick.AddListener(setstring);
             GoToHome.onClick.AddListener(gSM.LoadScene_Home);
         }
-
+        public string age;
+        public string newAge;
         private void Update()
         {
             getKWnum();
             setKWBtn();
+
+            string age2 = Mage.options[Mage.value].text;
+            string mon = MMon.options[MMon.value].text;
+            string day = Mday.options[Mday.value].text;
+
+            age = age2;
+            //token = Token.text;
+
+            //연령 구하기
+            newAge = DateTime.Now.ToString("yyyy");
+            Debug.Log(DateTime.Now.ToString("yyyy"));
+
+            newAge = DateTime.Now.ToString("yyyy");
+            Debug.Log(DateTime.Now.ToString("yyyy"));
+
+            newAge = (int.Parse(newAge.ToString()) - int.Parse(age2)).ToString();
+            Debug.Log("newAge1 :" + newAge);
+            if (int.Parse(DateTime.Now.ToString("MM")) == int.Parse(mon))
+            {
+                if (int.Parse(DateTime.Now.ToString("dd")) < int.Parse(day))
+                    age = newAge = (int.Parse(newAge) - 1).ToString();
+
+            }
+            else if (int.Parse(DateTime.Now.ToString("MM")) < int.Parse(mon))
+            {
+                age = newAge = (int.Parse(newAge) - 1).ToString();
+            }
+            else
+            {
+                age = newAge;
+            }
+
+            PreAge.text = Mage.options[Mage.value].text;
+            PreName.text = Mname.text;
+            PreSex.text = age;
+            PreIntro.text = Mintro.text;
+
+
         }
 
         public void setstring()
