@@ -111,7 +111,7 @@ public class Report : MonoBehaviour
             { "처리여부" , false },
             { "RoomName" , gameSceneManager.chatRname}
         };
-        await FirebaseManager.db.Collection("report").Document(PlayerPrefs.GetString("GCN")).UpdateAsync("report", FieldValue.ArrayUnion(reportData));
+        await FirebaseManager.db.Collection("report").Document(PlayerPrefs.GetString("GCName")).UpdateAsync("report", FieldValue.ArrayUnion(reportData));
         
     }
 }

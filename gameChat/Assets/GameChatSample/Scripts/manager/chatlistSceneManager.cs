@@ -106,7 +106,8 @@ namespace CLCM
                         //Debug.Log("∞Ÿ≈∏¿‘"+docDictionary["openTime"]);
 
                         cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
-                        
+                        gameSceneManager.oTime = NewChatManager.getLostTime(docDictionary["openTime"] as string);
+
                         //Debug.Log(NewChatManager.getLostTime(docDictionary["openTime"] as string));
 
                         cInfoList[2] = docDictionary["channelID"] as string;// NewChatManager.curMsg;
