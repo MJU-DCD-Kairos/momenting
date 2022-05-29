@@ -393,7 +393,7 @@ namespace FireStoreScript {
         public static string MbtiType;
         public static void mbtiData()
         {
-            MbtiType = PlayerPrefs.GetString("MBTIResert");
+            MbtiType = PlayerPrefs.GetString("MBTIResult");
             Dictionary<string, object> user = new Dictionary<string, object>
         {
 

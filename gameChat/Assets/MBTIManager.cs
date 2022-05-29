@@ -16,7 +16,7 @@ public class MBTIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MbtiType = PlayerPrefs.GetString("MBTIResert");
+        MbtiType = PlayerPrefs.GetString("MBTIResult");
         mbtiresult();
     }
     public void mbtiresult() { 

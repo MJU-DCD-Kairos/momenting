@@ -340,7 +340,7 @@ public class TypeTestManager : MonoBehaviour
         else if ((E_I > 1) && (N_S > 1) && (T_F <= 1) && (P_J > 1)) { MbtiType = "ISTJ"; }
 
         Debug.Log("MBTI타입초기대입"+MbtiType);
-        PlayerPrefs.SetString("MBTIResert", MbtiType.ToString());
+        PlayerPrefs.SetString("MBTIResult", MbtiType.ToString());
         FirebaseManager.mbtiData();
 
         //string Result = PlayerPrefs.GetString("MBTIResert");
@@ -385,7 +385,7 @@ public class TypeTestManager : MonoBehaviour
 
     public void PrintType()
         {
-        string MBTIResult = PlayerPrefs.GetString("MBTIResert");
+        string MBTIResult = PlayerPrefs.GetString("MBTIResult");
         Debug.Log("플레이어프렙스MBTI정보" + MBTIResult);
 
         //인스펙터에 입력한 엠비티아이와 일치하는 프리팹 로드
