@@ -118,7 +118,7 @@ namespace GameChatSample
 
             //도큐먼트 id초기화를 위한 과정// 필요함
             docID = "";
-            countMembers = 0; //채팅방멤버수 초기화
+            //countMembers = 0; //채팅방멤버수 초기화
             fcount = 0; //여성멤버수 초기화
             mcount = 0; //남성멤버수 초기화
 
@@ -161,9 +161,6 @@ namespace GameChatSample
         #region Matching
         public void matchingOn()
         {
-            fcount = 0;
-            mcount = 0;
-            countMembers = 0;
             CollectionReference roomRef = FirebaseManager.db.Collection(GAMECHAT_ROOM); //채팅룸 컬렉션 참조
             Query allroomRef = roomRef;
             allroomRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
@@ -185,12 +182,14 @@ namespace GameChatSample
 
                     if (open == "False")
                     {
+                        fcount = 0;
+                        mcount = 0;
+                        countMembers = 0;
                         foreach (Dictionary<string, object> m in memberList)
                         {
                             if (m[SEX].ToString() == "1") { mcount++; }
-                            else { fcount++; }
+                            else { fcount++; }  
                         }
-                        countMembers = mcount + fcount;
                         Debug.Log("기존 남성수 " + mcount + "+ 기존 여성수 " + fcount);
 
                         Dictionary<string, object> addUser = new Dictionary<string, object>
@@ -198,64 +197,96 @@ namespace GameChatSample
                     { NICKNAME , username },
                     { SEX , usersex }
                 };
-                        if (usersex == 2)
-                        {
-                            if (fcount <= 2)
-                            {
-                                roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
-                                fcount++;
-                                Debug.Log("여성수:" + fcount);
-                            }
-
-                        }
-                        else if (usersex == 1)
-                        {
-                            if (mcount <= 2)
-                            {
-                                roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
-                                mcount++;
-                                Debug.Log("남성수"+mcount);
-                            }
-                        }
-                        countMembers++;
-                        Debug.Log("업데이트된 전체유저수" + countMembers);
                         string isopen = "";
-                        if (countMembers == 6) //내가 들어오고 유저수를 셌을 때 6명이면 채팅방 오픈/액티브를 트루로 바꿈
+                        if (usersex == 2 && fcount <= 2)
                         {
-                            Debug.Log("6명 채워짐");
-                            //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
-                            roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
-                            roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
-                            roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
-                            //gameSceneManager.IDoTime.Add(roomRef.Document(docID).Id.ToString(), System.DateTime.Now.ToString());
-                            isopen = "True";
-                        }
+                            roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
+                            fcount++;
+                            Debug.Log("여성수:" + fcount);
 
-                        DocumentReference docRef = roomRef.Document(docID);
-                        listener = docRef.Listen(snapshot =>
-                        {
-                            if (snapshot.Exists)
+                            countMembers = mcount + fcount;
+
+                            Debug.Log("업데이트된 전체유저수" + countMembers);
+
+                            if (countMembers == 6) //내가 들어오고 유저수를 셌을 때 6명이면 채팅방 오픈/액티브를 트루로 바꿈
                             {
-                                Debug.Log("콜백");
-                                if (isopen == "True") //채팅방 오픈 값 트루이면
+                                Debug.Log("6명 채워짐");
+                                //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
+                                roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
+                                roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
+                                roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
+                                isopen = "True";
+                            }
+                            DocumentReference docRef = roomRef.Document(docID);
+                            listener = docRef.Listen(snapshot =>
+                            {
+                                if (snapshot.Exists)
                                 {
-                                    listener.Stop();
-                                    Invoke("showChatRoom", 5f);
+                                    Debug.Log("콜백");
+                                    if (isopen == "True") //채팅방 오픈 값 트루이면
+                                    {
+                                        listener.Stop();
+                                        Invoke("showChatRoom", 5f);
+                                    }
                                 }
-                            }
-                            
-                            else
+
+                                else
+                                {
+                                    Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id));
+                                    listener.Stop();
+                                    Dialog_Matching_ReMatching.SetActive(true); //매칭실패 다이얼로그
+                                }
+
+                            });
+
+                            return;
+
+                        }
+                        else if (usersex == 1 && mcount <= 2)
+                        {
+                            roomRef.Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
+                            mcount++;
+                            Debug.Log("남성수" + mcount);
+
+                            countMembers = mcount + fcount;
+
+                            Debug.Log("업데이트된 전체유저수" + countMembers);
+
+                            if (countMembers == 6) //내가 들어오고 유저수를 셌을 때 6명이면 채팅방 오픈/액티브를 트루로 바꿈
                             {
-                                Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id)); 
-                                listener.Stop();
-                                Dialog_Matching_ReMatching.SetActive(true); //매칭실패 다이얼로그
+                                Debug.Log("6명 채워짐");
+                                //전체유저수가 6명이면 채팅방의 오픈 여부를 true로 바꿈
+                                roomRef.Document(docID).UpdateAsync(ISOPEN, true); //채팅방 열림
+                                roomRef.Document(docID).UpdateAsync(ISACTIVE, true); //채팅방 활성화
+                                roomRef.Document(docID).UpdateAsync(OPENTIME, System.DateTime.Now.ToString()); //채팅방 열린 시간 기록
+                                isopen = "True";
                             }
 
-                        });
+                            DocumentReference docRef = roomRef.Document(docID);
+                            listener = docRef.Listen(snapshot =>
+                            {
+                                if (snapshot.Exists)
+                                {
+                                    Debug.Log("콜백");
+                                    if (isopen == "True") //채팅방 오픈 값 트루이면
+                                    {
+                                        listener.Stop();
+                                        Invoke("showChatRoom", 5f);
+                                    }
+                                }
 
-                        return;
+                                else
+                                {
+                                    Debug.Log(string.Format("문서가 존재하지 않습니다!", snapshot.Id));
+                                    listener.Stop();
+                                    Dialog_Matching_ReMatching.SetActive(true); //매칭실패 다이얼로그
+                                }
+
+                            });
+
+                            return;
+                        }
                     }
-
                 }
 
                 //makeNewRoom();
