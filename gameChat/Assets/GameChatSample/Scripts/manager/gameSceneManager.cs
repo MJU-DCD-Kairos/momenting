@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using GameChatUnity;
 using GameChatUnity.SimpleJSON;
 using GameChatUnity.SocketIO;
+using FireStoreScript;
 
 public class gameSceneManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class gameSceneManager : MonoBehaviour
     public GameObject title;
     public GameObject splash;
 
+    FirebaseManager FireBaseManager;
     public string creatChatCode;
 
 
@@ -64,7 +66,6 @@ public class gameSceneManager : MonoBehaviour
 
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -73,8 +74,7 @@ public class gameSceneManager : MonoBehaviour
         //TodayQ = GameObject.Find("TodayQ").GetComponent<>();
         //GameChat.initialize("e3558324-2d64-47d0-bd7a-6fa362824bd7");
         //PlayerPrefs.SetString("LastMSGID", "62860f665d257d31a779d5cf");
-
-        
+        FireBaseManager = GameObject.Find("FirebaseManager").GetComponent<FirebaseManager>();
 
 
     }
@@ -127,7 +127,7 @@ public class gameSceneManager : MonoBehaviour
     public void LoadScene_MyProfile_Sample3()
     {
         LoadScene("MyProfile_Sample3");
-        Debug.Log("프로필씬 호출버튼 클릭");
+        FireBaseManager.mbtiData();
     }
    
     //일대일대화 씬 호출

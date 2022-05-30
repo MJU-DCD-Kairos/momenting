@@ -119,6 +119,8 @@ namespace FireStoreScript {
                 }
             });
             Invoke("LoadData", 0.3f);
+            
+            mbtiData();
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -385,25 +387,34 @@ namespace FireStoreScript {
                 //mannerDB();
                 //sendRequestDB();
                 //reportDB();
-
-            }
+                            }
         }
 
 
         public static string MbtiType;
-        public static void mbtiData()
+        public void mbtiData()
         {
-            MbtiType = PlayerPrefs.GetString("MBTIResult");
-            Dictionary<string, object> user = new Dictionary<string, object>
+            //MbtiType = PlayerPrefs.GetString("MBTIResult");
+            MbtiType = TypeTestManager.MbtiType;
+
+            Dictionary<string, object> user = new Dictionary<string, object>()
         {
 
             { "mbti", MbtiType }, //모래알유형 
             
         };
 
-
-            db.Collection("userInfo").Document(myname).SetAsync(user);
+            StartCoroutine(delay(user));
         }
+
+        
+        IEnumerator delay(Dictionary<string, object> user)
+        {
+            yield return new WaitForSeconds(1f);
+            db.Collection("userInfo").Document(myname).SetAsync(user, SetOptions.MergeAll);
+        }
+
+
         
 
         public string newAge;

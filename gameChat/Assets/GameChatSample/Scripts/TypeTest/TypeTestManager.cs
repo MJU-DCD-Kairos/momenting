@@ -207,6 +207,7 @@ public class TypeTestManager : MonoBehaviour
                 P_J = P_J + A12;
                 
                 TypeResult();
+                //FirebaseManager.mbtiData();
                 PrintType_destroy();
                 GameObject.Find("Test").SetActive(false);
                 GameObject.Find("TypeTest").transform.Find("MyType").gameObject.SetActive(true);
@@ -319,7 +320,7 @@ public class TypeTestManager : MonoBehaviour
     public int T_F;
     public int P_J;
 
-    public string MbtiType; //도출한 유형을 인스펙터에서 볼 수 있도록 선언
+    public static string MbtiType; //도출한 유형을 인스펙터에서 볼 수 있도록 선언
     public void TypeResult()
     {
         if ((E_I <= 1) && (N_S <=1) && (T_F <= 1) && (P_J <= 1)) { MbtiType = "ENTP"; }
@@ -341,7 +342,8 @@ public class TypeTestManager : MonoBehaviour
 
         Debug.Log("MBTI타입초기대입"+MbtiType);
         PlayerPrefs.SetString("MBTIResult", MbtiType.ToString());
-        FirebaseManager.mbtiData();
+
+        
 
         //string Result = PlayerPrefs.GetString("MBTIResert");
         //Debug.Log("플레이어프렙스저장정보" + Result);
