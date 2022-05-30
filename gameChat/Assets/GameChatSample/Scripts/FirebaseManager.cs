@@ -120,7 +120,7 @@ namespace FireStoreScript {
             });
             Invoke("LoadData", 0.3f);
             
-            mbtiData();
+            
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -411,7 +411,7 @@ namespace FireStoreScript {
         IEnumerator delay(Dictionary<string, object> user)
         {
             yield return new WaitForSeconds(1f);
-            db.Collection("userInfo").Document(myname).SetAsync(user, SetOptions.MergeAll);
+            db.Collection("userInfo").Document(GCN).SetAsync(user, SetOptions.MergeAll);
         }
 
 
