@@ -9,7 +9,6 @@ using Firebase.Extensions;
 using UnityEngine.UI;   
 using System.Threading;
 using System.Threading.Tasks;
-using System;
 using groupchatManager;
 
 
@@ -97,7 +96,6 @@ namespace FireStoreScript {
         }
         public void Start()
         {
-
             GCN = "";
 
             GCN = PlayerPrefs.GetString("GCName");
@@ -315,10 +313,7 @@ namespace FireStoreScript {
         }
 
 
-
-
-        //리스트에 저장된 선택 키워드를 카테고리 구분하여 리스트에 넣음
-        public void KWcategory()
+        public void SaveKW()
         {
             for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
             {
@@ -340,7 +335,6 @@ namespace FireStoreScript {
                 {
                     //성향 카테고리 #ff8550
                     tendencyKW.Add(getKeywordList.saveKWlist[i]);
-                    //KWdict.Add(getKeywordList.saveKWlist[i], "#ff8550");
                 }
                 else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
                     getKeywordList.saveKWlist[i] == "저녁형" ||
@@ -356,20 +350,95 @@ namespace FireStoreScript {
                 {
                     //관심 카테고리 #7043c0
                     interestKW.Add(getKeywordList.saveKWlist[i]);
-                    //KWdict.Add(getKeywordList.saveKWlist[i], "#7043c0");
                 }
                 else
                 {
                     //생활패턴 카테고리 #001130
                     lifestyleKW.Add(getKeywordList.saveKWlist[i]);
-                    //KWdict.Add(getKeywordList.saveKWlist[i], "#001130");
                 }
             }
             //for문 종료 후 해당 리스트들을 dict에 저장
             //KWdict.Add("#ff8550", tendencyKW);
             //KWdict.Add("#7043c0", interestKW);
             //KWdict.Add("#001130", lifestyleKW);
+
+            //List<object> kwlist = new List<object>();
+            //List<object> kwlist2 = new List<object>();
+            //List<object> kwlist3 = new List<object>();
+            
+            //kwlist.Add("상큼발랄");
+            //kwlist.Add("32차원");
+            //kwlist2.Add("반려동물");
+            //kwlist3.Add("밥보다 잠");
+            //kwlist3.Add("저녁형");
+
+            //Dictionary<string, object> name = new Dictionary<string, object>
+            //{
+            //    {"name", "나영" }
+            //};
+            Dictionary<string, object> kw = new Dictionary<string, object>
+            {
+                {"#ff8550" , tendencyKW },
+                {"#7043c0" , interestKW },
+                {"#001130" , lifestyleKW }
+            };
+            //db.Collection("userInfo").Document(GCN).SetAsync(name);
+            db.Collection("userInfo").Document(GCN).UpdateAsync("KeyWord", kw);
         }
+
+        //리스트에 저장된 선택 키워드를 카테고리 구분하여 리스트에 넣음
+        //public void KWcategory()
+        //{
+        //    for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+        //    {
+        //        if (getKeywordList.saveKWlist[i] == "상큼발랄" ||
+        //            getKeywordList.saveKWlist[i] == "32차원" ||
+        //            getKeywordList.saveKWlist[i] == "긍정맨" ||
+        //            getKeywordList.saveKWlist[i] == "핵인싸" ||
+        //            getKeywordList.saveKWlist[i] == "일잘러" ||
+        //            getKeywordList.saveKWlist[i] == "잠만보" ||
+        //            getKeywordList.saveKWlist[i] == "감성충만" ||
+        //            getKeywordList.saveKWlist[i] == "센스쟁이" ||
+        //            getKeywordList.saveKWlist[i] == "분위기메이커" ||
+        //            getKeywordList.saveKWlist[i] == "수다쟁이" ||
+        //            getKeywordList.saveKWlist[i] == "과제마스터" ||
+        //            getKeywordList.saveKWlist[i] == "유머러스" ||
+        //            getKeywordList.saveKWlist[i] == "박학다식" ||
+        //            getKeywordList.saveKWlist[i] == "인싸중에아싸" ||
+        //            getKeywordList.saveKWlist[i] == "아싸중에인싸")
+        //        {
+        //            //성향 카테고리 #ff8550
+        //            tendencyKW.Add(getKeywordList.saveKWlist[i]);
+        //            //KWdict.Add(getKeywordList.saveKWlist[i], "#ff8550");
+        //        }
+        //        else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
+        //            getKeywordList.saveKWlist[i] == "저녁형" ||
+        //            getKeywordList.saveKWlist[i] == "올빼미형" ||
+        //            getKeywordList.saveKWlist[i] == "프로집콕러" ||
+        //            getKeywordList.saveKWlist[i] == "프로외출러" ||
+        //            getKeywordList.saveKWlist[i] == "밥보다 잠" ||
+        //            getKeywordList.saveKWlist[i] == "하루다섯끼" ||
+        //            getKeywordList.saveKWlist[i] == "워라밸" ||
+        //            getKeywordList.saveKWlist[i] == "워커홀릭" ||
+        //            getKeywordList.saveKWlist[i] == "벼락치기"
+        //            )
+        //        {
+        //            //관심 카테고리 #7043c0
+        //            interestKW.Add(getKeywordList.saveKWlist[i]);
+        //            //KWdict.Add(getKeywordList.saveKWlist[i], "#7043c0");
+        //        }
+        //        else
+        //        {
+        //            //생활패턴 카테고리 #001130
+        //            lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+        //            //KWdict.Add(getKeywordList.saveKWlist[i], "#001130");
+        //        }
+        //    }
+        //    //for문 종료 후 해당 리스트들을 dict에 저장
+        //    //KWdict.Add("#ff8550", tendencyKW);
+        //    //KWdict.Add("#7043c0", interestKW);
+        //    //KWdict.Add("#001130", lifestyleKW);
+        //}
 
 
 

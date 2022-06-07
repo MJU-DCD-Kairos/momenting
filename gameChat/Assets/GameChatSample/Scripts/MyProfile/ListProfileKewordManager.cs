@@ -32,51 +32,51 @@ public class ListProfileKewordManager : MonoBehaviour
 
     void Awake()
     {
-        LoadList();
+        //LoadList();
 
     }
 
-    public void LoadList()
-    {
+    //public void LoadList()
+    //{
 
-        ratioList.Clear();
+    //    ratioList.Clear();
 
-        //리스트 불러오기
-        string[] line = KeywordData.text.Substring(0, KeywordData.text.Length - 1).Split('\n');
-        for (int i = 0; i < line.Length; i++)
-        {
-            string[] row = line[i].Split('\t');
+    //    //리스트 불러오기
+    //    string[] line = KeywordData.text.Substring(0, KeywordData.text.Length - 1).Split('\n');
+    //    for (int i = 0; i < line.Length; i++)
+    //    {
+    //        string[] row = line[i].Split('\t');
 
-            KeywordList.Add(new List(row[0], row[1], row[2]));
-            if(MyProfile.activeInHierarchy == true)
-            {
-                //리스트 프리팹을 Content 부모 밑에 자식으로 생성
-                GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
-                ListContent.transform.SetParent(Content.transform, false);
-            }
-            else if(Profile.activeInHierarchy == true)
-            {
-                //리스트 프리팹을 Content 부모 밑에 자식으로 생성
-                GameObject ListContent = Instantiate(Resources.Load("Prefabs/Keyword")) as GameObject;
-                ListContent.transform.SetParent(Content.transform, false);
-            }
+    //        KeywordList.Add(new List(row[0], row[1], row[2]));
+    //        if(MyProfile.activeInHierarchy == true)
+    //        {
+    //            //리스트 프리팹을 Content 부모 밑에 자식으로 생성
+    //            GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
+    //            ListContent.transform.SetParent(Content.transform, false);
+    //        }
+    //        else if(Profile.activeInHierarchy == true)
+    //        {
+    //            //리스트 프리팹을 Content 부모 밑에 자식으로 생성
+    //            GameObject ListContent = Instantiate(Resources.Load("Prefabs/Keyword")) as GameObject;
+    //            ListContent.transform.SetParent(Content.transform, false);
+    //        }
             
-            GameObject[] KeywordObj = GameObject.FindGameObjectsWithTag("Keyword");
-            KeywordObj[i].GetComponent<Text>().text = row[0];
+    //        GameObject[] KeywordObj = GameObject.FindGameObjectsWithTag("Keyword");
+    //        KeywordObj[i].GetComponent<Text>().text = row[0];
 
-            GameObject[] DetailObj = GameObject.FindGameObjectsWithTag("Detail");
-            DetailObj[i].GetComponent<Text>().text = row[1];
+    //        GameObject[] DetailObj = GameObject.FindGameObjectsWithTag("Detail");
+    //        DetailObj[i].GetComponent<Text>().text = row[1];
 
-            GameObject[] RatioObj = GameObject.FindGameObjectsWithTag("Ratio");
-            RatioObj[i].GetComponent<Text>().text = row[2];
+    //        GameObject[] RatioObj = GameObject.FindGameObjectsWithTag("Ratio");
+    //        RatioObj[i].GetComponent<Text>().text = row[2];
 
-            ratioList.Add(Convert.ToSingle(row[2]));
+    //        ratioList.Add(Convert.ToSingle(row[2]));
 
-            Debug.Log(row[0]);
-            Debug.Log(row[1]);
-            Debug.Log(row[2]);
-        }
-    }
+    //        Debug.Log(row[0]);
+    //        Debug.Log(row[1]);
+    //        Debug.Log(row[2]);
+    //    }
+    //}
 
     public void ToggleIsOn(bool isOn)
     {
