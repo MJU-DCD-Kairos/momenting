@@ -25,6 +25,8 @@ public class gameSceneManager : MonoBehaviour
     //채팅리스트에서 채널 메시지 로드로 넘어갈 때 사용하는 채팅방 이름 및 채널 ID
     public static string chatRname;
     public static string chatRID;
+    //채팅방의 활성화 여부를 받는 전역변수 선언
+    public static string chatActive;
     //public static Dictionary<string, string> IDoTime;
 
 

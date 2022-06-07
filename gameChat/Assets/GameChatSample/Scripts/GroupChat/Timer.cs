@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using groupchatManager;
+using FireStoreScript;
+
+
 public class Timer : MonoBehaviour
 {
+    gameSceneManager gSM;
     Image timerBar;
     public float maxTime = 1200f;
     float timeLeft;
     public GameObject eend;
-    public GameObject deActive;
+
 
     void Start()
     {
-
+        gSM = GameObject.Find("GameSceneManager").GetComponent<gameSceneManager>();
         timerBar = GetComponent<Image>();
         timeLeft = maxTime;
         
@@ -33,7 +37,7 @@ public class Timer : MonoBehaviour
             Time.timeScale = 0;
 
             //eend.gameObject.SetActive(true);
-            deActive.gameObject.SetActive(true);
+            
 
         }
 

@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class SnackBarManager : MonoBehaviour
 {
-    public static float DestroyTime = 4.3f;
-    public static GameObject Canvas;
+    public float DestroyTime = 4.3f;
+    public GameObject Canvas;
 
-    public static void Sb_DeleteList()
+    public void Sb_DeleteList()
     {
         GameObject snackbar = Instantiate(Resources.Load("Prefabs/SnackBar")) as GameObject;
         snackbar.transform.SetParent(Canvas.transform, false);
         snackbar.GetComponentInChildren<Text>().text = "채팅방이 삭제됐습니다.";
         Destroy(snackbar, DestroyTime);
     }
-    public static void Sb_Report()
+    public void Sb_Report()
     {
         GameObject snackbar = Instantiate(Resources.Load("Prefabs/SnackBar")) as GameObject;
         snackbar.transform.SetParent(Canvas.transform, false);
@@ -23,7 +23,7 @@ public class SnackBarManager : MonoBehaviour
         Destroy(snackbar, DestroyTime);
     }
 
-    public static void KW_Sb_DeleteList()
+    public void KW_Sb_DeleteList()
     {
         GameObject snackbar = Instantiate(Resources.Load("Prefabs/SnackBar")) as GameObject;
         snackbar.transform.SetParent(Canvas.transform, false);

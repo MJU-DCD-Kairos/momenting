@@ -90,48 +90,36 @@ namespace CLCM
 
         public async Task gotMyGClistInfo()
         {
-            Debug.Log("gotmygclistinfo실행됨");
             gSlotList.Clear();
             gSlotMsgDict.Clear();
-            Debug.Log("gslot클리어");
             Query alldocQauery = FirebaseManager.db.Collection("gameChatRoom");
-            Debug.Log("게임챗연결됨");
 
             QuerySnapshot alldocQauerySnapshot = await alldocQauery.GetSnapshotAsync();
             foreach (DocumentSnapshot docSnapShot in alldocQauerySnapshot.Documents)
             {
                 Dictionary<string, object> docDictionary = docSnapShot.ToDictionary();
                 List<object> memberList = (List<object>)docDictionary["member"];
-                Debug.Log("멤버를가져옴");
 
                 foreach (Dictionary<string, object> m in memberList)
                 {
-                    Debug.Log("두번째 foreach가 돌아감");
 
                     if (m["nickName"].ToString() == userNickName)
                     {
-                        Debug.Log("이프문이돌아감");
 
                         cInfoList = new string[3];
-                        Debug.Log("4개짜리열을만듬");
 
                         cInfoList[0] = docSnapShot.Id;
-                        Debug.Log("docsnapshot id를 0번 배열로");
 
                         //Debug.Log(docSnapShot.Id);
                         //Debug.Log("겟타입"+docDictionary["openTime"]);
 
                         cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
-                        Debug.Log("뉴챗매니저의 잃은시간 계산을 id를 1번 배열로");
-
 
                         //Debug.Log(NewChatManager.getLostTime(docDictionary["openTime"] as string));
 
                         cInfoList[2] = docDictionary["channelID"] as string;// NewChatManager.curMsg;
-                        Debug.Log("채널 id를 2번 배열로");
                         //Debug.Log(NewChatManager.getCurMSG(docDictionary["channelID"] as string));
                         gSlotList.Add(cInfoList);
-                        Debug.Log("cinfoList가 추가됨");
                     }
                 }
             }
@@ -195,6 +183,7 @@ namespace CLCM
                     Debug.Log("#################전달ID ::" + gSlotList[i][2]);
                     gameSceneManager.chatRname = gSlotList[i][0];
                     Debug.Log("#################전달채팅방이름 ::" + gSlotList[i][0]);
+                    
 
                 }
             }

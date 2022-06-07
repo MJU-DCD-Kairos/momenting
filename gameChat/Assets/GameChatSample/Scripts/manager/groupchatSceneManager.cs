@@ -9,8 +9,11 @@ using AS;
 using CM;
 using FireStoreScript;
 using Firebase.Firestore;
+using Firebase.Extensions;
 using GameChatSample;
 using ElsePrefab;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace groupchatManager
 {
@@ -20,7 +23,7 @@ namespace groupchatManager
         gameSceneManager gSM;
         [SerializeField]
         ChatManager chatManager;
-
+        public GameObject deActive;
         public Button backToChatList;
 
 
@@ -79,6 +82,9 @@ namespace groupchatManager
             
             
             Invoke("ScrollDown", 1f);
+
+            //isActive의 bool값을 받아오는 함수 호출
+            //InvokeRepeating("gotIsActive", 0f, 10f);
             LoadUsersData();
 
             //InvokeRepeating("checkTRtime", 2f, 5f);
@@ -86,7 +92,7 @@ namespace groupchatManager
 
 
         }
-        void update()
+        void Update()
         {
             // Update is called once per frame
             if (Application.platform == RuntimePlatform.Android)  // 플렛폼 정보 .
@@ -100,10 +106,14 @@ namespace groupchatManager
             }
 
             //gotTime();
-            if(GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.activeSelf == true)
-            {
-                //ElseFill();
-            }
+            //if(GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.activeSelf == true)
+            //{
+            //    //ElseFill();
+            //}
+
+            Debug.LogError("######gotisActive");
+            //isActive의 bool값을 받아오는 함수 호출
+            gotIsActive();
         }
         /*
         //타인정보불러오기
@@ -165,7 +175,7 @@ namespace groupchatManager
                         for (int i = 0; i < chatRoom.Count; i++)
                         {
                             Debug.Log(chatRoom[i]);
-                            if (chatRoom[i] == PlayerPrefs.GetString("GCName")) { mynameIdx = i; }
+                            if (chatRoom[i] == FirebaseManager.GCN) { mynameIdx = i; }
                         }
                         chatRoom.RemoveAt(mynameIdx); //내 닉네임을 리스트에서 삭제
                     }
@@ -271,6 +281,40 @@ namespace groupchatManager
             yield return null;
         }
 
+
+        //isActive의 bool값을 받아오는 함수
+        public async Task gotIsActive()
+        {
+            Debug.LogError("gotisActive");
+            
+
+            //id 일치하는 쿼리 찾아서 참조
+            Query thisRoomQauery = FirebaseManager.db.Collection("gameChatRoom").WhereEqualTo("channelID", gameSceneManager.chatRID);
+
+            if (thisRoomQauery != null) //해당 아이디를 가진 채팅방이 있으면
+            {
+                await thisRoomQauery.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+                {
+                    QuerySnapshot snapshot = task.Result;
+                    foreach (DocumentSnapshot doc in snapshot.Documents)
+                    {
+                        Dictionary<string, object> docDictionary = doc.ToDictionary();
+                        gameSceneManager.chatActive = docDictionary["isActive"].ToString();
+                        Debug.LogError(gameSceneManager.chatActive);
+                    }
+                });
+            }
+            if(gameSceneManager.chatActive == "False")
+            {
+                Debug.LogError("시간다됐어요");
+                deActive.gameObject.SetActive(true);
+                //폴스면 비활성화
+            }
+        }
+
+
+
+
         //public void gotTime()
         //{
         //    TimeSpan time = DateTime.Now - Convert.ToDateTime(gameSceneManager.oTime);
@@ -283,7 +327,7 @@ namespace groupchatManager
         //    else
         //    {
         //        timeText.text = time.Minutes.ToString() + "분";
-                
+
         //    }
         //}
 
