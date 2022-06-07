@@ -118,7 +118,6 @@ namespace FireStoreScript {
             });
             Invoke("LoadData", 0.3f);
             
-            
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -383,7 +382,7 @@ namespace FireStoreScript {
                 {"#001130" , lifestyleKW }
             };
             //db.Collection("userInfo").Document(GCN).SetAsync(name);
-            db.Collection("userInfo").Document(GCN).UpdateAsync("KeyWord", kw);
+            db.Collection("userInfo").Document(myname).UpdateAsync("KeyWord", kw);
         }
 
         //리스트에 저장된 선택 키워드를 카테고리 구분하여 리스트에 넣음
