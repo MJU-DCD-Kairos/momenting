@@ -21,6 +21,12 @@ public class myprofileSceneManager : MonoBehaviour
     public Text txtIntro;
     public Text txtSex;
 
+    //키워드 불러오기위한 프리팹 참조
+    //public GameObject KWlistPrefabs;
+    //리스트를 넣어주는 부모 개체
+    public GameObject ContentParents;
+
+
 
 
     void Awake()
@@ -53,8 +59,11 @@ public class myprofileSceneManager : MonoBehaviour
         {
             txtSex.text = "여";
         }
-        
-        
+
+        setUserKW();
+
+
+
     }
 
     // Update is called once per frame
@@ -71,6 +80,32 @@ public class myprofileSceneManager : MonoBehaviour
     }
 
 
+    //유저의 키워드를 생성하는 함수
+    public void setUserKW()
+    {
+        //db에서 받아온 Dict<string, List<string>> 형태를 받아옴
+
+        //#~색상코드 값으로 리스트를 얻어옴
+        //리스트의 길이만큼 for반복문으로 initiate 함수
+        
+        for( int i = 0; i<5; i++)
+        {
+            GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
+            ListContent.transform.SetParent(ContentParents.transform, false);
+
+            Color color;
+            ColorUtility.TryParseHtmlString("#001130", out color);//""안에 DB에서 받아온 헥사코드 넣어서 rgb변환 후 찍음
+                                                                  //키워드 카테고리 색상
+            ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Image>().color = color;
+
+            //키워드 글자
+            ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Text>().text = "키워드 적용 테스트";//여기에 DB에서 받아온 키워드를 string으로 찍음
+
+            //키워드 설명
+            ListContent.transform.GetChild(1).gameObject.GetComponent<Text>().text = "키워드 설명 테스트";
+        }
+        
+    }
 
 
 
