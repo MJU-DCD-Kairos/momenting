@@ -382,7 +382,7 @@ namespace FireStoreScript {
                             }
         }
 
-        public static Dictionary<string, object> KWList = new Dictionary<string, object>();
+        public static Dictionary<string, List<object>> KWList = new Dictionary<string, List<object>>();
         async Task LoadKW()
         {
             DocumentReference KWRef = db.Collection("userInfo").Document(GCN);
@@ -417,7 +417,7 @@ namespace FireStoreScript {
                             }
                             else if (pair.Key == "#001130")
                             {
-                                KWB.Add(kwlist[i]);
+                                KWC.Add(kwlist[i]);
                             }
                         }
                         
