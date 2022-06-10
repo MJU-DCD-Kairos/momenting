@@ -96,7 +96,6 @@ namespace FireStoreScript {
         }
         public void Start()
         {
-            PlayerPrefs.SetString("GCName", "ÇöÁø");
             GCN = "";
 
             GCN = PlayerPrefs.GetString("GCName");

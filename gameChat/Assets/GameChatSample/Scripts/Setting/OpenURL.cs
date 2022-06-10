@@ -6,12 +6,12 @@ public class OpenURL : MonoBehaviour
 {
     public void ServiceURL()
     {
-        Application.OpenURL("https://www.notion.so/a34044f43cfb49b38c648b700e723495");
+        Application.OpenURL("https://luminous-chive-976.notion.site/a34044f43cfb49b38c648b700e723495");
     }
 
     public void privacypolicyURL()
     {
-        Application.OpenURL("https://www.notion.so/cf8bec1cd081488a9fb35dae231ec61d");
+        Application.OpenURL("https://luminous-chive-976.notion.site/cf8bec1cd081488a9fb35dae231ec61d");
     }
 
     public void QuestionsURL()

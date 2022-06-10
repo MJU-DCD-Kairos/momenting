@@ -19,7 +19,7 @@ public class ElseProfileManager : MonoBehaviour
     {
         
     }
-        /*
+    
     public Text userName;
     public static string userName2;
     public void ElseProfile()
@@ -28,6 +28,6 @@ public class ElseProfileManager : MonoBehaviour
         GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.SetActive(true);
         FirebaseManager.ElseData(userName.text);
     }
-        */
+        
     }
 }
