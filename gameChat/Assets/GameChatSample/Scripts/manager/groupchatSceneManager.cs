@@ -60,6 +60,11 @@ namespace groupchatManager
         */
 
 
+        //public Text name0;
+        //public Text name1;
+        //public Text name2;
+        //public Text name3;
+        //public Text name4;
 
         // Start is called before the first frame update
         void Start()
@@ -111,7 +116,7 @@ namespace groupchatManager
             //    //ElseFill();
             //}
 
-            Debug.LogError("######gotisActive");
+            //Debug.LogError("######gotisActive");
             //isActive의 bool값을 받아오는 함수 호출
             gotIsActive();
         }
@@ -176,8 +181,22 @@ namespace groupchatManager
                         {
                             Debug.Log(chatRoom[i]);
                             if (chatRoom[i] == FirebaseManager.GCN) { mynameIdx = i; }
+
                         }
-                        chatRoom.RemoveAt(mynameIdx); //내 닉네임을 리스트에서 삭제
+                        chatRoom.RemoveAt(mynameIdx); //내 닉네임을 리스트에서 삭제 
+
+                        //setNameText();
+                        //for (int i = 0; i < chatRoom.Count; i++)
+                        //{
+                        //    if (i == 0) { name0.text = chatRoom[i]; }
+                        //    else if (i == 1) { name1.text = chatRoom[i]; }
+                        //    else if (i == 2) { name2.text = chatRoom[i]; }
+                        //    else if (i == 3) { name3.text = chatRoom[i]; }
+                        //    else if (i == 4) { name4.text = chatRoom[i]; }
+                        //    Debug.Log("chomgr" + chatRoom[i]);
+                        //}
+
+                        ChoMgr.instance.setNameText();
                     }
                 }
                 else
@@ -187,6 +206,14 @@ namespace groupchatManager
             });
 
         }
+       
+        //async void setNameText()
+        //{
+        //    for (int i = 0; i < chatRoom.Count; i++)
+        //    {
+                
+        //    }
+        //}
 
         void ScrollDown() => scrollBar.value = 0;
 
@@ -285,7 +312,7 @@ namespace groupchatManager
         //isActive의 bool값을 받아오는 함수
         public async Task gotIsActive()
         {
-            Debug.LogError("gotisActive");
+            //Debug.LogError("gotisActive");
             
 
             //id 일치하는 쿼리 찾아서 참조
@@ -300,7 +327,7 @@ namespace groupchatManager
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
                         gameSceneManager.chatActive = docDictionary["isActive"].ToString();
-                        Debug.LogError(gameSceneManager.chatActive);
+                        //Debug.LogError(gameSceneManager.chatActive);
                     }
                 });
             }
