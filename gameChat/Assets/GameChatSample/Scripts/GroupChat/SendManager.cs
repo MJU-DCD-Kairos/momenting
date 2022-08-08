@@ -11,8 +11,9 @@ public class SendManager : MonoBehaviour
     public string Cuser;
     public void sendRQ()
     {
-        Debug.Log(ChoMgr.instance.currentChoice);
+        //Debug.Log(ChoMgr.instance.currentChoice);
         Cuser = SelectPer.ChoName; //상대 유저닉네임 변수에 저장
+        Debug.Log("최종선택한 유저: " + Cuser);
         //Cuser = "현진"; //테스트용
         RQdb();
     }

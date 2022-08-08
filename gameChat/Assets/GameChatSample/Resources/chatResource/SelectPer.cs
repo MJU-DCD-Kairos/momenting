@@ -57,7 +57,7 @@ namespace SelectMgr
             profileResizer.GetComponent<ImageResize_Matching>().Awake();
             // anim.SetBool("selected",true);
             //sr.color = new Color(0.5f, 0.5f, 0.5f);
-            SenderId.text = "<color=#929292>" + "가나다라마바사" + "</color>";
+            //SenderId.text = "<color=#929292>" + SenderId.text + "</color>";
 
             dim.SetActive(true);
             Sframe.SetActive(false);
@@ -78,8 +78,9 @@ namespace SelectMgr
 
             // anim.SetBool("selected",true);
             //sr.color = new Color(1f, 1f, 1f);
-            SenderId.text = "<color=#f56537>" + SenderId.text + "</color>";
+            //SenderId.text = "<color=#f56537>" + SenderId.text + "</color>";
             ChoName = SenderId.text;
+            Debug.Log(ChoName);
         }
     }
 }

@@ -196,7 +196,7 @@ namespace groupchatManager
                         //    Debug.Log("chomgr" + chatRoom[i]);
                         //}
 
-                        ChoMgr.instance.setNameText();
+                        //ChoMgr.instance.setNameText();
                     }
                 }
                 else

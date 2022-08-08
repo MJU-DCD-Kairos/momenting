@@ -31,16 +31,28 @@ public class ChoMgr : MonoBehaviour
     }
     public People currentChoice;
 
+    private void Start()
+    {
+        Invoke("setNameText", 5f);
+        Debug.Log("chomgr의 start 함수 실행됨");
+    }
+
     public void setNameText()
     {
-        for (int i = 0; i < groupchatSceneManager.chatRoom.Count; i++)
-        {
-            if (i == 0) { name0.text = groupchatSceneManager.chatRoom[i]; }
-            else if (i == 1) { name1.text = groupchatSceneManager.chatRoom[i]; }
-            else if (i == 2) { name2.text = groupchatSceneManager.chatRoom[i]; }
-            else if (i == 3) { name3.text = groupchatSceneManager.chatRoom[i]; }
-            else if (i == 4) { name4.text = groupchatSceneManager.chatRoom[i]; }
-            Debug.Log("chomgr" + groupchatSceneManager.chatRoom[i]);
-        }
+        name0.text = groupchatSceneManager.chatRoom[2];
+        name1.text = groupchatSceneManager.chatRoom[3];
+        name2.text = groupchatSceneManager.chatRoom[4];
+        name3.text = groupchatSceneManager.chatRoom[5];
+        name4.text = groupchatSceneManager.chatRoom[6];
+
+        //for (int i = 0; i < groupchatSceneManager.chatRoom.Count; i++)
+        //{
+        //    if (i == 0) { name0.text = groupchatSceneManager.chatRoom[i]; }
+        //    else if (i == 1) { name1.text = groupchatSceneManager.chatRoom[i]; }
+        //    else if (i == 2) { name2.text = groupchatSceneManager.chatRoom[i]; }
+        //    else if (i == 3) { name3.text = groupchatSceneManager.chatRoom[i]; }
+        //    else if (i == 4) { name4.text = groupchatSceneManager.chatRoom[i]; }
+        //    Debug.Log("chomgr" + groupchatSceneManager.chatRoom[i]);
+        //}
     }
 }
