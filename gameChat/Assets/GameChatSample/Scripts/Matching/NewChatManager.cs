@@ -128,6 +128,8 @@ namespace GameChatSample
             usersex = FirebaseManager.sex;
             Debug.Log("현재 로그인 유저 닉네임 : " + username);
             Debug.Log("현재 로그인 유저 성별 : " + usersex);
+
+            
         }
 
         // Update is called once per frame
@@ -137,6 +139,7 @@ namespace GameChatSample
             {
                 GetMSG();
             }
+
         }
 
         //채팅방 이름 랜덤생성 및 채팅방 생성 함수
@@ -628,5 +631,6 @@ namespace GameChatSample
 
         }
 
+        
     }
 }

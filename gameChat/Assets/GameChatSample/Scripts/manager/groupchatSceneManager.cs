@@ -185,18 +185,6 @@ namespace groupchatManager
                         }
                         chatRoom.RemoveAt(mynameIdx); //내 닉네임을 리스트에서 삭제 
 
-                        //setNameText();
-                        //for (int i = 0; i < chatRoom.Count; i++)
-                        //{
-                        //    if (i == 0) { name0.text = chatRoom[i]; }
-                        //    else if (i == 1) { name1.text = chatRoom[i]; }
-                        //    else if (i == 2) { name2.text = chatRoom[i]; }
-                        //    else if (i == 3) { name3.text = chatRoom[i]; }
-                        //    else if (i == 4) { name4.text = chatRoom[i]; }
-                        //    Debug.Log("chomgr" + chatRoom[i]);
-                        //}
-
-                        //ChoMgr.instance.setNameText();
                     }
                 }
                 else
@@ -207,14 +195,6 @@ namespace groupchatManager
 
         }
        
-        //async void setNameText()
-        //{
-        //    for (int i = 0; i < chatRoom.Count; i++)
-        //    {
-                
-        //    }
-        //}
-
         void ScrollDown() => scrollBar.value = 0;
 
         //이전 메시지를 가져오는 함수

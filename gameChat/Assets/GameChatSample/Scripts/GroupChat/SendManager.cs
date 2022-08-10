@@ -51,37 +51,5 @@ public class SendManager : MonoBehaviour
         });
         
 
-        //Query userDB = FirebaseManager.db.Collection("userInfo").WhereEqualTo("name", Cuser); //선택한유저 db 참조
-        //QuerySnapshot snapshot = await userDB.GetSnapshotAsync();
-        //foreach (DocumentSnapshot doc in snapshot.Documents)
-        //{
-        //    Dictionary<string, object> docDictionary = doc.ToDictionary();
-
-        //    RQCheck = docDictionary["RQ"] as string;
-
-        //}
-
-        //Dictionary<string, object> addUser = new Dictionary<string, object> //sendRequest에 추가할 유저정보
-        //        {
-        //            { "nickName" , Cuser }, //닉네임
-        //            { "sex" , FirebaseManager.sex }, //성별
-        //            { "Info" , FirebaseManager.myintroduction }, //한줄소개
-        //            { "age", FirebaseManager.age }, //나이
-        //            { "time", System.DateTime.Now.ToString() }, //신청한 시간
-        //            { "state", "N" } //상태(N/C/D/A)
-        //        };
-        //await FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
-
-        //if (RQCheck == null)
-        //{
-        //    Debug.Log("받은 신청 없음");
-
-        //}
-        //else
-        //{
-        //    Debug.Log("받은 신청 있음");
-
-        //}
-
     }
 }
