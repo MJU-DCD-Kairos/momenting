@@ -84,7 +84,7 @@ namespace CLCM
 
         public void makeGCcard()
         {
-            Debug.Log("makeGCard됨");
+            //Debug.Log("makeGCard됨");
             gotMyGClistInfo();
         }
 
@@ -123,13 +123,13 @@ namespace CLCM
                     }
                 }
             }
-            Debug.Log("gotmygclistinfo끝남");
+            //Debug.Log("gotmygclistinfo끝남");
             makeGCcardList();
         }
 
         public void makeGCcardList()
         {
-            Debug.Log("makeGCcardList실행");
+            //Debug.Log("makeGCcardList실행");
             //Debug.LogError(GameObject.Find("GCViewport").transform.childCount);
             if (0 < GameObject.Find("GCViewport").transform.childCount)
             {
@@ -141,7 +141,7 @@ namespace CLCM
 
             for (int i = 0; i < gSlotList.Count; i++)
             {
-                Debug.Log(gSlotList[i][0] + "/" + gSlotList[i][1] + "/" + gSlotList[i][2]);
+                //Debug.Log(gSlotList[i][0] + "/" + gSlotList[i][1] + "/" + gSlotList[i][2]);
 
                 //프리팹 생성 후 뷰포트의 자식으로 설정
                 GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
@@ -160,9 +160,7 @@ namespace CLCM
                 NewChatManager.getCurMSG(gSlotList[i][2], OnRecvMsg);
 
             }
-            Debug.Log("makeGCcardList꾸ㅡㅌ남");
-
-
+            //Debug.Log("makeGCcardList꾸ㅡㅌ남");
         }
         //public Text badge;
         //public int badgeN = 0;
@@ -180,9 +178,9 @@ namespace CLCM
                 if (gSlotList[i][0] == getGCID.thisRoomName)
                 {
                     gameSceneManager.chatRID = gSlotList[i][2];
-                    Debug.Log("#################전달ID ::" + gSlotList[i][2]);
+                    //Debug.Log("#################전달ID ::" + gSlotList[i][2]);
                     gameSceneManager.chatRname = gSlotList[i][0];
-                    Debug.Log("#################전달채팅방이름 ::" + gSlotList[i][0]);
+                    //Debug.Log("#################전달채팅방이름 ::" + gSlotList[i][0]);
                     
 
                 }
@@ -269,5 +267,6 @@ namespace CLCM
             }*/
 
         }
+
     }
 }

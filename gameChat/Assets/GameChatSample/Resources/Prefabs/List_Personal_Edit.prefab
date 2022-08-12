@@ -681,12 +681,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3887014340144545183}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e9690c8bfcd47c419bb255a700a1bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   size: 220
+  rt: {fileID: 0}
 --- !u!1 &3887014340350422803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1046,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8060199116345589994}
   - component: {fileID: 2136720306868799048}
-  - component: {fileID: 8199430872759877851}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Toggle
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8199430872759877851}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectList, Assembly-CSharp
         m_MethodName: OnMouseUpAsButton
         m_Mode: 1
@@ -1133,20 +1133,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
---- !u!114 &8199430872759877851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220845799677977844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d8062a8df516c45bed50d1da20c782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  check: {fileID: 2136720306868799048}
-  selected: 
 --- !u!1 &7497510350780573963
 GameObject:
   m_ObjectHideFlags: 0

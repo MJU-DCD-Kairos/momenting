@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using FireStoreScript;
 using Firebase.Firestore;
 using System.Threading.Tasks;
@@ -13,13 +14,18 @@ namespace LoadCL
     {
 
         //public static bool clickCLicon;
+        public GameObject RQListUI;
 
-        public void OnMouseUpAsButton()
+        //public void OnMouseUpAsButton()
+        //{
+        //    //clickCLicon = true;
+        //    getRQList();
+        //}
+
+        private void Start()
         {
-            //clickCLicon = true;
             getRQList();
         }
-
         #region RQList
 
         public static List<string> RQList = new List<string>(); //받은신청 불러와 저장하기 위한 리스트
@@ -42,15 +48,26 @@ namespace LoadCL
                             if (RQs["state"].ToString() == "N" || RQs["state"].ToString() == "C") //state가 N이나 C이면
                             {
                                 RQList.Add(RQs[NewChatManager.NICKNAME].ToString()); //받은신청 리스트에 있는 유저 닉네임을 리스트에 추가
+
+                                Debug.Log(RQs[NewChatManager.NICKNAME].ToString() + "를 리스트에 추가함");
+
+                                //리스트 프리팹 생성
+                                GameObject prefeb = Resources.Load("Prefabs/List_Received") as GameObject;
+                                GameObject badge = prefeb.transform.GetChild(0).gameObject;
+                                if (RQs["state"].ToString() == "C") //확인한 적이 한번이라도 있으면
+                                {
+                                    badge.SetActive(false); //뱃지 비활성화
+                                }
+                                GameObject ui = Instantiate(prefeb);
+
+                                ui.transform.SetParent(GameObject.Find("Group_Received").transform, false);
+
+                                //유저 닉네임을 프리팹의 텍스트 컴포넌트에 넣기
+                                ui.transform.GetChild(3).GetComponent<Text>().text = RQs[NewChatManager.NICKNAME].ToString();
+
                             }
                             
                         }
-
-                        for (int i = 0; i < RQList.Count; i++)
-                        {
-                            Debug.Log(RQList[i]);
-                        }
-
                     }
                 }
 
@@ -61,6 +78,7 @@ namespace LoadCL
             });
         }
 
+        
         //리스트를 넣어주는 부모 개체
         //public GameObject ContentParents;
 

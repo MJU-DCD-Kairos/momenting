@@ -555,7 +555,7 @@ namespace GameChatSample
                 }
 
                 callBack(id, curMsg);
-                Debug.Log("getCurMSG-Msg: " + curMsg);
+                //Debug.Log("getCurMSG-Msg: " + curMsg);
             });    
             
         }
