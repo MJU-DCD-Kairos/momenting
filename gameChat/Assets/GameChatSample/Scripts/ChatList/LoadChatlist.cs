@@ -7,6 +7,7 @@ using Firebase.Firestore;
 using System.Threading.Tasks;
 using Firebase.Extensions;
 using GameChatSample;
+using System;
 
 namespace LoadCL
 {
@@ -78,6 +79,81 @@ namespace LoadCL
             });
         }
 
+        public GameObject SeeMoreParents;
+
+        public void Onclick_SeeMore()
+        {
+            Load_SeeMore();
+        }
+
+        public async Task Load_SeeMore()
+        {
+            DocumentReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN);
+            await RQRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+            {
+                DocumentSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> doc = snapshot.ToDictionary();
+                    List<object> RequestList = (List<object>)doc["RQ"];
+
+
+                    if (RQList != null)
+                    {
+                        foreach (Dictionary<string, object> RQs in RequestList)
+                        {
+                            if (RQs["state"].ToString() == "N" || RQs["state"].ToString() == "C") //state가 N이나 C이면
+                            {
+                                
+                                //리스트 프리팹 생성
+                                GameObject prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
+                                prefeb_SM.transform.SetParent(GameObject.Find("Content_SeeMore").transform, false);
+
+                                //텍스트 UI 
+                                string RQsex = "";
+                                if (RQs["sex"].ToString() == "1") { RQsex = "남"; } //성별 숫자에서 한글로 바꿔주기
+                                else { RQsex = "여"; }
+
+                                //string currentTime = System.DateTime.Now.ToString("h:mm:ss");
+                                //string questTime = RQs["time"].ToString();
+                                //Debug.Log(currentTime);
+                                //Debug.Log(questTime);
+
+                                //DateTime currentTime = DateTime.Parse();
+                                //System.DateTime questTime = System.Convert.ToDateTime("2012/05/07 08:00"); // 시작시간
+                                //System.DateTime currentTime = System.Convert.ToDateTime("2012/05/10 10:20"); // 현재시간( 완료 시간 )
+
+                                //System.TimeSpan timeCal = currentTime - questTime; // 시간차 계산
+
+                                //int timeCalDay = timeCal.Days;//날짜 차이
+                                //int timeCalHour = timeCal.Hours; //시간차이
+                                //int timeCalMinute = timeCal.Minutes;// 분 차이
+
+                                //Debug.Log(timeCalDay);
+                                //Debug.Log(timeCalHour);
+                                //Debug.Log(timeCalMinute);
+
+
+
+                                //System.DateTime time = System.DateTime.Now;
+                                //Debug.Log(time.ToString("hh:mm tt")); // 시간 / 분 / 오전오후
+                                //Debug.Log(time.ToString("MM/dd/yyyy")); // 월
+
+                                //Text Information = prefeb_SM.transform.GetChild(2).GetComponent<Text>();
+                                GameObject Information = prefeb_SM.transform.GetChild(2).gameObject;
+                                Information.transform.GetChild(0).GetComponent<Text>().text = RQs["nickName"].ToString(); //닉네임
+                                Information.transform.GetChild(1).GetComponent<Text>().text = RQs["age"].ToString() + " " + RQsex; //나이, 성별
+                                //Information.transform.GetChild(2).GetComponent<Text>().text = ; //시간
+                                prefeb_SM.transform.GetChild(3).GetComponent<Text>().text = RQs["Info"].ToString(); //한줄소개
+
+                            }
+
+                        }
+                    }
+                }
+            });
+        }
+            
         
         //리스트를 넣어주는 부모 개체
         //public GameObject ContentParents;
