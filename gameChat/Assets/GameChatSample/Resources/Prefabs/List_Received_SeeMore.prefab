@@ -357,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 220
+  rt: {fileID: 0}
 --- !u!1 &5953044206329012722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1079,7 @@ GameObject:
   - component: {fileID: 5953044207258845956}
   - component: {fileID: 5953044207258845957}
   - component: {fileID: 5953044207258845955}
+  - component: {fileID: 1578098720175425709}
   m_Layer: 5
   m_Name: List_Received_SeeMore
   m_TagString: Untagged
@@ -1190,7 +1192,39 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5953044207258845957}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1578098720175425709}
+        m_TargetAssemblyTypeName: RQProfile.SaveName, Assembly-CSharp
+        m_MethodName: onclick_saveNM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1578098720175425709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044207258845961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d099d90bc61c86b4b827819da0bba3ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickname: {fileID: 5953044205788260447}
+  RQ_nickname: 
+  RQ_age: 
+  RQ_sex: 
+  RQ_mbti: 
+  RQ_ML: 
+  RQ_Info: 
+  RQprefab: {fileID: 0}
 --- !u!1 &5953044207351633856
 GameObject:
   m_ObjectHideFlags: 0

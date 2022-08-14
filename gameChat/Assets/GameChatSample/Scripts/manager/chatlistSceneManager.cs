@@ -33,6 +33,8 @@ namespace CLCM
 
         public string id = "";
 
+        //public static string Previous_Canvas;
+
         private void Awake()
         {
 

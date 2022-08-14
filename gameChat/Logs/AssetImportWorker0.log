@@ -15,11 +15,11 @@ C:/Users/ny496/Documents/GitHub/momenting/gameChat
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59691
+55894
 Successfully changed project path to: C:/Users/ny496/Documents/GitHub/momenting/gameChat
 C:/Users/ny496/Documents/GitHub/momenting/gameChat
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 118.06 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 68.73 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.1f1 (77a89f25062f)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/Resources/UnitySubsystems
@@ -35,661 +35,403 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56776
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56456
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001656 seconds.
+Registered in 0.002562 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 43.88 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 65.13 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  5.573 seconds
+- Completed reload, in  2.629 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.030175 seconds.
+Registered in 0.025596 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.84 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 0.73 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.213 seconds
+- Completed reload, in  1.385 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.70 ms, found 7 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 0.60 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1336 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 68.8 MB.
+Unloading 1337 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 68.9 MB.
 System memory in use after: 68.9 MB.
 
-Unloading 58 unused Assets to reduce memory usage. Loaded Objects now: 1751.
-Total: 2.341000 ms (FindLiveObjects: 0.151300 ms CreateObjectMapping: 0.045000 ms MarkObjects: 1.963300 ms  DeleteObjects: 0.180000 ms)
+Unloading 58 unused Assets to reduce memory usage. Loaded Objects now: 1752.
+Total: 2.991500 ms (FindLiveObjects: 0.208400 ms CreateObjectMapping: 0.058700 ms MarkObjects: 2.526800 ms  DeleteObjects: 0.195600 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/GameChatSample/Scenes/ChatList.unity
-  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4709335d21731d98ef6abe6b796f922e') in 0.031100 seconds
-  Import took 0.037361 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 35.234681 seconds.
-  path: Assets/GameChatSample/Resources/UI/AppBar.png
-  artifactKey: Guid(a1119d1d93a692a41a2040c697a2ff68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Resources/UI/AppBar.png using Guid(a1119d1d93a692a41a2040c697a2ff68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba92bf3462c4ce74aaaf5f13c738ec8c') in 0.251324 seconds
-  Import took 0.261808 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 84.210122 seconds.
-  path: Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_01.png
-  artifactKey: Guid(70edbcfc55d3bc54a9512f09b668977d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_01.png using Guid(70edbcfc55d3bc54a9512f09b668977d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c502009d9978b97d64f0cfed8c565fc') in 0.048931 seconds
-  Import took 0.054772 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000580 seconds.
-  path: Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_01_on.png
-  artifactKey: Guid(8f9237a574aef4b49a78546276f41520) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_01_on.png using Guid(8f9237a574aef4b49a78546276f41520) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80f6ada9b999a17b76b18664c7c4d095') in 0.055028 seconds
-  Import took 0.059845 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000412 seconds.
-  path: Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_02_on.png
-  artifactKey: Guid(d4a911f25ca363b4f96d9ee4fd2a6f5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_02_on.png using Guid(d4a911f25ca363b4f96d9ee4fd2a6f5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c8c410003db6ef4ce4ae437d80a8ea8') in 0.039309 seconds
-  Import took 0.043847 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000461 seconds.
-  path: Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_02.png
-  artifactKey: Guid(35a28b986a147c6459ba0ce060bef140) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Resources/TabBar/C_Tab_Noti_02.png using Guid(35a28b986a147c6459ba0ce060bef140) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e26b16b451318d7ed444487c44bd49a0') in 0.036306 seconds
-  Import took 0.042275 seconds .
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 26.18 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 51 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 45.7 MB.
-System memory in use after: 45.8 MB.
-
-Unloading 51 unused Assets to reduce memory usage. Loaded Objects now: 1759.
-Total: 4.939800 ms (FindLiveObjects: 0.323100 ms CreateObjectMapping: 0.097100 ms MarkObjects: 4.414100 ms  DeleteObjects: 0.103200 ms)
+  path: Assets/GameChatSample/Resources/Prefabs/List_Received.prefab
+  artifactKey: Guid(6a93e49686dae4949a4c1005e50e212e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Resources/Prefabs/List_Received.prefab using Guid(6a93e49686dae4949a4c1005e50e212e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8aaeaa7650117db3df8e5a51eea26f47') in 0.147478 seconds
+  Import took 0.154384 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.022989 seconds.
+Registered in 0.010718 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.12 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 0.65 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.759 seconds
+- Completed reload, in  1.697 seconds
 Platform modules already initialized, skipping
 Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.70 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 1.40 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.4 MB.
+System memory in use after: 70.5 MB.
 
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1762.
-Total: 3.076500 ms (FindLiveObjects: 0.230500 ms CreateObjectMapping: 0.054600 ms MarkObjects: 2.630800 ms  DeleteObjects: 0.158100 ms)
+Unloading 154 unused Assets to reduce memory usage. Loaded Objects now: 1755.
+Total: 2.312300 ms (FindLiveObjects: 0.187300 ms CreateObjectMapping: 0.060500 ms MarkObjects: 1.922300 ms  DeleteObjects: 0.140900 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
 ========================================================================
+Received Import Request.
+  Time since last request: 498.124987 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa0286ca0830fbd8f41904e1fbeb5cd3') in 0.017975 seconds
+  Import took 0.028473 seconds .
+
+========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.014164 seconds.
+Registered in 0.010119 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.31 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 0.67 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.922 seconds
+- Completed reload, in  1.712 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 1.51 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.4 MB.
+System memory in use after: 70.5 MB.
+
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1758.
+Total: 2.550200 ms (FindLiveObjects: 0.309800 ms CreateObjectMapping: 0.093600 ms MarkObjects: 2.053000 ms  DeleteObjects: 0.092000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Import Request.
+  Time since last request: 103.242500 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13f161414a6b980ccd1418f8f88f3eaf') in 0.020956 seconds
+  Import took 0.029226 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 82.940568 seconds.
+  path: Assets/GameChatSample/Scenes/SampleScene_Main.unity
+  artifactKey: Guid(132ee8a2a2a1a4a4ba0b2155dfd29d10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/SampleScene_Main.unity using Guid(132ee8a2a2a1a4a4ba0b2155dfd29d10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '367e0d38716b18dbf6c15e584b075d7c') in 0.020701 seconds
+  Import took 0.028008 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.021942 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.08 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.567 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 1.47 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.5 MB.
+System memory in use after: 70.6 MB.
+
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1761.
+Total: 5.366400 ms (FindLiveObjects: 0.325600 ms CreateObjectMapping: 0.102900 ms MarkObjects: 4.851600 ms  DeleteObjects: 0.084100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Import Request.
+  Time since last request: 18.102773 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed713d48dc076f087b753304d186f57a') in 0.022286 seconds
+  Import took 0.028403 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.846105 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c31fe1cc1d1c81f223c0731be5d16f50') in 0.005304 seconds
+  Import took 0.016211 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 66.812900 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46e144cb8f99c191d4ee655ac1102079') in 0.007577 seconds
+  Import took 0.013126 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 69.623437 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d432469a51cf9087c18db4a6548707c') in 0.006850 seconds
+  Import took 0.016440 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 128.028025 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ed987eb8c7157055c4736c3d762f893') in 0.009013 seconds
+  Import took 0.018558 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 305.736835 seconds.
+  path: Assets/GameChatSample/Scenes/SampleScene_Main.unity
+  artifactKey: Guid(132ee8a2a2a1a4a4ba0b2155dfd29d10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/SampleScene_Main.unity using Guid(132ee8a2a2a1a4a4ba0b2155dfd29d10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93961208e9e0d456c3184cbe09269222') in 0.007430 seconds
+  Import took 0.016643 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.530319 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abc79d3ee99f65e9125186462ae839f5') in 0.006906 seconds
+  Import took 0.014124 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.407792 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db5e75879a6eb18cb64329d77c0017f7') in 0.007157 seconds
+  Import took 0.013012 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 42.836126 seconds.
+  path: Assets/GameChatSample/Scenes/ChatList.unity
+  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ca1ccabc98e577c4f4c2eae6614fcbb') in 0.007296 seconds
+  Import took 0.017186 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 125.069465 seconds.
+  path: Assets/GameChatSample/Scripts/ChatList/SaveName.cs
+  artifactKey: Guid(d099d90bc61c86b4b827819da0bba3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scripts/ChatList/SaveName.cs using Guid(d099d90bc61c86b4b827819da0bba3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fa4f623f13375ac8f3350156c64ec32') in 0.013593 seconds
+  Import took 0.020632 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006047 seconds.
+  path: Assets/GameChatSample/Scripts/ChatList/SaveName.cs
+  artifactKey: Guid(d099d90bc61c86b4b827819da0bba3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scripts/ChatList/SaveName.cs using Guid(d099d90bc61c86b4b827819da0bba3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fa4f623f13375ac8f3350156c64ec32') in 0.005399 seconds
+  Import took 0.010089 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.014021 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.69 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.552 seconds
 Platform modules already initialized, skipping
 Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
 Refreshing native plugins compatible for Editor in 0.69 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.5 MB.
+System memory in use after: 70.6 MB.
 
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1765.
-Total: 2.457400 ms (FindLiveObjects: 0.251200 ms CreateObjectMapping: 0.052500 ms MarkObjects: 2.002400 ms  DeleteObjects: 0.147700 ms)
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1764.
+Total: 2.498300 ms (FindLiveObjects: 0.162900 ms CreateObjectMapping: 0.057500 ms MarkObjects: 2.171700 ms  DeleteObjects: 0.104000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.016865 seconds.
+Registered in 0.020458 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.78 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 1.57 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.864 seconds
+- Completed reload, in  1.686 seconds
 Platform modules already initialized, skipping
 Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.48 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 1.57 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.5 MB.
+System memory in use after: 70.6 MB.
 
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1768.
-Total: 3.686400 ms (FindLiveObjects: 0.191400 ms CreateObjectMapping: 0.105600 ms MarkObjects: 3.193500 ms  DeleteObjects: 0.194000 ms)
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1767.
+Total: 3.553100 ms (FindLiveObjects: 0.172700 ms CreateObjectMapping: 0.040900 ms MarkObjects: 3.213700 ms  DeleteObjects: 0.124200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.022811 seconds.
+Registered in 0.010716 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.68 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.747 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.75 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.5 MB.
+System memory in use after: 70.6 MB.
+
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1770.
+Total: 2.332600 ms (FindLiveObjects: 0.200900 ms CreateObjectMapping: 0.065600 ms MarkObjects: 1.992500 ms  DeleteObjects: 0.071600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.067258 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.50 ms, found 7 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.975 seconds
+Platform modules already initialized, skipping
+Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
 Refreshing native plugins compatible for Editor in 1.72 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.586 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.69 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.5 MB.
+System memory in use after: 70.7 MB.
 
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1771.
-Total: 2.267200 ms (FindLiveObjects: 0.320500 ms CreateObjectMapping: 0.079100 ms MarkObjects: 1.799400 ms  DeleteObjects: 0.064200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.020930 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.21 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.683 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.76 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1774.
-Total: 2.991400 ms (FindLiveObjects: 0.202100 ms CreateObjectMapping: 0.068000 ms MarkObjects: 2.601200 ms  DeleteObjects: 0.118300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.016505 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.898 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.45 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1777.
-Total: 1.937200 ms (FindLiveObjects: 0.164900 ms CreateObjectMapping: 0.040300 ms MarkObjects: 1.668600 ms  DeleteObjects: 0.061700 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.014790 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.32 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.802 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.70 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1780.
-Total: 3.428200 ms (FindLiveObjects: 0.211800 ms CreateObjectMapping: 0.284500 ms MarkObjects: 2.746900 ms  DeleteObjects: 0.181900 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.053232 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.54 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  4.170 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 2.72 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1783.
-Total: 4.044100 ms (FindLiveObjects: 0.240000 ms CreateObjectMapping: 0.100600 ms MarkObjects: 3.614200 ms  DeleteObjects: 0.080600 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.018892 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.03 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.756 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.69 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.5 MB.
-System memory in use after: 73.6 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1786.
-Total: 3.510300 ms (FindLiveObjects: 0.461500 ms CreateObjectMapping: 0.118000 ms MarkObjects: 2.727600 ms  DeleteObjects: 0.201200 ms)
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1773.
+Total: 3.266400 ms (FindLiveObjects: 0.200800 ms CreateObjectMapping: 0.046200 ms MarkObjects: 2.847200 ms  DeleteObjects: 0.170300 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
 ========================================================================
 Received Import Request.
-  Time since last request: 1913.232576 seconds.
-  path: Assets/GameChatSample/Scenes/ChatList.unity
-  artifactKey: Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameChatSample/Scenes/ChatList.unity using Guid(1a37f1fb198341f47904ce0ba5349add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd40921f8c81b00f055c361074c1f70ef') in 0.027717 seconds
-  Import took 0.031632 seconds .
+  Time since last request: 362.259353 seconds.
+  path: Assets/GameChatSample/Scenes/SignUp.unity
+  artifactKey: Guid(bacb6e12b6d36e943977a917a60332e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/GameChatSample/Scenes/SignUp.unity using Guid(bacb6e12b6d36e943977a917a60332e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5447e72cce831c660b44e835a51ace28') in 0.039646 seconds
+  Import took 0.046853 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.019943 seconds.
+Registered in 0.020066 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
 Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.05 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 0.79 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.492 seconds
+- Completed reload, in  1.645 seconds
 Platform modules already initialized, skipping
 Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 2.29 ms, found 7 plugins.
+Refreshing native plugins compatible for Editor in 0.71 ms, found 7 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
+Unloading 1411 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 70.6 MB.
+System memory in use after: 70.7 MB.
 
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1789.
-Total: 5.035400 ms (FindLiveObjects: 0.773200 ms CreateObjectMapping: 0.373500 ms MarkObjects: 3.751400 ms  DeleteObjects: 0.132100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.020439 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.43 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.812 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.59 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1792.
-Total: 3.678200 ms (FindLiveObjects: 0.297900 ms CreateObjectMapping: 0.081100 ms MarkObjects: 3.049100 ms  DeleteObjects: 0.248100 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.028225 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.05 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  3.749 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.15 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1795.
-Total: 2.404400 ms (FindLiveObjects: 0.322400 ms CreateObjectMapping: 0.090600 ms MarkObjects: 1.860100 ms  DeleteObjects: 0.129200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.032736 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 4.41 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  5.486 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 2.64 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1798.
-Total: 5.962000 ms (FindLiveObjects: 0.476300 ms CreateObjectMapping: 0.189600 ms MarkObjects: 5.057700 ms  DeleteObjects: 0.235000 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.017207 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 2.58 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  4.019 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.62 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1801.
-Total: 2.892200 ms (FindLiveObjects: 0.230400 ms CreateObjectMapping: 0.050300 ms MarkObjects: 2.495300 ms  DeleteObjects: 0.114400 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.022335 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.42 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.970 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.74 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1804.
-Total: 5.915000 ms (FindLiveObjects: 0.556500 ms CreateObjectMapping: 0.095000 ms MarkObjects: 5.132200 ms  DeleteObjects: 0.080500 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.024216 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 2.49 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  4.852 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 1.62 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1807.
-Total: 6.881400 ms (FindLiveObjects: 0.407200 ms CreateObjectMapping: 0.114000 ms MarkObjects: 6.186800 ms  DeleteObjects: 0.168900 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.040349 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 3.17 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  9.372 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 6.86 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1810.
-Total: 44.568500 ms (FindLiveObjects: 1.427400 ms CreateObjectMapping: 2.448700 ms MarkObjects: 40.365100 ms  DeleteObjects: 0.321300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.017689 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.46 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.968 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.93 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1813.
-Total: 2.707500 ms (FindLiveObjects: 0.184500 ms CreateObjectMapping: 0.064000 ms MarkObjects: 2.289900 ms  DeleteObjects: 0.167200 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.026211 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SocketIO.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\ny496\Documents\GitHub\momenting\gameChat\Assets\GameChat\GameChatUnity.SimpleJSON.dll
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.78 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.904 seconds
-Platform modules already initialized, skipping
-Switching build target platform(5) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.83 ms, found 7 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1410 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 73.6 MB.
-System memory in use after: 73.7 MB.
-
-Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1816.
-Total: 7.554800 ms (FindLiveObjects: 0.244800 ms CreateObjectMapping: 0.102400 ms MarkObjects: 2.313200 ms  DeleteObjects: 4.892400 ms)
+Unloading 153 unused Assets to reduce memory usage. Loaded Objects now: 1776.
+Total: 3.809600 ms (FindLiveObjects: 0.242400 ms CreateObjectMapping: 0.081300 ms MarkObjects: 3.361200 ms  DeleteObjects: 0.122500 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000

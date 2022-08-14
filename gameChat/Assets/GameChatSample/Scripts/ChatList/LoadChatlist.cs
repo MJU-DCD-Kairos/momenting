@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Firebase.Extensions;
 using GameChatSample;
 using System;
+using RQProfile;
 
 namespace LoadCL
 {
@@ -16,7 +17,7 @@ namespace LoadCL
 
         //public static bool clickCLicon;
         public GameObject RQListUI;
-
+        public GameObject prefeb_SM;
         //public void OnMouseUpAsButton()
         //{
         //    //clickCLicon = true;
@@ -27,6 +28,7 @@ namespace LoadCL
         {
             getRQList();
         }
+
         #region RQList
 
         public static List<string> RQList = new List<string>(); //받은신청 불러와 저장하기 위한 리스트
@@ -42,7 +44,7 @@ namespace LoadCL
                     Dictionary<string, object> doc = snapshot.ToDictionary();
                     List<object> RequestList = (List<object>)doc["RQ"];
 
-                    if (RQList != null)
+                    if (RequestList != null)
                     {
                         foreach (Dictionary<string, object> RQs in RequestList)
                         {
@@ -106,7 +108,7 @@ namespace LoadCL
                             {
                                 
                                 //리스트 프리팹 생성
-                                GameObject prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
+                                prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
                                 prefeb_SM.transform.SetParent(GameObject.Find("Content_SeeMore").transform, false);
 
                                 //텍스트 UI 
