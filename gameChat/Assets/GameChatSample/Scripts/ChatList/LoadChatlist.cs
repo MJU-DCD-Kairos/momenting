@@ -15,26 +15,29 @@ namespace LoadCL
     public class LoadChatlist : MonoBehaviour
     {
 
-        //public static bool clickCLicon;
         public GameObject RQListUI;
         public GameObject prefeb_SM;
-        //public void OnMouseUpAsButton()
-        //{
-        //    //clickCLicon = true;
-        //    getRQList();
-        //}
+        public static List<string> RQList = new List<string>(); //받은신청 불러와 저장하기 위한 리스트
 
         private void Start()
         {
-            getRQList();
+            RQList.Clear();
+            setRQList();
         }
 
         #region RQList
 
-        public static List<string> RQList = new List<string>(); //받은신청 불러와 저장하기 위한 리스트
         
-        public async Task getRQList() //디비에서 받은신청 리스트 가져오기
+        public async Task setRQList() //받은신청 리스트 생성
         {
+            //리스트 프리팹 삭제
+            //if (0 < GameObject.Find("Group_Received").transform.childCount)
+            //{
+            //    for (int n = 0; n < (GameObject.Find("Group_Received").transform.childCount); n++)
+            //    {
+            //        GameObject.Destroy(GameObject.Find("Group_Received").transform.GetChild(n).gameObject);
+            //    }
+            //}
             DocumentReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN);
             await RQRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
             {
@@ -55,13 +58,18 @@ namespace LoadCL
                                 Debug.Log(RQs[NewChatManager.NICKNAME].ToString() + "를 리스트에 추가함");
 
                                 //리스트 프리팹 생성
-                                GameObject prefeb = Resources.Load("Prefabs/List_Received") as GameObject;
-                                GameObject badge = prefeb.transform.GetChild(0).gameObject;
+                                GameObject prefab = Resources.Load("Prefabs/List_Received") as GameObject;
+                                GameObject badge = prefab.transform.GetChild(0).gameObject;
                                 if (RQs["state"].ToString() == "C") //확인한 적이 한번이라도 있으면
                                 {
                                     badge.SetActive(false); //뱃지 비활성화
                                 }
-                                GameObject ui = Instantiate(prefeb);
+                                else
+                                {
+                                    badge.SetActive(true); //뱃지 활성화
+                                }
+
+                                GameObject ui = Instantiate(prefab);
 
                                 ui.transform.SetParent(GameObject.Find("Group_Received").transform, false);
 
@@ -102,11 +110,20 @@ namespace LoadCL
 
                     if (RQList != null)
                     {
+                        //리스트 프리팹 삭제
+                        if (0 < GameObject.Find("Content_SeeMore").transform.childCount)
+                        {
+                            for (int n = 0; n < (GameObject.Find("Content_SeeMore").transform.childCount); n++)
+                            {
+                                GameObject.Destroy(GameObject.Find("Content_SeeMore").transform.GetChild(n).gameObject);
+                            }
+                        }
+
                         foreach (Dictionary<string, object> RQs in RequestList)
                         {
                             if (RQs["state"].ToString() == "N" || RQs["state"].ToString() == "C") //state가 N이나 C이면
                             {
-                                
+
                                 //리스트 프리팹 생성
                                 prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
                                 prefeb_SM.transform.SetParent(GameObject.Find("Content_SeeMore").transform, false);

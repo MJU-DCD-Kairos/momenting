@@ -2196,6 +2196,55 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &493416917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493416918}
+  - component: {fileID: 493416919}
+  m_Layer: 5
+  m_Name: RQmanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &493416918
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493416917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1369522181}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &493416919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493416917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  STATE: 
 --- !u!1 &524138164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6068,7 +6117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2664138373993423866, guid: 099aa2f24784898438445755a60f005f, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2664138373993423866, guid: 099aa2f24784898438445755a60f005f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6154,6 +6203,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 493416919}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Onclick_Accept
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RQmanager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374110859726, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2664138374193679865, guid: 099aa2f24784898438445755a60f005f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6185,6 +6262,34 @@ PrefabInstance:
     - target: {fileID: 2664138374197295101, guid: 099aa2f24784898438445755a60f005f, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.28706285
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 493416919}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Onclick_Decline
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RQmanager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2664138374221808315, guid: 099aa2f24784898438445755a60f005f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2664138374326461666, guid: 099aa2f24784898438445755a60f005f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7990,7 +8095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 720, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1440, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1622694939

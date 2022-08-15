@@ -13,7 +13,7 @@ namespace RQProfile
     public class SaveName : MonoBehaviour
     {
         public Text nickname;
-        public string RQ_nickname;
+        public static string RQ_nickname;
         //public string RQ_name;
         public string RQ_age;
         public string RQ_sex;
@@ -25,20 +25,10 @@ namespace RQProfile
         //public GameObject RQprefab;
         public void onclick_saveNM()
         {
-            KW.Clear();
-            //chatlistSceneManager.Previous_Canvas = "ChatList_Main";
             RQ_nickname = nickname.text;
             RQprofile();
         }
-        //private void Start()
-        //{
-        //    Debug.Log("프리팹 스크립트 실행됨");
-        //}
-
-        //private void Update()
-        //{
-        //    RQprefab.transform.GetComponent<Button>().onClick.AddListener(delegate { this.onclick_saveNM(); });
-        //}
+        
         async void RQprofile()
         {
             await get_RQprofile();
@@ -52,15 +42,14 @@ namespace RQProfile
                 if (snapshot.Exists)
                 {
                     Dictionary<string, object> doc = snapshot.ToDictionary();
-                //RQ_name = doc["name"] as string; //닉네임
-                RQ_age = doc["age"] as string; //나이
-                RQ_sex = doc["sex"] as string; //성별
-                RQ_mbti = doc["mbti"] as string; //모래알유형
-                RQ_ML = doc["mannerLevel"] as string; //매너등급
-                RQ_Info = doc["Introduction"] as string; //한줄소개
+                    RQ_age = doc["age"] as string; //나이
+                    RQ_sex = doc["sex"] as string; //성별
+                    RQ_mbti = doc["mbti"] as string; //모래알유형
+                    RQ_ML = doc["mannerLevel"] as string; //매너등급
+                    RQ_Info = doc["Introduction"] as string; //한줄소개
 
-                if ((Dictionary<string, object>)doc["KeyWord"] != null)
-                    {
+                    if ((Dictionary<string, object>)doc["KeyWord"] != null)
+                    { 
                         Dictionary<string, object> keywordList = (Dictionary<string, object>)doc["KeyWord"];
 
                         List<object> KWA = new List<object>();
@@ -88,6 +77,7 @@ namespace RQProfile
                             }
 
                         }
+                        KW.Clear();
                         KW.Add("#ff8550", KWA);
                         KW.Add("#7043c0", KWB);
                         KW.Add("#001130", KWC);
@@ -109,6 +99,15 @@ namespace RQProfile
             GameObject RQprofile = GameObject.Find("ChatList").transform.Find("Profile_Received").gameObject; //받은신청 프로필 캔버스 활성화
             GameObject.Find("ChatList_Main").gameObject.SetActive(false);
             RQprofile.SetActive(true);
+
+            //리스트 프리팹 삭제
+            if (0 < GameObject.Find("List_ProfileKeword").transform.childCount)
+            {
+                for (int n = 0; n < (GameObject.Find("List_ProfileKeword").transform.childCount); n++)
+                {
+                    GameObject.Destroy(GameObject.Find("List_ProfileKeword").transform.GetChild(n).gameObject);
+                }
+            }
 
             //기본정보 세팅
             GameObject.Find("Txt_Name").GetComponent<Text>().text = RQ_nickname; //닉네임 세팅
