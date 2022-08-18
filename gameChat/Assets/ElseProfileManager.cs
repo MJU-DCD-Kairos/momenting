@@ -26,6 +26,7 @@ public class ElseProfileManager : MonoBehaviour
     {
         userName.text = userName2;
         GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.SetActive(true);
+            //
         FirebaseManager.ElseData(userName.text);
     }
         

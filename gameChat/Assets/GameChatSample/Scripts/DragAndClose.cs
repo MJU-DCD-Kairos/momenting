@@ -14,5 +14,6 @@ public class DragAndClose : MonoBehaviour
         Input.mousePosition.y, distance);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         transform.position = objPosition;
+        //transform.position=objPosition2;
     }
 }
