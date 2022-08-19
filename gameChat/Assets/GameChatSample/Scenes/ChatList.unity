@@ -153,17 +153,6 @@ Transform:
   m_Father: {fileID: 1193593999}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &70107709 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2296633456460117048, guid: c983b80977922034eaeadd97434d3e31, type: 3}
-  m_PrefabInstance: {fileID: 2073263463}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &77777401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -778,11 +767,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138337761}
   m_CullTransparentMesh: 1
---- !u!1 &147363789 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 766303236934565968, guid: 0e491a3566825524f89fd9e1cb11a8be, type: 3}
-  m_PrefabInstance: {fileID: 1499309871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &149284667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2244,6 +2228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  username: {fileID: 1369522189}
 --- !u!1 &524138164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,17 +2876,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &621421544 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1366188813482443522, guid: c983b80977922034eaeadd97434d3e31, type: 3}
-  m_PrefabInstance: {fileID: 2073263463}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &627128826
 GameObject:
   m_ObjectHideFlags: 0
@@ -3381,6 +3355,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2118448408}
+        m_TargetAssemblyTypeName: LoadCL.LoadChatlist, Assembly-CSharp
+        m_MethodName: RQcheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 543946605}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -3438,13 +3424,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793816416}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0673dba9b203f884bb69fe4acc678a17, type: 3}
+  m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactive: {fileID: 543946605}
-  active: {fileID: 1774158315}
+  username: {fileID: 0}
 --- !u!1001 &794041891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6419,6 +6404,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DestroyTime: 4.3
   Canvas: {fileID: 1774158315}
+--- !u!114 &1369522189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2664138373970653267, guid: 099aa2f24784898438445755a60f005f, type: 3}
+  m_PrefabInstance: {fileID: 1369522180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1371041744
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,7 +8176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 720, y: 0}
   m_SizeDelta: {x: 1440, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1622694939
@@ -8379,24 +8375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a3110fa74748641927632c0d812d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PersonalList: []
-  CheckedToggles: []
-  Toggles: []
-  ListContents: []
-  checkbox: {fileID: 0}
-  Content_ChatList: {fileID: 2074976134}
-  Content_Personal: {fileID: 1715806028}
-  Content_PersonalEdit: {fileID: 1260999696}
-  i: 0
-  ChatList: {fileID: 1774158315}
-  Personal_Edit: {fileID: 595769073}
-  Personal_SeeMore: {fileID: 786295080}
-  DisabledBtn: {fileID: 192205275}
-  EnabledBtn: {fileID: 1821586019}
-  AllCheckBtn: {fileID: 621421544}
-  Label: {fileID: 70107709}
-  Dialogs: {fileID: 147363789}
-  AllSelcetBtn: {fileID: 1821586019}
 --- !u!1 &1715806028
 GameObject:
   m_ObjectHideFlags: 0

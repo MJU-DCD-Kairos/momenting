@@ -370,8 +370,10 @@ GameObject:
   - component: {fileID: 5953044206329012622}
   - component: {fileID: 5953044206329012623}
   - component: {fileID: 5953044206329012720}
+  - component: {fileID: 4669966655106566904}
+  - component: {fileID: 3548162169427276190}
   m_Layer: 5
-  m_Name: Check
+  m_Name: Accept
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +479,58 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5953044206329012623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4669966655106566904}
+        m_TargetAssemblyTypeName: RQmanager, Assembly-CSharp
+        m_MethodName: Onclick_Accept
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3548162169427276190}
+        m_TargetAssemblyTypeName: SnackBarManager, Assembly-CSharp
+        m_MethodName: Sb_RQ_Accept
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4669966655106566904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044206329012722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 5953044205788260447}
+--- !u!114 &3548162169427276190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044206329012722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86be08f076e45641a6df0153663837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyTime: 6
+  Canvas: {fileID: 0}
 --- !u!1 &5953044206542845747
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,8 +712,10 @@ GameObject:
   - component: {fileID: 5953044206555639174}
   - component: {fileID: 5953044206555639175}
   - component: {fileID: 5953044206555639176}
+  - component: {fileID: 8951683306959986434}
+  - component: {fileID: 3445018180283036009}
   m_Layer: 5
-  m_Name: Cancel
+  m_Name: Decline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -766,7 +821,58 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5953044206555639175}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8951683306959986434}
+        m_TargetAssemblyTypeName: RQmanager, Assembly-CSharp
+        m_MethodName: Onclick_Decline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3445018180283036009}
+        m_TargetAssemblyTypeName: SnackBarManager, Assembly-CSharp
+        m_MethodName: Sb_RQ_Decline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8951683306959986434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044206555639178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 5953044205788260447}
+--- !u!114 &3445018180283036009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044206555639178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86be08f076e45641a6df0153663837f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyTime: 6
+  Canvas: {fileID: 0}
 --- !u!1 &5953044206582351284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,6 +1186,7 @@ GameObject:
   - component: {fileID: 5953044207258845957}
   - component: {fileID: 5953044207258845955}
   - component: {fileID: 1578098720175425709}
+  - component: {fileID: 3978536290403953184}
   m_Layer: 5
   m_Name: List_Received_SeeMore
   m_TagString: Untagged
@@ -1205,6 +1312,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3978536290403953184}
+        m_TargetAssemblyTypeName: RQmanager, Assembly-CSharp
+        m_MethodName: Onclick_Check
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1578098720175425709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,13 +1337,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickname: {fileID: 5953044205788260447}
-  RQ_nickname: 
   RQ_age: 
   RQ_sex: 
   RQ_mbti: 
   RQ_ML: 
   RQ_Info: 
-  RQprefab: {fileID: 0}
+--- !u!114 &3978536290403953184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953044207258845961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39be8fdbb8b23c40bebdd67596b8ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 5953044205788260447}
 --- !u!1 &5953044207351633856
 GameObject:
   m_ObjectHideFlags: 0

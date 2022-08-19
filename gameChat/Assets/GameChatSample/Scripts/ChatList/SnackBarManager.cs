@@ -33,6 +33,7 @@ public class SnackBarManager : MonoBehaviour
 
     public void Sb_RQ_Accept()
     {
+        Canvas = GameObject.Find("ChatList").transform.Find("ChatList_Main").gameObject;
         GameObject snackbar = Instantiate(Resources.Load("Prefabs/SnackBar")) as GameObject;
         snackbar.transform.SetParent(Canvas.transform, false);
         snackbar.GetComponentInChildren<Text>().text = "수락 완료되었습니다." + "\n" + "1:1 채팅을 시작해보세요!";
@@ -40,6 +41,7 @@ public class SnackBarManager : MonoBehaviour
     }
     public void Sb_RQ_Decline()
     {
+        Canvas = GameObject.Find("ChatList").transform.Find("ChatList_Main").gameObject;
         GameObject snackbar = Instantiate(Resources.Load("Prefabs/SnackBar")) as GameObject;
         snackbar.transform.SetParent(Canvas.transform, false);
         snackbar.GetComponentInChildren<Text>().text = "거절 완료되었습니다.";

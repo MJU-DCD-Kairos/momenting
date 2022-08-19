@@ -18,7 +18,8 @@ namespace LoadCL
         public GameObject RQListUI;
         public GameObject prefeb_SM;
         public static List<string> RQList = new List<string>(); //받은신청 불러와 저장하기 위한 리스트
-
+        public string RequestTime;
+        public string time_text;
         private void Start()
         {
             RQList.Clear();
@@ -122,36 +123,13 @@ namespace LoadCL
                         if (docDictionary["sex"].ToString() == "1") { RQsex = "남"; } //성별 숫자에서 한글로 바꿔주기
                         else { RQsex = "여"; }
 
-                        //string currentTime = System.DateTime.Now.ToString("h:mm:ss");
-                        //string questTime = RQs["time"].ToString();
-                        //Debug.Log(currentTime);
-                        //Debug.Log(questTime);
+                        RequestTime = docDictionary["time"].ToString(); //신청 시간
+                        calculate_time();
 
-                        //DateTime currentTime = DateTime.Parse();
-                        //System.DateTime questTime = System.Convert.ToDateTime("2012/05/07 08:00"); // 시작시간
-                        //System.DateTime currentTime = System.Convert.ToDateTime("2012/05/10 10:20"); // 현재시간( 완료 시간 )
-
-                        //System.TimeSpan timeCal = currentTime - questTime; // 시간차 계산
-
-                        //int timeCalDay = timeCal.Days;//날짜 차이
-                        //int timeCalHour = timeCal.Hours; //시간차이
-                        //int timeCalMinute = timeCal.Minutes;// 분 차이
-
-                        //Debug.Log(timeCalDay);
-                        //Debug.Log(timeCalHour);
-                        //Debug.Log(timeCalMinute);
-
-
-
-                        //System.DateTime time = System.DateTime.Now;
-                        //Debug.Log(time.ToString("hh:mm tt")); // 시간 / 분 / 오전오후
-                        //Debug.Log(time.ToString("MM/dd/yyyy")); // 월
-
-                        //Text Information = prefeb_SM.transform.GetChild(2).GetComponent<Text>();
                         GameObject Information = prefeb_SM.transform.GetChild(2).gameObject;
                         Information.transform.GetChild(0).GetComponent<Text>().text = docDictionary["nickName"].ToString(); //닉네임
                         Information.transform.GetChild(1).GetComponent<Text>().text = docDictionary["age"].ToString() + " " + RQsex; //나이, 성별
-                                                                                                                           //Information.transform.GetChild(2).GetComponent<Text>().text = ; //시간
+                        Information.transform.GetChild(2).GetComponent<Text>().text = time_text; //시간
                         prefeb_SM.transform.GetChild(3).GetComponent<Text>().text = docDictionary["Info"].ToString(); //한줄소개
 
                     }
@@ -165,40 +143,77 @@ namespace LoadCL
             }
 
         }
-            
-        
-        //리스트를 넣어주는 부모 개체
-        //public GameObject ContentParents;
 
-        //async void setRQList() //채팅방리스트에 받은신청 띄우기
-        //{
-        //    //db에서 받아온 Dict<string, List<string>> 형태를 받아옴
-        //    Dictionary<string, List<object>> testDict = FirebaseManager.KWList;
+        void calculate_time()
+        {
 
-        //    //Dictionary의 키를 돌면서 키가 가진 키워드 리스트 길이만큼 오브젝트 생성, 해당 내용 대입
-        //    foreach (string Key in testDict.Keys)
-        //    {
-        //        for (int l = 0; l < testDict[Key].Count; l++)
-        //        {
-        //            GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
-        //            ListContent.transform.SetParent(ContentParents.transform, false);
+            string currentTime = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            System.DateTime StartDate = System.Convert.ToDateTime(RequestTime); //신청한 시간
+            System.DateTime EndDate = System.Convert.ToDateTime(currentTime); //현재 시간
+            Debug.Log("DB에 저장된 시간: " + RequestTime);
+            Debug.Log("변환한 DB 시간: " + StartDate);
+            Debug.Log("변환한 현재 시간: " + EndDate);
 
-        //            Color color;
-        //            ColorUtility.TryParseHtmlString(Key, out color);//""안에 DB에서 받아온 헥사코드 넣어서 rgb변환 후 찍음
-        //                                                            //키워드 카테고리 색상
+            System.TimeSpan timeCal = EndDate - StartDate; //시간차 계산
+            int timeCalDay = timeCal.Days; //날짜 차이
+            int timeCalHour = timeCal.Hours; //시간 차이
+            int timeCalMinute = timeCal.Minutes; //분 차이
+            int timeCalSecond = timeCal.Seconds; //초 차이
 
+            Debug.Log("날짜 차이: " + timeCalDay);
+            Debug.Log("시간 차이: " + timeCalHour);
+            Debug.Log("분 차이: " + timeCalMinute);
+            Debug.Log("초 차이: " + timeCalSecond);
 
-        //            ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Image>().color = color;
+            int t;
+            int h;
+            int m;
+            int s;
 
-        //            //키워드 글자
-        //            ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Text>().text = testDict[Key][l].ToString();//"키워드 적용 테스트";여기에 DB에서 받아온 키워드를 string으로 찍음
-
-        //            //키워드 설명
-        //            ListContent.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
-        //        }
-        //    }
-
-        //}
+            if ((timeCalDay > 0) && (timeCalDay < 7))
+            {
+                time_text = timeCalDay + "일 전";
+            }
+            else
+            {
+                if((timeCalHour > 0) && (timeCalHour < 12))
+                {
+                    time_text = timeCalHour + "시간 전";
+                }
+                else
+                {
+                    if((timeCalMinute > 0) && (timeCalMinute < 60))
+                    {
+                        time_text = timeCalMinute + "분 전";
+                    }
+                    else
+                    {
+                        time_text = timeCalSecond + "초 전";
+                    }
+                }
+            }
+        }
         #endregion
+
+
+        public async void RQcheck() //더보기 페이지에서 백버튼 클릭 시 state 확인해서 뱃지 비활성화
+        {
+            for (int n = 0; n < (GameObject.Find("Group_Received").transform.childCount); n++)
+            {
+                string RQname = GameObject.Find("Group_Received").transform.GetChild(n).transform.Find("Text_name").GetComponent<Text>().text;
+                DocumentReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN).Collection("RQ").Document(RQname);
+                await RQRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+                {
+                    DocumentSnapshot snapshot = task.Result;
+                    Dictionary<string, object> doc = snapshot.ToDictionary();
+                    if (doc["state"] as string == "C")
+                    {
+                        GameObject badge = GameObject.Find("Group_Received").transform.GetChild(n).transform.GetChild(0).gameObject;
+                        if (badge.activeInHierarchy) { badge.SetActive(false); } //뱃지가 활성화되어 있으면 비활성화 시킴
+                    }
+
+                });
+            }
+        }
     }
 }

@@ -97,7 +97,7 @@ namespace FireStoreScript {
         public void Start()
         {
             //GCN = "";
-            //PlayerPrefs.SetString("GCName","츄아");
+            PlayerPrefs.SetString("GCName","츄아");
             GCN = PlayerPrefs.GetString("GCName");
             //isMatchToken(); //토큰 정보 있는지 확인
             //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
