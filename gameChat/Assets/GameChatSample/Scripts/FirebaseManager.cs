@@ -50,6 +50,7 @@ namespace FireStoreScript {
         public static string mbti;
         public static string ispass;
         public int mannerLevel;
+        public static int todayQIndex;
 
 
         [Header("Get Else Data")]
@@ -119,6 +120,9 @@ namespace FireStoreScript {
             Invoke("LoadData", 0.3f);
 
             Invoke("LoadKW", 0.5f);
+
+            Invoke("todayQupdate", 0.5f);
+            
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -555,7 +559,70 @@ namespace FireStoreScript {
 
 
         }
-        
+
+        //today질문 전체 유저 동기화를 위해 DB정보를 읽어오는 함수
+        /*
+        - FirebaseManager스크립트에 스타트하면서 오늘의 질문 업데이트 시점을 로드하는 함수를 추가 작성
+        - FirebaseManager스크립트에서 업데이트 시점을 로드하는 함수를 실행한 후 오늘 접속 날짜와 비교하여 상태표시(bull) 테스트
+        - bull값에 따라 기존 인덱스 or 인덱스 + 1을 변수에 저장
+        - bull값에 따라 인덱스+1과 업데이트 타임스탬프를 DB에 업로드
+         */
+        //현진작성
+
+        public async Task todayQupdate() //파이어스토어DB에서 오늘의 질문 업데이트 일자를 가져와 현재 접속일자와 비교, 인덱스 번호를 업데이트하는 함수
+        {
+            DocumentReference TQRef = db.Collection("userInfo").Document("todayQ"); //todayQ도큐먼트 내용을 가져옴
+
+            if (TQRef != null) //도큐먼트 내용 있으면
+            {
+
+                await TQRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+                {
+                    DocumentSnapshot snapshot = task.Result;
+                    
+                    Dictionary<string, object> docDictionary = snapshot.ToDictionary();
+                    Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
+                    Debug.Log("DB타임 데이트타임: "+DateTime.Parse(docDictionary["updateTime"].ToString()));
+                    Debug.Log("DB인덱스: " + int.Parse(docDictionary["qIndex"].ToString()));
+
+                    Debug.Log("내 타임스탬프" + DateTime.Now.ToString());
+                    bool isEqualDay = true;
+                    if(DateTime.Parse(docDictionary["updateTime"].ToString()).Date >= DateTime.Now.Date)
+                    {
+                        isEqualDay = true;
+                        todayQIndex = int.Parse(docDictionary["qIndex"].ToString());
+                        Debug.Log("업데이트 필요없음, 노출인덱스: " + todayQIndex);
+                        
+                        
+                    }
+                    else
+                    {
+                        isEqualDay = false;
+                        todayQIndex = int.Parse(docDictionary["qIndex"].ToString())+1;
+                        Debug.Log("업데이트 필요함, 노출인덱스: " + todayQIndex);
+
+                        Dictionary<string, object> newTQInfo = new Dictionary<string, object>
+                        {
+                            //오늘의 질문 인덱스
+                            { "qIndex", todayQIndex},
+                            //업데이트 날짜
+                            { "updateTime", DateTime.Now.Date.ToString() }
+                        };
+                        db.Collection("userInfo").Document("todayQ").SetAsync(newTQInfo, SetOptions.MergeAll);
+
+                    }
+
+                    Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
+
+                });
+
+            }
+            else
+            {
+                Debug.Log("도큐먼트 정보없음");
+            }
+        }
+
     }
     
 

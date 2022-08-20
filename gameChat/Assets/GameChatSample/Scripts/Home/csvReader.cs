@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using FireStoreScript;
 
 public class csvReader : MonoBehaviour
 {
@@ -74,10 +75,12 @@ public class csvReader : MonoBehaviour
 
     void PrintQuestionT()
     {
-        int tqlNum = UnityEngine.Random.Range(1,109);
-        
+        //오늘의 질문을 랜덤으로 뽑는 함수
+        //int tqlNum = UnityEngine.Random.Range(1,109);
+        int tqlNum = FirebaseManager.todayQIndex;
+
         Debug.Log(tqlNum);
-        //Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
+        Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
         Debug.Log(todayQuestionList.TQL[tqlNum].answerA);
         Debug.Log(todayQuestionList.TQL[tqlNum].answerB);
 
