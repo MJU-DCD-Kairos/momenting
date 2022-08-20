@@ -40,8 +40,8 @@ namespace LoadCL
             //    }
             //}
             CollectionReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN).Collection("RQ");
-            List<object> myRQList = new List<object>() {"N", "C"};
-            Query query = RQRef.WhereIn("state", myRQList); //state가 N이나 C인 문서 쿼리
+            //List<object> myRQList = new List<object>() {"N", "C"};
+            Query query = RQRef.OrderByDescending("time"); //state가 N이나 C인 문서 쿼리
 
             if(query != null)
             {
@@ -51,27 +51,31 @@ namespace LoadCL
                     foreach (DocumentSnapshot doc in snapshot.Documents)
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
-                        RQList.Add(docDictionary["nickName"].ToString()); //닉네임 리스트에 추가
-                        Debug.Log(docDictionary["nickName"].ToString() + "를 리스트에 추가함");
+                        //RQList.Add(docDictionary["nickName"].ToString()); //닉네임 리스트에 추가
+                        //Debug.Log(docDictionary["nickName"].ToString() + "를 리스트에 추가함");
 
-                        //리스트 프리팹 생성
-                        GameObject prefab = Resources.Load("Prefabs/List_Received") as GameObject;
-                        GameObject badge = prefab.transform.GetChild(0).gameObject;
-                        if (docDictionary["state"].ToString() == "C") //확인한 적이 한번이라도 있으면
+                        if((docDictionary["state"].ToString() == "C") || (docDictionary["state"].ToString() == "N"))
                         {
-                            badge.SetActive(false); //뱃지 비활성화
+                            //리스트 프리팹 생성
+                            GameObject prefab = Resources.Load("Prefabs/List_Received") as GameObject;
+                            GameObject badge = prefab.transform.GetChild(0).gameObject;
+                            if (docDictionary["state"].ToString() == "C") //확인한 적이 한번이라도 있으면
+                            {
+                                badge.SetActive(false); //뱃지 비활성화
+                            }
+                            else
+                            {
+                                badge.SetActive(true); //뱃지 활성화
+                            }
+
+                            GameObject ui = Instantiate(prefab);
+
+                            ui.transform.SetParent(GameObject.Find("Group_Received").transform, false);
+
+                            //유저 닉네임을 프리팹의 텍스트 컴포넌트에 넣기
+                            ui.transform.GetChild(3).GetComponent<Text>().text = docDictionary["nickName"].ToString();
                         }
-                        else
-                        {
-                            badge.SetActive(true); //뱃지 활성화
-                        }
-
-                        GameObject ui = Instantiate(prefab);
-
-                        ui.transform.SetParent(GameObject.Find("Group_Received").transform, false);
-
-                        //유저 닉네임을 프리팹의 텍스트 컴포넌트에 넣기
-                        ui.transform.GetChild(3).GetComponent<Text>().text = docDictionary["nickName"].ToString();
+                        
                     }
 
                 });
@@ -103,8 +107,8 @@ namespace LoadCL
             }
 
             CollectionReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN).Collection("RQ");
-            List<object> myRQList = new List<object>() { "N", "C" };
-            Query query = RQRef.WhereIn("state", myRQList); //state가 N이나 C인 문서 쿼리
+            //List<object> myRQList = new List<object>() { "N", "C" };
+            Query query = RQRef.OrderByDescending("time"); //state가 N이나 C인 문서 쿼리
 
             if (query != null)
             {
@@ -114,24 +118,28 @@ namespace LoadCL
                     foreach (DocumentSnapshot doc in snapshot.Documents)
                     {
                         Dictionary<string, object> docDictionary = doc.ToDictionary();
-                        //리스트 프리팹 생성
-                        prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
-                        prefeb_SM.transform.SetParent(GameObject.Find("Content_SeeMore").transform, false);
 
-                        //텍스트 UI 
-                        string RQsex = "";
-                        if (docDictionary["sex"].ToString() == "1") { RQsex = "남"; } //성별 숫자에서 한글로 바꿔주기
-                        else { RQsex = "여"; }
+                        if ((docDictionary["state"].ToString() == "C") || (docDictionary["state"].ToString() == "N"))
+                        {
+                            //리스트 프리팹 생성
+                            prefeb_SM = Instantiate(Resources.Load("Prefabs/List_Received_SeeMore") as GameObject);
+                            prefeb_SM.transform.SetParent(GameObject.Find("Content_SeeMore").transform, false);
 
-                        RequestTime = docDictionary["time"].ToString(); //신청 시간
-                        calculate_time();
+                            //텍스트 UI 
+                            string RQsex = "";
+                            if (docDictionary["sex"].ToString() == "1") { RQsex = "남"; } //성별 숫자에서 한글로 바꿔주기
+                            else { RQsex = "여"; }
 
-                        GameObject Information = prefeb_SM.transform.GetChild(2).gameObject;
-                        Information.transform.GetChild(0).GetComponent<Text>().text = docDictionary["nickName"].ToString(); //닉네임
-                        Information.transform.GetChild(1).GetComponent<Text>().text = docDictionary["age"].ToString() + " " + RQsex; //나이, 성별
-                        Information.transform.GetChild(2).GetComponent<Text>().text = time_text; //시간
-                        prefeb_SM.transform.GetChild(3).GetComponent<Text>().text = docDictionary["Info"].ToString(); //한줄소개
+                            RequestTime = docDictionary["time"].ToString(); //신청 시간
+                            calculate_time();
 
+                            GameObject Information = prefeb_SM.transform.GetChild(2).gameObject;
+                            Information.transform.GetChild(0).GetComponent<Text>().text = docDictionary["nickName"].ToString(); //닉네임
+                            Information.transform.GetChild(1).GetComponent<Text>().text = docDictionary["age"].ToString() + " " + RQsex; //나이, 성별
+                            Information.transform.GetChild(2).GetComponent<Text>().text = time_text; //시간
+                            prefeb_SM.transform.GetChild(3).GetComponent<Text>().text = docDictionary["Info"].ToString(); //한줄소개
+                        }
+                        
                     }
 
                 });
