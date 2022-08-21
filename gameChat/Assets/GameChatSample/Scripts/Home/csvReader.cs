@@ -18,7 +18,11 @@ public class csvReader : MonoBehaviour
     public Text Question;
     public Text answerA;
     public Text answerB;
-    
+
+    //오늘의 질문 답변 1,2 버튼 오브젝트를 받아옴
+    public Button answerBtnA;
+    public Button answerBtnB;
+
 
     //CSV파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언
     public int tableSize;
@@ -109,4 +113,27 @@ public class csvReader : MonoBehaviour
         FirebaseManager.setTqAnswer2();
     }
 
+    //텍스트 버튼으로 오늘의 질문 확인하기를 눌렀을 때, 사용자의 답변 상태 분기에 따라 UI를 처리하는 함수
+    public void loadTqResult()
+    {
+        //답변을 하지 않았다면 두개의 버튼을 모두 활성화 함
+        if (FirebaseManager.myTqAnswer == 0)
+        {
+            answerBtnA.interactable = true;
+            answerBtnB.interactable = true;
+        }
+        else if(FirebaseManager.myTqAnswer == 1)
+        {
+            answerBtnA.interactable = false;
+            answerBtnB.interactable = false;
+            //버튼1의 스프라이트를 변경해주기(or 컬러 변경해주기)
+
+        }
+        else if (FirebaseManager.myTqAnswer == 2)
+        {
+            answerBtnA.interactable = false;
+            answerBtnB.interactable = false;
+            //버튼 2의 스프라이트를 변경해주기(or 컬러 변경해주기)
+        }
+    }
 }
