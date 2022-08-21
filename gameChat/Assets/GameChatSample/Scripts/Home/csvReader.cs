@@ -7,6 +7,9 @@ using FireStoreScript;
 
 public class csvReader : MonoBehaviour
 {
+    //오늘의 질문 답변 안했을 때 활성화할 게임오브젝트를 인스펙터에서 직접 참조
+    public GameObject TQpopUp;
+
 
     //csv파일을 외부에서 인스펙터에서 직접 참조할 수 있도록 생성
     public TextAsset csvfile;
@@ -15,6 +18,7 @@ public class csvReader : MonoBehaviour
     public Text Question;
     public Text answerA;
     public Text answerB;
+    
 
     //CSV파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언
     public int tableSize;
@@ -45,6 +49,10 @@ public class csvReader : MonoBehaviour
     {
         ReadCSV();
         PrintQuestionT();
+        if (FirebaseManager.myTqAnswer == 0)
+        {
+            TQpopUp.SetActive(true);
+        }
         
     }
 
@@ -75,7 +83,7 @@ public class csvReader : MonoBehaviour
 
     void PrintQuestionT()
     {
-        //오늘의 질문을 랜덤으로 뽑는 함수
+        //오늘의 질문을 랜덤으로 뽑는 함수(현진 삭제- DB의 인덱스를 가져오는 것으로 변경함)
         //int tqlNum = UnityEngine.Random.Range(1,109);
         int tqlNum = FirebaseManager.todayQIndex;
 
@@ -88,4 +96,17 @@ public class csvReader : MonoBehaviour
         answerA.text = todayQuestionList.TQL[tqlNum].answerA;
         answerB.text = todayQuestionList.TQL[tqlNum].answerB;
     }
+
+    //오늘의 질문 답변 1을 눌렀을 때 FBM정보 업데이트 함수 호출
+    public void pressBtn1()
+    {
+        FirebaseManager.setTqAnswer1();
+    }
+
+    //오늘의 질문 답변 2를 눌렀을 때 FBM정보 업데이트 함수 호출
+    public void pressBtn2()
+    {
+        FirebaseManager.setTqAnswer2();
+    }
+
 }

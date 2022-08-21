@@ -74,24 +74,24 @@ public class homeSceneManager : MonoBehaviour
 
     
     //오늘의 질문 답변 시 다이얼로그 안뜸상태
-    public void isTodayQdoneTrue()
-    {
-        PlayerPrefs.SetInt("todayQdone",1);
-        PlayerPrefs.SetInt("todayQanswer", 1);
-    }
+    //public void isTodayQdoneTrue()
+    //{
+    //    PlayerPrefs.SetInt("todayQdone",1);
+    //    PlayerPrefs.SetInt("todayQanswer", 1);
+    //}
 
-    //오늘의 질문 닫은 경우 인지
-    public void isTodayQdoneFalse()
-    {
-        if(1!= PlayerPrefs.GetInt("todayQanswer"))
-        {
-            PlayerPrefs.SetInt("todayQdone", 0);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("todayQdone", 1);
-        }
+    ////오늘의 질문 닫은 경우 인지
+    //public void isTodayQdoneFalse()
+    //{
+    //    if(1!= PlayerPrefs.GetInt("todayQanswer"))
+    //    {
+    //        PlayerPrefs.SetInt("todayQdone", 0);
+    //    }
+    //    else
+    //    {
+    //        PlayerPrefs.SetInt("todayQdone", 1);
+    //    }
         
-    }
+    //}
 
 }

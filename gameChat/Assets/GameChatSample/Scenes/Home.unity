@@ -2103,6 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012838e48a9e72c4ba3b79369ff1bdf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TQpopUp: {fileID: 1815130478}
   csvfile: {fileID: 4900000, guid: 08f7ce69e36b8e9418eb28107b7c4ab5, type: 3}
   Question: {fileID: 1846263380}
   answerA: {fileID: 569285637}
@@ -7997,9 +7998,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: homeSceneManager, Assembly-CSharp
-        m_MethodName: isTodayQdoneTrue
+      - m_Target: {fileID: 280187044}
+        m_TargetAssemblyTypeName: csvReader, Assembly-CSharp
+        m_MethodName: pressBtn1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12961,9 +12962,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: homeSceneManager, Assembly-CSharp
-        m_MethodName: isTodayQdoneTrue
+      - m_Target: {fileID: 280187044}
+        m_TargetAssemblyTypeName: csvReader, Assembly-CSharp
+        m_MethodName: pressBtn2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -46,10 +46,17 @@ namespace FireStoreScript {
         public string token;
         public static string myname;
         public static int sex;
+
+        //오늘의 질문을 DB에서 불러올 전역변수 선언부 ( 현진 추가 )
+        public static int myTqAnswer;
+        public static int myLastTqIndex;
+
         public static string age;
         public static string mbti;
         public static string ispass;
         public int mannerLevel;
+
+        //오늘의 질문 번호 전역변수
         public static int todayQIndex;
 
 
@@ -116,13 +123,15 @@ namespace FireStoreScript {
                 {
                     Debug.LogError("Could not resolve all Firebase dependencies: " + task.Result);
                 }
-            });
+            }); 
+            
             Invoke("LoadData", 0.3f);
-
             Invoke("LoadKW", 0.5f);
 
+
+            //오늘의 질문 상태 업데이트 함수 호출(현진 추가)
             Invoke("todayQupdate", 0.5f);
-            
+
         }
 
         public void myName() { inputName(Name.text); }//inputID 함수 호출
@@ -181,6 +190,12 @@ namespace FireStoreScript {
                         sex = int.Parse(docDictionary["sex"].ToString());
                         age = docDictionary["age"] as string;
                         myintroduction = docDictionary["Introduction"] as string;
+
+                        //오늘의 질문 답변 정보 불러오기 ( 현진 추가 )
+                        myTqAnswer = int.Parse(docDictionary["TqAnswer"].ToString());
+                        myLastTqIndex = int.Parse(docDictionary["lastTqIndex"].ToString());
+
+
                         //mbti = docDictionary["mbti"] as string;
                         //mannerLevel = int.Parse(docDictionary["mannerLevel"] as string);
                         Debug.Log(myname + "의 성별 불러오기 성공 -> " + docDictionary["sex"] as string);
@@ -192,6 +207,10 @@ namespace FireStoreScript {
                     Debug.Log("성별 : " + sex);
                     Debug.Log("나이 : " + age);
                     Debug.Log("한줄소개 : " + myintroduction);
+
+                    //오늘의 질문 답변 정보 불러오기 디버깅 로그( 현진 추가 )
+                    Debug.Log("TQ 답변 상태 : " + myTqAnswer);
+                    Debug.Log("마지막 답변 TQ인덱스 : " + myLastTqIndex);
                 });
 
             }
@@ -541,6 +560,9 @@ namespace FireStoreScript {
             { "signupDate", null }, //가입일 (ispass가 true가 되면 기록
             { "mannerLevel", 1 }, //매너등급 (기본 1등급으로 시작)
             { "GmailAddress", GAdd},
+
+            { "TqAnswer", 0}, //오늘의 질문 답변 여부 기본 0(답변 안함 상태)로 지정
+            { "lastTqIndex", todayQIndex} //답변해야하는 인덱스를 현재 인덱스로 지정
             //{ "keyWord", KWdict.ToDictionary}
         };
 
@@ -613,6 +635,16 @@ namespace FireStoreScript {
                     }
 
                     Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
+                    if (todayQIndex > myLastTqIndex)
+                    {
+                        Dictionary<string, object> TqAnswerState = new Dictionary<string, object>
+                        {
+                            //오늘의 질문 답변 상태 업데이트, 마지막 답변한 질문의 인덱스와 비교하여 전날 답변한 상태의 값을 초기화 시킴
+                            { "TqAnswer", 0}
+                        };
+                        //상태를 DB의 TqAnswer에 덮어쓰기함
+                        db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+                    }
 
                 });
 
@@ -622,6 +654,33 @@ namespace FireStoreScript {
                 Debug.Log("도큐먼트 정보없음");
             }
         }
+
+        //답변 1을 눌렀을 때 유저의 TqAnswer을 1로 변경함
+        public static void setTqAnswer1()
+        {
+            Dictionary<string, object> TqAnswerState = new Dictionary<string, object>
+                        {
+                            //오늘의 질문 답변 상태 업데이트, 마지막 답변한 질문의 인덱스와 비교하여 전날 답변한 상태의 값을 초기화 시킴
+                            { "TqAnswer", 1},
+                            { "lastTqIndex", todayQIndex}
+                        };
+            //상태를 DB의 TqAnswer에 덮어쓰기함
+            db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+        }
+
+        //답변 2을 눌렀을 때 유저의 TqAnswer을 2로 변경함
+        public static void setTqAnswer2()
+        {
+            Dictionary<string, object> TqAnswerState = new Dictionary<string, object>
+                        {
+                            //오늘의 질문 답변 상태 업데이트, 마지막 답변한 질문의 인덱스와 비교하여 전날 답변한 상태의 값을 초기화 시킴
+                            { "TqAnswer", 2},
+                            { "lastTqIndex", todayQIndex}
+                        };
+            //상태를 DB의 TqAnswer에 덮어쓰기함
+            db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+        }
+
 
     }
     
