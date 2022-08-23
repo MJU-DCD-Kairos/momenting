@@ -214,7 +214,7 @@ namespace LoadCL
             {
                 time_text = timeCalDay + "일 전";
             }
-            else if (timeCalDay > 7)
+            else if (timeCalDay > 6)
             {
                 time_text = "7일 지남";
             }
