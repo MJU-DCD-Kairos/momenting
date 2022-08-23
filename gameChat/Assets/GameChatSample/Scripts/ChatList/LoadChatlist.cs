@@ -23,12 +23,44 @@ namespace LoadCL
         private void Start()
         {
             RQList.Clear();
-            setRQList();
+            //setRQList();
+            deleteDoc();
         }
 
         #region RQList
 
-        
+        async void deleteDoc()
+        {
+            CollectionReference RQRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN).Collection("RQ");
+            Query docs = RQRef.OrderByDescending("time"); //state가 N이나 C인 문서 쿼리
+            if (docs != null)
+            {
+                await docs.GetSnapshotAsync().ContinueWithOnMainThread(task =>
+                {
+                    QuerySnapshot snapshot = task.Result;
+                    foreach (DocumentSnapshot doc in snapshot.Documents)
+                    {
+                        Dictionary<string, object> docDictionary = doc.ToDictionary();
+                        RequestTime = docDictionary["time"].ToString();
+                        calculate_time();
+
+                        if (time_text == "7일 지남")
+                        {
+                            //RQRef.Document(docDictionary["nickName"].ToString()).UpdateAsync("timeCal", "7일 지남");
+                            RQRef.Document(docDictionary["nickName"].ToString()).DeleteAsync();
+                        }
+
+                    }
+                });
+
+                await setRQList();
+            }
+
+            else
+            {
+                Debug.Log("문서 없음");
+            }
+        }
         public async Task setRQList() //받은신청(챗리스트 메인화면) 리스트 생성
         {
             //리스트 프리팹 삭제
@@ -181,6 +213,10 @@ namespace LoadCL
             if ((timeCalDay > 0) && (timeCalDay < 7))
             {
                 time_text = timeCalDay + "일 전";
+            }
+            else if (timeCalDay > 7)
+            {
+                time_text = "7일 지남";
             }
             else
             {
