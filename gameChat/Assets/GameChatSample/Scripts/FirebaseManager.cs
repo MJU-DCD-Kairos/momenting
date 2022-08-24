@@ -603,17 +603,17 @@ namespace FireStoreScript {
                     DocumentSnapshot snapshot = task.Result;
                     
                     Dictionary<string, object> docDictionary = snapshot.ToDictionary();
-                    Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
-                    Debug.Log("DB타임 데이트타임: "+DateTime.Parse(docDictionary["updateTime"].ToString()));
-                    Debug.Log("DB인덱스: " + int.Parse(docDictionary["qIndex"].ToString()));
-
-                    Debug.Log("내 타임스탬프" + DateTime.Now.ToString());
+                    //Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
+                    //Debug.Log("DB타임 데이트타임: "+DateTime.Parse(docDictionary["updateTime"].ToString()));
+                    //Debug.Log("DB인덱스: " + int.Parse(docDictionary["qIndex"].ToString()));
+                    //Debug.Log("내 타임스탬프" + DateTime.Now.ToString());
+                    
                     bool isEqualDay = true;
                     if(DateTime.Parse(docDictionary["updateTime"].ToString()).Date >= DateTime.Now.Date)
                     {
                         isEqualDay = true;
                         todayQIndex = int.Parse(docDictionary["qIndex"].ToString());
-                        Debug.Log("업데이트 필요없음, 노출인덱스: " + todayQIndex);
+                        //Debug.Log("업데이트 필요없음, 노출인덱스: " + todayQIndex);
                         
                         
                     }
@@ -621,7 +621,7 @@ namespace FireStoreScript {
                     {
                         isEqualDay = false;
                         todayQIndex = int.Parse(docDictionary["qIndex"].ToString())+1;
-                        Debug.Log("업데이트 필요함, 노출인덱스: " + todayQIndex);
+                        //Debug.Log("업데이트 필요함, 노출인덱스: " + todayQIndex);
 
                         Dictionary<string, object> newTQInfo = new Dictionary<string, object>
                         {
@@ -644,6 +644,9 @@ namespace FireStoreScript {
                         };
                         //상태를 DB의 TqAnswer에 덮어쓰기함
                         db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+                        
+                        //전역변수도 업데이트
+                        myTqAnswer = 0;
                     }
 
                 });
@@ -666,6 +669,9 @@ namespace FireStoreScript {
                         };
             //상태를 DB의 TqAnswer에 덮어쓰기함
             db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+
+            //전역변수도 업데이트
+            myTqAnswer = 1;
         }
 
         //답변 2을 눌렀을 때 유저의 TqAnswer을 2로 변경함
@@ -679,6 +685,9 @@ namespace FireStoreScript {
                         };
             //상태를 DB의 TqAnswer에 덮어쓰기함
             db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
+
+            //전역변수도 업데이트
+            myTqAnswer = 2;
         }
 
 

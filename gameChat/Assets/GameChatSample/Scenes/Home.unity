@@ -2106,10 +2106,14 @@ MonoBehaviour:
   TQpopUp: {fileID: 1815130478}
   csvfile: {fileID: 4900000, guid: 08f7ce69e36b8e9418eb28107b7c4ab5, type: 3}
   Question: {fileID: 1846263380}
-  answerA: {fileID: 569285637}
-  answerB: {fileID: 1906169268}
+  answerAtxt: {fileID: 569285637}
+  answerBtxt: {fileID: 1906169268}
+  answerAGameObject: {fileID: 1323044525}
+  answerBGameObject: {fileID: 2086516447}
   answerBtnA: {fileID: 1323044531}
   answerBtnB: {fileID: 2086516453}
+  TqSelectedBtnIMG: {fileID: 21300000, guid: 94df1ecb68a07c0469fab5b03f03f5ed, type: 3}
+  TqIdleBtnIMG: {fileID: 21300000, guid: 9a8b8b10c7a442d4b99dcdb9a482fa98, type: 3}
   tableSize: 109
   todayQuestionList:
     TQL: []
@@ -3707,7 +3711,7 @@ GameObject:
   - component: {fileID: 569285637}
   - component: {fileID: 569285636}
   m_Layer: 5
-  m_Name: TodayQBody1
+  m_Name: TodayQA1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5259,9 +5263,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: homeSceneManager, Assembly-CSharp
-        m_MethodName: isTodayQdoneFalse
+      - m_Target: {fileID: 280187044}
+        m_TargetAssemblyTypeName: csvReader, Assembly-CSharp
+        m_MethodName: TqBtnImgReset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7963,7 +7967,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -7973,10 +7977,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: dda2d77724ecd54499e51d4305b348f0, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: dda2d77724ecd54499e51d4305b348f0, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 94df1ecb68a07c0469fab5b03f03f5ed, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 09b3729f3d088424482b7dc7b370b186, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -9232,9 +9236,9 @@ RectTransform:
   m_Father: {fileID: 1605126141}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -454.55, y: 331}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 73.45007, y: -159.00002}
   m_SizeDelta: {x: 909.1, y: 108}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1518150134
@@ -12013,7 +12017,7 @@ GameObject:
   - component: {fileID: 1906169268}
   - component: {fileID: 1906169267}
   m_Layer: 5
-  m_Name: TodayQBody1
+  m_Name: TodayQA2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13032,7 +13036,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13042,10 +13046,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: dda2d77724ecd54499e51d4305b348f0, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: dda2d77724ecd54499e51d4305b348f0, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 94df1ecb68a07c0469fab5b03f03f5ed, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 09b3729f3d088424482b7dc7b370b186, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted

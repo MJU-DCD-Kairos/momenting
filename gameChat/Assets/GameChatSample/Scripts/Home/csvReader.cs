@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using System;
 using FireStoreScript;
@@ -16,12 +17,18 @@ public class csvReader : MonoBehaviour
 
     //오늘의 질문을 넣어줄 UI텍스트 오브젝트를 인스펙터로 참조받기위한 선언
     public Text Question;
-    public Text answerA;
-    public Text answerB;
+    public Text answerAtxt;
+    public Text answerBtxt;
 
     //오늘의 질문 답변 1,2 버튼 오브젝트를 받아옴
     public Button answerBtnA;
     public Button answerBtnB;
+
+    //선택된 버튼 이미지
+    public Sprite TqSelectedBtnIMG;
+    public Sprite TqIdleBtnIMG;
+
+
 
 
     //CSV파일의 행 개수를 인스펙터상에서 입력하기 위한 퍼블릭 변수 선언
@@ -91,14 +98,14 @@ public class csvReader : MonoBehaviour
         //int tqlNum = UnityEngine.Random.Range(1,109);
         int tqlNum = FirebaseManager.todayQIndex;
 
-        Debug.Log(tqlNum);
-        Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
-        Debug.Log(todayQuestionList.TQL[tqlNum].answerA);
-        Debug.Log(todayQuestionList.TQL[tqlNum].answerB);
+        //Debug.Log(tqlNum);
+        //Debug.Log(todayQuestionList.TQL[tqlNum].QuestionT);
+        //Debug.Log(todayQuestionList.TQL[tqlNum].answerA);
+        //Debug.Log(todayQuestionList.TQL[tqlNum].answerB);
 
         Question.text = todayQuestionList.TQL[tqlNum].QuestionT;
-        answerA.text = todayQuestionList.TQL[tqlNum].answerA;
-        answerB.text = todayQuestionList.TQL[tqlNum].answerB;
+        answerAtxt.text = todayQuestionList.TQL[tqlNum].answerA;
+        answerBtxt.text = todayQuestionList.TQL[tqlNum].answerB;
     }
 
     //오늘의 질문 답변 1을 눌렀을 때 FBM정보 업데이트 함수 호출
@@ -117,23 +124,55 @@ public class csvReader : MonoBehaviour
     public void loadTqResult()
     {
         //답변을 하지 않았다면 두개의 버튼을 모두 활성화 함
+        Debug.Log("나의 답변상태는 > "+FirebaseManager.myTqAnswer);
         if (FirebaseManager.myTqAnswer == 0)
         {
+            
             answerBtnA.interactable = true;
             answerBtnB.interactable = true;
         }
         else if(FirebaseManager.myTqAnswer == 1)
         {
-            answerBtnA.interactable = false;
+
+            //answerBtnA.IsActive(false);
             answerBtnB.interactable = false;
-            //버튼1의 스프라이트를 변경해주기(or 컬러 변경해주기)
+            answerBtnA.image.sprite = TqSelectedBtnIMG;
+            answerBtnA.enabled = false;
+            
+            Color SelectedTxtColor;
+            ColorUtility.TryParseHtmlString("#F1F1F1", out SelectedTxtColor);
+            answerAtxt.color = SelectedTxtColor;
+
+
 
         }
         else if (FirebaseManager.myTqAnswer == 2)
         {
             answerBtnA.interactable = false;
-            answerBtnB.interactable = false;
-            //버튼 2의 스프라이트를 변경해주기(or 컬러 변경해주기)
+            answerBtnB.image.sprite = TqSelectedBtnIMG;
+            answerBtnB.enabled = false;
+            
+            Color SelectedTxtColor;
+            ColorUtility.TryParseHtmlString("#F1F1F1", out SelectedTxtColor);
+            answerBtxt.color = SelectedTxtColor;
+
         }
     }
-}
+    
+    // 오늘의 질문 팝업창을 닫을 때, 결과에 따라 달라졌던 버튼 스프라이트를 초기화함
+    public void TqBtnImgReset()
+    {
+        answerBtnA.image.sprite = TqIdleBtnIMG;
+        answerBtnB.image.sprite = TqIdleBtnIMG;
+
+        answerBtnA.enabled = true;
+        answerBtnB.enabled = true;
+
+        Color nomalTxtColor;
+        ColorUtility.TryParseHtmlString("#1F1F1F", out nomalTxtColor);
+        answerAtxt.color = nomalTxtColor;
+        answerBtxt.color = nomalTxtColor;
+    }
+
+    
+    }
