@@ -75,10 +75,10 @@ namespace FireStoreScript {
 
         //키워드를 저장하기 위한 선언부
         //키워드 카테고리별 리스트
-        public List<string> tendencyKW = new List<string>();
-        public List<string> interestKW = new List<string>();
-        public List<string> lifestyleKW = new List<string>();
-
+        //public List<string> tendencyKW = new List<string>();
+        //public List<string> interestKW = new List<string>();
+        //public List<string> lifestyleKW = new List<string>();
+        public List<string> profileKW = new List<string>();
         //리스트를 색상 핵사코드값으로 저장할 딕셔너리 생성
         public Dictionary<string, string> KWdict = new Dictionary<string, string>();
 
@@ -335,58 +335,66 @@ namespace FireStoreScript {
 
         }
 
-
+        public void savetest()
+        {
+            Debug.Log("키워드저장테스트");
+        }
         public void SaveKW()
         {
-            for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+            for ( int i = 0; i < getKeywordList.saveKWlist.Count; i++)
             {
-                if (getKeywordList.saveKWlist[i] == "상큼발랄" ||
-                    getKeywordList.saveKWlist[i] == "32차원" ||
-                    getKeywordList.saveKWlist[i] == "긍정맨" ||
-                    getKeywordList.saveKWlist[i] == "핵인싸" ||
-                    getKeywordList.saveKWlist[i] == "일잘러" ||
-                    getKeywordList.saveKWlist[i] == "잠만보" ||
-                    getKeywordList.saveKWlist[i] == "감성충만" ||
-                    getKeywordList.saveKWlist[i] == "센스쟁이" ||
-                    getKeywordList.saveKWlist[i] == "분위기메이커" ||
-                    getKeywordList.saveKWlist[i] == "수다쟁이" ||
-                    getKeywordList.saveKWlist[i] == "과제마스터" ||
-                    getKeywordList.saveKWlist[i] == "유머러스" ||
-                    getKeywordList.saveKWlist[i] == "박학다식" ||
-                    getKeywordList.saveKWlist[i] == "인싸중에아싸" ||
-                    getKeywordList.saveKWlist[i] == "아싸중에인싸")
-                {
-                    //성향 카테고리 #ff8550
-                    tendencyKW.Add(getKeywordList.saveKWlist[i]);
-                }
-                else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
-                    getKeywordList.saveKWlist[i] == "저녁형" ||
-                    getKeywordList.saveKWlist[i] == "올빼미형" ||
-                    getKeywordList.saveKWlist[i] == "프로집콕러" ||
-                    getKeywordList.saveKWlist[i] == "프로외출러" ||
-                    getKeywordList.saveKWlist[i] == "밥보다 잠" ||
-                    getKeywordList.saveKWlist[i] == "하루다섯끼" ||
-                    getKeywordList.saveKWlist[i] == "워라밸" ||
-                    getKeywordList.saveKWlist[i] == "워커홀릭" ||
-                    getKeywordList.saveKWlist[i] == "벼락치기"
-                    )
-                {
-                    //관심 카테고리 #7043c0
-                    interestKW.Add(getKeywordList.saveKWlist[i]);
-                }
-                else
-                {
-                    //생활패턴 카테고리 #001130
-                    lifestyleKW.Add(getKeywordList.saveKWlist[i]);
-                }
+                profileKW.Add(getKeywordList.saveKWlist[i]);
             }
-            Dictionary<string, object> kw = new Dictionary<string, object>
-            {
-                {"#ff8550" , tendencyKW },
-                {"#7043c0" , interestKW },
-                {"#001130" , lifestyleKW }
-            };
-            db.Collection("userInfo").Document(myname).UpdateAsync("KeyWord", kw);
+            db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", profileKW);
+            //for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+            //{
+            //    if (getKeywordList.saveKWlist[i] == "상큼발랄" ||
+            //        getKeywordList.saveKWlist[i] == "32차원" ||
+            //        getKeywordList.saveKWlist[i] == "긍정맨" ||
+            //        getKeywordList.saveKWlist[i] == "핵인싸" ||
+            //        getKeywordList.saveKWlist[i] == "일잘러" ||
+            //        getKeywordList.saveKWlist[i] == "잠만보" ||
+            //        getKeywordList.saveKWlist[i] == "감성충만" ||
+            //        getKeywordList.saveKWlist[i] == "센스쟁이" ||
+            //        getKeywordList.saveKWlist[i] == "분위기메이커" ||
+            //        getKeywordList.saveKWlist[i] == "수다쟁이" ||
+            //        getKeywordList.saveKWlist[i] == "과제마스터" ||
+            //        getKeywordList.saveKWlist[i] == "유머러스" ||
+            //        getKeywordList.saveKWlist[i] == "박학다식" ||
+            //        getKeywordList.saveKWlist[i] == "인싸중에아싸" ||
+            //        getKeywordList.saveKWlist[i] == "아싸중에인싸")
+            //    {
+            //        //성향 카테고리 #ff8550
+            //        tendencyKW.Add(getKeywordList.saveKWlist[i]);
+            //    }
+            //    else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
+            //        getKeywordList.saveKWlist[i] == "저녁형" ||
+            //        getKeywordList.saveKWlist[i] == "올빼미형" ||
+            //        getKeywordList.saveKWlist[i] == "프로집콕러" ||
+            //        getKeywordList.saveKWlist[i] == "프로외출러" ||
+            //        getKeywordList.saveKWlist[i] == "밥보다 잠" ||
+            //        getKeywordList.saveKWlist[i] == "하루다섯끼" ||
+            //        getKeywordList.saveKWlist[i] == "워라밸" ||
+            //        getKeywordList.saveKWlist[i] == "워커홀릭" ||
+            //        getKeywordList.saveKWlist[i] == "벼락치기"
+            //        )
+            //    {
+            //        //관심 카테고리 #7043c0
+            //        interestKW.Add(getKeywordList.saveKWlist[i]);
+            //    }
+            //    else
+            //    {
+            //        //생활패턴 카테고리 #001130
+            //        lifestyleKW.Add(getKeywordList.saveKWlist[i]);
+            //    }
+            //}
+            //Dictionary<string, object> kw = new Dictionary<string, object>
+            //{
+            //    {"#ff8550" , tendencyKW },
+            //    {"#7043c0" , interestKW },
+            //    {"#001130" , lifestyleKW }
+            //};
+            //db.Collection("userInfo").Document(myname).UpdateAsync("KeyWord", kw);
         }
 
         public void makeUserData() //새로운유저 DB 생성
@@ -417,48 +425,42 @@ namespace FireStoreScript {
 
                     Dictionary<string, object> keywordList = (Dictionary<string, object>)Keywords["KeyWord"];
                     //List<object> keywordList = (List<object>)Keywords["KeyWord"];
+                    //List<object> keywordList = (List<object>)Keywords["KeyWord"];
+                    List<object> KWList = new List<object>();
+                    //List<object> KWB = new List<object>();
+                    //List<object> KWC = new List<object>();
 
-                    List<object> KWA = new List<object>();
-                    List<object> KWB = new List<object>();
-                    List<object> KWC = new List<object>();
-
-                    foreach (KeyValuePair<string, object> pair in keywordList)
+                    foreach (KeyValuePair<string, object> pair in KWList)
                     {
                         List<object> kwlist = (List<object>)keywordList[pair.Key];
-                        
+
                         for (int i = 0; i < kwlist.Count; i++)
                         {
-                            if (pair.Key == "#ff8550")
-                            {
-                                KWA.Add(kwlist[i]);
-                            }
-                            else if (pair.Key == "#7043c0")
-                            {
+                            //    if (pair.Key == "#ff8550")
+                            //    {
+                            //        KWA.Add(kwlist[i]);
+                            //    }
+                            //    else if (pair.Key == "#7043c0")
+                            //    {
 
-                                KWB.Add(kwlist[i]);
-                            }
-                            else if (pair.Key == "#001130")
-                            {
-                                KWC.Add(kwlist[i]);
-                            }
+                            //        KWB.Add(kwlist[i]);
+                            //    }
+                            //    else if (pair.Key == "#001130")
+                            //    {
+                            //        KWC.Add(kwlist[i]);
+                            //    }
+                            KWList.Add(kwlist[i]);
                         }
+
                         
                     }
-                    KWList.Add("#ff8550", KWA);
-                    KWList.Add("#7043c0", KWB);
-                    KWList.Add("#001130", KWC);
+                    
+                    //KWList.Add("#7043c0", KWB);
+                    //KWList.Add("#001130", KWC);
 
                     //for (int i =0; i < KWA.Count; i++)
                     //{
                     //    Debug.LogError("#ff8550"+KWA[i]);
-                    //}
-                    //for (int i = 0; i < KWB.Count; i++)
-                    //{
-                    //    Debug.LogError("#7043c0"+KWB[i]);
-                    //}
-                    //for (int i = 0; i < KWC.Count; i++)
-                    //{
-                    //    Debug.LogError("#001130"+KWC[i]);
                     //}
                 }
                 else
@@ -693,97 +695,6 @@ namespace FireStoreScript {
 
     }
     
-
-        /*
-        public void sendRequestDB() //받은신청, 보낸신청 DB
-        {
-            string docname = ID.text + "sentRequest"; //문서 id 지정
-            DocumentReference userRef = db.Collection("Users").Document(ID.text).Collection("sentRequest").Document(docname); //기본정보DB 참조
-            userRef.SetAsync(new Dictionary<string, object>() //생성
-            {
-                {"uid", null },
-                {"isSend" , null  },
-                {"matchingState", null },
-                {"matchTime", null }
-
-            });
-        }
-        public void chatDB() //채팅 DB 
-        {
-
-        }
-
-        public void ImgDB() //사진 DB
-        {
-
-        }
-        public void profileDB() //기본프로필 DB 생성 (닉네임,나이,성별,한줄소개,매너등급)
-        {
-            string docname = ID.text + "profile"; //문서 id 지정
-            DocumentReference userRef = db.Collection("Users").Document(ID.text).Collection("profile").Document(docname); //기본정보DB 참조
-            userRef.SetAsync(new Dictionary<string, object>() //생성
-            {
-                {"name", null },
-                {"age" , null  },
-                {"sex", null },
-                {"introduction", null },
-                {"mannerScore", null }
-            });
-        }
-        public void keywordDB() //키워드 DB
-        {
-            string docname = ID.text + "keyword"; //문서 id 지정
-            DocumentReference userRef = db.Collection("Users").Document(ID.text).Collection("keyword").Document(docname); //기본정보DB 참조
-            userRef.SetAsync(new Dictionary<string, object>() //생성
-            {
-                {"kw1_name", null },
-                {"kw1_description" , null  },
-                {"kw1_ratio", null },
-                {"kw2_name", null },
-                {"kw2_description", null },
-                {"kw2_ratio", null },
-                {"kw3_name", null },
-                {"kw3_description", null },
-                {"kw3_ratio", null },
-                {"kw4_name", null },
-                {"kw4_description", null },
-                {"kw4_ratio", null },
-                {"kw5_name", null },
-                {"kw5_description", null },
-                {"kw5_ratio", null }
-
-            });
-
-        }
-        public void reportDB() //신고 DB
-        {
-            string docname = ID.text + "report"; //문서 id 지정
-            DocumentReference userRef = db.Collection("Users").Document(ID.text).Collection("report").Document(docname); //기본정보DB 참조
-            userRef.SetAsync(new Dictionary<string, object>() //생성
-            {
-                {"uid", null },
-                {"reason" , null }
-
-            });
-        }
-        public void mbtiType() //모래알유형 DB
-        {
-       
-        }
-
-        public void mannerDB()
-        {
-            string docname = ID.text + "mannerRate"; //문서 id 지정
-            DocumentReference userRef = db.Collection("Users").Document(ID.text).Collection("mannerRate").Document(docname); //기본정보DB 참조
-            userRef.SetAsync(new Dictionary<string, object>() //생성
-            {
-                {"uid", null },
-                {"score" , null }
-
-            });
-        }
-        */
-
 
        
 

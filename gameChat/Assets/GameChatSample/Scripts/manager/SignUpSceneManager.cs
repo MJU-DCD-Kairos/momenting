@@ -12,10 +12,6 @@ using UnityEngine.UI;
 using Firebase.Extensions;
 using UnityEngine.SceneManagement;
 using System.Text;
-using KH;
-using KH2;
-using KH3;
-
 
 namespace SUCM
 {
@@ -116,7 +112,7 @@ namespace SUCM
         //선택한 키워드의 숫자를 받아와 UI에 띄워주는 코드
         public void getKWnum()
         {
-            IndicatorNum.text = getKeywordList.KWcheckCount + "/" + "5";
+            IndicatorNum.text = getKeywordList.KWcheckCount + "/" + "8";
         }
 
         public void setKWBtn()

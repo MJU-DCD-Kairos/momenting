@@ -30,7 +30,7 @@ public class getKeywordList : MonoBehaviour
     //토글값이 true인 키워드와 false인 키워드 리스트를 저장
     public void getKWlist()
     {
-        if (KWcheckCount < 5)
+        if (KWcheckCount < 8)
         {
             if (this.GetComponent<Toggle>().isOn == true)
             {
@@ -67,18 +67,18 @@ public class getKeywordList : MonoBehaviour
                 }
             }
         }
-        else if (KWcheckCount >= 5 && this.GetComponent<Toggle>().isOn == true)
+        else if (KWcheckCount >= 8 && this.GetComponent<Toggle>().isOn == true)
         {
             Debug.Log("다섯개이상 선택할 수 없습니다.");
             notCount = true;
             this.GetComponent<Toggle>().isOn = false;
         }
-        else if (KWcheckCount >= 5 && this.GetComponent<Toggle>().isOn == false && notCount == true)
+        else if (KWcheckCount >= 8 && this.GetComponent<Toggle>().isOn == false && notCount == true)
         {
             notCount = false;
             Debug.Log("선택안됨 현재 개수 : " + KWcheckCount);
         }
-        else if(KWcheckCount >= 5 && this.GetComponent<Toggle>().isOn == false)
+        else if(KWcheckCount >= 8 && this.GetComponent<Toggle>().isOn == false)
         {
             KWcheckCount--;
             Debug.Log("다섯개 이상에서 취소함 현재 개수 : " + KWcheckCount);
