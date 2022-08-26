@@ -412,8 +412,9 @@ namespace FireStoreScript {
                             }
         }
 
-        public static Dictionary<string, List<object>> KWList = new Dictionary<string, List<object>>();
-        async Task LoadKW()
+        //public static Dictionary<string, List<object>> KWList = new Dictionary<string, List<object>>();
+        public static List<object> KWList = new List<object>();
+        public async void LoadKW()
         {
             DocumentReference KWRef = db.Collection("userInfo").Document(GCN);
             await KWRef.GetSnapshotAsync().ContinueWithOnMainThread(task =>
@@ -423,45 +424,12 @@ namespace FireStoreScript {
                 {
                     Dictionary<string, object> Keywords = snapshot.ToDictionary();
 
-                    Dictionary<string, object> keywordList = (Dictionary<string, object>)Keywords["KeyWord"];
-                    //List<object> keywordList = (List<object>)Keywords["KeyWord"];
-                    //List<object> keywordList = (List<object>)Keywords["KeyWord"];
-                    List<object> KWList = new List<object>();
-                    //List<object> KWB = new List<object>();
-                    //List<object> KWC = new List<object>();
-
-                    foreach (KeyValuePair<string, object> pair in KWList)
-                    {
-                        List<object> kwlist = (List<object>)keywordList[pair.Key];
-
-                        for (int i = 0; i < kwlist.Count; i++)
-                        {
-                            //    if (pair.Key == "#ff8550")
-                            //    {
-                            //        KWA.Add(kwlist[i]);
-                            //    }
-                            //    else if (pair.Key == "#7043c0")
-                            //    {
-
-                            //        KWB.Add(kwlist[i]);
-                            //    }
-                            //    else if (pair.Key == "#001130")
-                            //    {
-                            //        KWC.Add(kwlist[i]);
-                            //    }
-                            KWList.Add(kwlist[i]);
-                        }
-
-                        
-                    }
-                    
-                    //KWList.Add("#7043c0", KWB);
-                    //KWList.Add("#001130", KWC);
-
-                    //for (int i =0; i < KWA.Count; i++)
+                    KWList = (List<object>)Keywords["Keyword"];
+                    //for (int i = 0; i < KWList.Count; i++)
                     //{
-                    //    Debug.LogError("#ff8550"+KWA[i]);
+                    //    Debug.Log(KWList[i]);
                     //}
+                    
                 }
                 else
                 {

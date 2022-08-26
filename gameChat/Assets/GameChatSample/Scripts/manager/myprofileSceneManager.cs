@@ -92,55 +92,70 @@ namespace myprofile
             {
                 Debug.Log("프로필 씬 == " + MyProfileEditManager.EDIT_INTRO);
                 txtIntro.text = MyProfileEditManager.EDIT_INTRO;
+                firebase_LoadKW();
+                if (FirebaseManager.KWList == null)
+                {
+                    Invoke("firebase_LoadKW", 0.1f);
+                }
+                else
+                {
+                    setUserKW();
+                }
+                
             }
         }
 
-        //유저의 키워드를 생성하는 함수
-        public void setUserKW()
+        void firebase_LoadKW()
         {
-            //db에서 받아온 Dict<string, List<string>> 형태를 받아옴
-            Dictionary<string, List<object>> testDict = FirebaseManager.KWList;
+            GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().LoadKW();
+        }
 
-            //Dictionary의 키를 돌면서 키가 가진 키워드 리스트 길이만큼 오브젝트 생성, 해당 내용 대입
-            foreach (string Key in testDict.Keys)
+        //유저의 키워드를 생성하는 함수
+        public void setUserKW() //작업중
+        {
+            firebase_LoadKW();
+            if (FirebaseManager.KWList == null)
             {
-                for (int l = 0; l < testDict[Key].Count; l++)
+                Debug.Log("KWList 못받아옴");
+                Invoke("firebase_LoadKW", 0.1f);
+            }
+            else
+            {
+                Debug.Log("KWList 받아옴");
+                for (int i = 0; i < FirebaseManager.KWList.Count; i++)
                 {
-                    GameObject ListContent = Instantiate(Resources.Load("Prefabs/MyKeyword")) as GameObject;
+                    //Debug.Log(FirebaseManager.KWList[i]);
+                    GameObject ListContent = Instantiate(Resources.Load("Prefabs/C_KW")) as GameObject;
                     ListContent.transform.SetParent(ContentParents.transform, false);
 
-                    Color color;
-                    ColorUtility.TryParseHtmlString(Key, out color);//""안에 DB에서 받아온 헥사코드 넣어서 rgb변환 후 찍음
-                                                                    //키워드 카테고리 색상
-
-
-                    ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Image>().color = color;
-
                     //키워드 글자
-                    ListContent.transform.GetChild(0).transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Text>().text = testDict[Key][l].ToString();//"키워드 적용 테스트";여기에 DB에서 받아온 키워드를 string으로 찍음
-
-                    //키워드 설명
-                    ListContent.transform.GetChild(1).gameObject.GetComponent<Text>().text = "";
+                    //ListContent.transform.GetChild(0).transform.getchild(0).transform.getchild(1).gameobject.getcomponent<text>().text = testdict[key][l].tostring();//"키워드 적용 테스트";여기에 db에서 받아온 키워드를 string으로 찍음
                 }
+
             }
 
-            //FOR ( INT I = 0; I<5; I++)
+            //Debug.Log("setUserKW 실행됨");
+            //dictionary의 키를 돌면서 키가 가진 키워드 리스트 길이만큼 오브젝트 생성, 해당 내용 대입
+            //foreach (string key in testdict.keys)
             //{
+            //    for (int l = 0; l < testdict[key].count; l++)
+            //    {
+            //        gameobject listcontent = instantiate(resources.load("prefabs/mykeyword")) as gameobject;
+            //        listcontent.transform.setparent(contentparents.transform, false);
+
+            //        color color;
+            //        colorutility.tryparsehtmlstring(key, out color);//""안에 db에서 받아온 헥사코드 넣어서 rgb변환 후 찍음
+            //                                                        //키워드 카테고리 색상
 
 
-            //    GAMEOBJECT LISTCONTENT = INSTANTIATE(RESOURCES.LOAD("PREFABS/MYKEYWORD")) AS GAMEOBJECT;
-            //    LISTCONTENT.TRANSFORM.SETPARENT(CONTENTPARENTS.TRANSFORM, FALSE);
+            //        listcontent.transform.getchild(0).transform.getchild(0).transform.getchild(0).gameobject.getcomponent<image>().color = color;
 
-            //    COLOR COLOR;
-            //    COLORUTILITY.TRYPARSEHTMLSTRING("#001130", OUT COLOR);//""안에 DB에서 받아온 헥사코드 넣어서 RGB변환 후 찍음
-            //                                                          //키워드 카테고리 색상
-            //    LISTCONTENT.TRANSFORM.GETCHILD(0).TRANSFORM.GETCHILD(0).TRANSFORM.GETCHILD(0).GAMEOBJECT.GETCOMPONENT<IMAGE>().COLOR = COLOR;
+            //        //키워드 글자
+            //        listcontent.transform.getchild(0).transform.getchild(0).transform.getchild(1).gameobject.getcomponent<text>().text = testdict[key][l].tostring();//"키워드 적용 테스트";여기에 db에서 받아온 키워드를 string으로 찍음
 
-            //    //키워드 글자
-            //    LISTCONTENT.TRANSFORM.GETCHILD(0).TRANSFORM.GETCHILD(0).TRANSFORM.GETCHILD(1).GAMEOBJECT.GETCOMPONENT<TEXT>().TEXT = "키워드 적용 테스트";//여기에 DB에서 받아온 키워드를 STRING으로 찍음
-
-            //    //키워드 설명
-            //    LISTCONTENT.TRANSFORM.GETCHILD(1).GAMEOBJECT.GETCOMPONENT<TEXT>().TEXT = "키워드 설명 테스트";
+            //        //키워드 설명
+            //        listcontent.transform.getchild(1).gameobject.getcomponent<text>().text = "";
+            //    }
             //}
 
         }
