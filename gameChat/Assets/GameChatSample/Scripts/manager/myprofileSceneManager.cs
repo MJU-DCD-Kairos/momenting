@@ -28,8 +28,15 @@ namespace myprofile
 
         //키워드 불러오기위한 프리팹 참조
         //public GameObject KWlistPrefabs;
-        //리스트를 넣어주는 부모 개체
-        public GameObject ContentParents;
+        
+        public GameObject KWParents; //키워드 리스트 4줄을 전부 넣어주는 부모 개체
+        public GameObject KWContents0; //키워드 리스트 1번째 줄
+        public GameObject KWContents1; //키워드 리스트 2번째 줄
+        public GameObject KWContents2; //키워드 리스트 3번째 줄
+        public GameObject KWContents3; //키워드 리스트 4번째 줄
+
+
+
 
 
 
@@ -125,11 +132,63 @@ namespace myprofile
                 for (int i = 0; i < FirebaseManager.KWList.Count; i++)
                 {
                     //Debug.Log(FirebaseManager.KWList[i]);
-                    GameObject ListContent = Instantiate(Resources.Load("Prefabs/C_KW")) as GameObject;
-                    ListContent.transform.SetParent(ContentParents.transform, false);
-
+                    GameObject ListContent = Instantiate(Resources.Load("Prefabs/KeywordPrefs/C_KW")) as GameObject;
+                    ListContent.transform.SetParent(KWContents0.transform, false); //1번째 줄에 오브젝트 넣어주기
                     //키워드 글자
-                    //ListContent.transform.GetChild(0).transform.getchild(0).transform.getchild(1).gameobject.getcomponent<text>().text = testdict[key][l].tostring();//"키워드 적용 테스트";여기에 db에서 받아온 키워드를 string으로 찍음
+                    ListContent.transform.GetChild(0).GetComponent<Text>().text = "#" + FirebaseManager.KWList[i].ToString();
+                    //var RectTransform = ListContent.transform as RectTransform;
+                    RectTransform rt = ListContent.GetComponent<RectTransform>();
+                    //float wid = ListContent.transform.GetComponent<RectTransform>().rect.width;
+                    float wid = rt.sizeDelta.x;
+                    float sum = -32; //키워드 칩스들의 폭의 합
+                    Debug.Log("칩 폭: " + wid);
+                    //for (int n = 0; n < KWContents0.transform.childCount; n++) //1번째 줄에 들어갈 자리 있는지 계산
+                    //{
+                    //    sum = sum + wid;
+                    //    Debug.Log(wid);
+                    //    Debug.Log("합: " + sum);
+                    //    //sum = sum + KWContents0.transform.GetChild(n).gameObject.GetComponent<RectTransform>().rect.width + 32;
+
+                    //    Debug.Log("1번째 줄: " + sum);
+                    //}
+                    //if (sum >= 1312) //1번째 줄에 자리 없으면
+                    //{
+                    //    sum = -32; //합 초기화
+                    //    for (int q = 0; q < KWContents1.transform.childCount; q++) //2번째 줄에 들어갈 자리 있는지 계산
+                    //    {
+                    //        sum = sum + KWContents1.transform.GetChild(n).GetComponent<RectTransform>().rect.width + 32;
+                    //        Debug.Log("2번째 줄: " + sum);
+                    //        if (sum >= 1312) //2번째 줄에 자리 없으면
+                    //        {
+                    //            sum = -32; //합 초기화
+                    //            for (int j = 0; j < KWContents2.transform.childCount; j++) //3번째 줄에 들어갈 자리 있는지 계산
+                    //            {
+                    //                sum = sum + KWContents2.transform.GetChild(n).GetComponent<RectTransform>().rect.width + 32;
+                    //                Debug.Log("3번째 줄: " + sum);
+                    //                if (sum >= 1312) //3번째 줄에 자리 없으면
+                    //                {
+                    //                    ListContent.transform.SetParent(KWContents3.transform, false); //4번째 줄에 오브젝트 넣어주기
+                    //                }
+                    //                else //3번째 줄에 자리 있으면
+                    //                {
+                    //                    ListContent.transform.SetParent(KWContents2.transform, false); //3번째 줄에 오브젝트 넣어주기
+                    //                }
+                    //            }
+
+                    //        }
+                    //        else //2번째 줄에 자리 있으면
+                    //        {
+                    //            ListContent.transform.SetParent(KWContents1.transform, false); //2번째 줄에 오브젝트 넣어주기
+                    //        }
+                    //    }
+
+                    //}
+                    //else //1번째 줄에 자리 있으면
+                    //{
+                    //    ListContent.transform.SetParent(KWContents0.transform, false); //1번째 줄에 오브젝트 넣어주기
+                    //}
+
+
                 }
 
             }
