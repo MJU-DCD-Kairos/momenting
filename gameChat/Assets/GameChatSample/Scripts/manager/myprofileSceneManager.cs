@@ -8,6 +8,10 @@ using System.Text;
 using System;
 using editprofile;
 using System.Threading.Tasks;
+using editprofile;
+using Firebase;
+using Firebase.Firestore;
+using Firebase.Extensions;
 
 namespace myprofile
 {
@@ -34,10 +38,12 @@ namespace myprofile
         public GameObject KWContents1; //키워드 리스트 2번째 줄
         public GameObject KWContents2; //키워드 리스트 3번째 줄
         public GameObject KWContents3; //키워드 리스트 4번째 줄
+        public GameObject KWarea;
+        public GameObject canvas_ED;
 
-
-
-
+        //public List<string> myKW = new List<string>();
+        public Button SaveBtn;
+        public List<string> profileKW = new List<string>();
 
 
 
@@ -71,8 +77,8 @@ namespace myprofile
             {
                 txtSex.text = "여";
             }
-
             setUserKW();
+            SaveBtn.onClick.AddListener(KWedit);
         }
 
         // Update is called once per frame
@@ -111,23 +117,102 @@ namespace myprofile
                 
             }
         }
+        //async Task firebase_LoadKW()
+        //{
+        //    GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().LoadKW();
+        //}
 
-        public void firebase_LoadKW()
+        //async Task firebaseKW()
+        //{
+        //    //saveEditKW();
+        //    GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().SaveKW();
+        //    Debug.LogError("firebaseKW 실행");
+        //}
+        public async Task Edit_SaveKW()
         {
-            GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().LoadKW();
-            if (FirebaseManager.KWList == null)
+            var awaiter = delete_duplicatedKW().GetAwaiter();
+            awaiter.OnCompleted(() =>
             {
-                Debug.Log("KWList 못받아옴");
-                Invoke("firebase_LoadKW", 0.1f);
-            }
-            else
-            {
-                Invoke("setUserKW", 0.5f);
-            }
+                //int kw = 0;
+                FirebaseManager.KWList.Clear();
+                for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+                {
+                    FirebaseManager.KWList.Add(getKeywordList.saveKWlist[i]);
+                    Debug.Log("SAVE 새로 선택한 키워드: " + FirebaseManager.KWList[i]);
+                    //kw += 1;
+                    
+                }
+                //return kw;
+                FirebaseManager.db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", FirebaseManager.KWList);
+                Debug.LogError("db에 키워드 저장 완료!");
+            });
+
+
+        }
+        //async Task setKW()
+        //{
+
+        //}
+
+        public async Task delete_duplicatedKW()
+        {
+            await FirebaseManager.db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", FieldValue.Delete);
+            Debug.LogError("DB키워드 삭제 완료!");
         }
 
+        public async void KWedit()
+        {
+            Debug.LogError("KWedit 실행");
+            var awaiter = Edit_SaveKW().GetAwaiter();
+            awaiter.OnCompleted(() =>
+            {
+                Invoke("setUserKW", 0.5f);
+                
+            });
+        }
+
+        public void KW_ToggleOn()
+        {
+            //관심사
+            for (int k = 1; k < 6; k++)
+            { 
+                GameObject Group = KWarea.transform.GetChild(k).gameObject;
+                for (int i = 0; i < Group.transform.childCount; i++)
+                {
+                    string Text = Group.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text;
+                    for (int w = 0; w < FirebaseManager.KWList.Count; w++)
+                    {
+                        if (Text == FirebaseManager.KWList[w].ToString())
+                        {
+                            Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
+                        }
+                    }
+                }
+            }
+            //성향
+            for (int k = 7; k < 14; k++)
+            {
+                GameObject Group = KWarea.transform.GetChild(k).gameObject;
+                for (int i = 0; i < Group.transform.childCount; i++)
+                {
+                    string Text = Group.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text;
+                    for (int w = 0; w < FirebaseManager.KWList.Count; w++)
+                    {
+                        if (Text == FirebaseManager.KWList[w].ToString())
+                        {
+                            Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
+                        }
+                    }
+                }
+            }
+            Debug.LogError("KW_ToggleOn 실행");
+        }
+        //async Task setkw()
+        //{
+        //    setUserKW();
+        //}
         //유저의 키워드를 생성하는 함수
-        public void setUserKW() //작업중
+        async Task setUserKW()
         {
             //리스트 프리팹 삭제
             for (int j = 0; j < 4; j++)
@@ -141,18 +226,13 @@ namespace myprofile
                     }
                 }
             }
-            //키워드 칩스들의 폭의 합
             float sum0 = -32;
             float sum1 = -32;
             float sum2 = -32;
-            //키워드를 몇번째 레이아웃에 배치할건지 판별하기 위한 변수
-            //bool layout0 = false;
-            //bool layout1 = false;
-            //bool layout2 = false;
 
             List<float> KW_Wid = new List<float>();
 
-            Debug.Log("KWList 받아옴");
+            //Debug.Log("KWList 받아옴");
             GameObject ListContent;
 
             for (int i = 0; i < FirebaseManager.KWList.Count; i++)
@@ -171,61 +251,8 @@ namespace myprofile
                 }
                 else if (FirebaseManager.KWList[i].ToString().Length == 5) { KW_Wid.Add(36 + 423 + 32); }
                 else { KW_Wid.Add(36 + 482 + 32); }
-
-
-
-                //float wid = ListContent.transform.GetComponent<RectTransform>().rect.width;
-                //float wid = KWContents0.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x;
-
-                //Debug.Log("칩 폭: " + wid);
-                //for (int n = 0; n < KWContents0.transform.childCount; n++) //1번째 줄에 들어갈 자리 있는지 계산
-                //{
-                //    sum = sum + wid;
-                //    Debug.Log(wid);
-                //    Debug.Log("합: " + sum);
-                //    //sum = sum + KWContents0.transform.GetChild(n).gameObject.GetComponent<RectTransform>().rect.width + 32;
-
-                //    Debug.Log("1번째 줄: " + sum);
-                //}
-                //if (sum >= 1312) //1번째 줄에 자리 없으면
-                //{
-                //    sum = -32; //합 초기화
-                //    for (int q = 0; q < KWContents1.transform.childCount; q++) //2번째 줄에 들어갈 자리 있는지 계산
-                //    {
-                //        sum = sum + KWContents1.transform.GetChild(n).GetComponent<RectTransform>().rect.width + 32;
-                //        Debug.Log("2번째 줄: " + sum);
-                //        if (sum >= 1312) //2번째 줄에 자리 없으면
-                //        {
-                //            sum = -32; //합 초기화
-                //            for (int j = 0; j < KWContents2.transform.childCount; j++) //3번째 줄에 들어갈 자리 있는지 계산
-                //            {
-                //                sum = sum + KWContents2.transform.GetChild(n).GetComponent<RectTransform>().rect.width + 32;
-                //                Debug.Log("3번째 줄: " + sum);
-                //                if (sum >= 1312) //3번째 줄에 자리 없으면
-                //                {
-                //                    ListContent.transform.SetParent(KWContents3.transform, false); //4번째 줄에 오브젝트 넣어주기
-                //                }
-                //                else //3번째 줄에 자리 있으면
-                //                {
-                //                    ListContent.transform.SetParent(KWContents2.transform, false); //3번째 줄에 오브젝트 넣어주기
-                //                }
-                //            }
-
-                //        }
-                //        else //2번째 줄에 자리 있으면
-                //        {
-                //            ListContent.transform.SetParent(KWContents1.transform, false); //2번째 줄에 오브젝트 넣어주기
-                //        }
-                //    }
-
-                //}
-                //else //1번째 줄에 자리 있으면
-                //{
-                //    ListContent.transform.SetParent(KWContents0.transform, false); //1번째 줄에 오브젝트 넣어주기
-                //}
-
-
             }
+
             for (int n = 0; n < KW_Wid.Count; n++)
             {
                 ListContent = Instantiate(Resources.Load("Prefabs/KeywordPrefs/C_KW")) as GameObject;
@@ -236,68 +263,32 @@ namespace myprofile
                 {
                     sum0 = sum0 + KW_Wid[n];
                     ListContent.transform.SetParent(KWContents0.transform, false);
-                    Debug.Log("0: " + sum0);
+                }
+                else if (sum1 + KW_Wid[n] <= 1312)
+                {
+                    sum1 = sum1 + KW_Wid[n];
+                    ListContent.transform.SetParent(KWContents1.transform, false);
+                }
+                else if (sum2 + KW_Wid[n] <= 1312)
+                {
+                    sum2 = sum2 + KW_Wid[n];
+                    ListContent.transform.SetParent(KWContents2.transform, false);
                 }
                 else
                 {
-                    if (sum1 + KW_Wid[n] <= 1312)
-                    {
-                        sum1 = sum1 + KW_Wid[n];
-                        ListContent.transform.SetParent(KWContents1.transform, false);
-                        Debug.Log("1: " + sum1);
-                    }
-                    else
-                    {
-                        if (sum2 + KW_Wid[n] <= 1312)
-                        {
-                            sum2 = sum2 + KW_Wid[n];
-                            ListContent.transform.SetParent(KWContents2.transform, false);
-                            Debug.Log("2: " + sum2);
-                        }
-                        else
-                        {
-                            ListContent.transform.SetParent(KWContents3.transform, false);
-                        }
-                    }
+                    ListContent.transform.SetParent(KWContents3.transform, false);
                 }
+
             }
-            //firebase_LoadKW();
-            //if (FirebaseManager.KWList == null)
-            //{
-            //    Debug.Log("KWList 못받아옴");
-            //    Invoke("firebase_LoadKW", 0.1f);
-            //}
+            canvas_ED.SetActive(false);
+            canvas_ED.SetActive(true);
 
-            //Debug.Log("setUserKW 실행됨");
-            //dictionary의 키를 돌면서 키가 가진 키워드 리스트 길이만큼 오브젝트 생성, 해당 내용 대입
-            //foreach (string key in testdict.keys)
-            //{
-            //    for (int l = 0; l < testdict[key].count; l++)
-            //    {
-            //        gameobject listcontent = instantiate(resources.load("prefabs/mykeyword")) as gameobject;
-            //        listcontent.transform.setparent(contentparents.transform, false);
+            KWParents.SetActive(false);
+            KWParents.SetActive(true);
+            KW_ToggleOn();
 
-            //        color color;
-            //        colorutility.tryparsehtmlstring(key, out color);//""안에 db에서 받아온 헥사코드 넣어서 rgb변환 후 찍음
-            //                                                        //키워드 카테고리 색상
-
-
-            //        listcontent.transform.getchild(0).transform.getchild(0).transform.getchild(0).gameobject.getcomponent<image>().color = color;
-
-            //        //키워드 글자
-            //        listcontent.transform.getchild(0).transform.getchild(0).transform.getchild(1).gameobject.getcomponent<text>().text = testdict[key][l].tostring();//"키워드 적용 테스트";여기에 db에서 받아온 키워드를 string으로 찍음
-
-            //        //키워드 설명
-            //        listcontent.transform.getchild(1).gameobject.getcomponent<text>().text = "";
-            //    }
-            //}
-
+            Debug.LogError("setUserKW 실행");
         }
-
-
-
-
-
 
     }
 }

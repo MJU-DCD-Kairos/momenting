@@ -78,10 +78,11 @@ namespace FireStoreScript {
         //public List<string> tendencyKW = new List<string>();
         //public List<string> interestKW = new List<string>();
         //public List<string> lifestyleKW = new List<string>();
-        public List<string> profileKW = new List<string>();
+        
         //리스트를 색상 핵사코드값으로 저장할 딕셔너리 생성
         public Dictionary<string, string> KWdict = new Dictionary<string, string>();
 
+        public static List<object> KWList = new List<object>();
 
         public enum fbRef { userInfo, matchingRoom, report, userToken, keywords, chatRoom, images, mannerRate }
 
@@ -335,85 +336,38 @@ namespace FireStoreScript {
 
         }
 
-        public void savetest()
+        public async void SaveKW()
         {
-            Debug.Log("키워드저장테스트");
-        }
-        public void SaveKW()
-        {
-            for ( int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+            for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
             {
-                profileKW.Add(getKeywordList.saveKWlist[i]);
+                KWList.Add(getKeywordList.saveKWlist[i]);
             }
-            db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", profileKW);
-            //for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+            await db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", KWList);
+            Debug.LogError("db에 키워드 저장 완료!");
+            //var awaiter = delete_duplicatedKW().GetAwaiter();
+            //awaiter.OnCompleted(() =>
             //{
-            //    if (getKeywordList.saveKWlist[i] == "상큼발랄" ||
-            //        getKeywordList.saveKWlist[i] == "32차원" ||
-            //        getKeywordList.saveKWlist[i] == "긍정맨" ||
-            //        getKeywordList.saveKWlist[i] == "핵인싸" ||
-            //        getKeywordList.saveKWlist[i] == "일잘러" ||
-            //        getKeywordList.saveKWlist[i] == "잠만보" ||
-            //        getKeywordList.saveKWlist[i] == "감성충만" ||
-            //        getKeywordList.saveKWlist[i] == "센스쟁이" ||
-            //        getKeywordList.saveKWlist[i] == "분위기메이커" ||
-            //        getKeywordList.saveKWlist[i] == "수다쟁이" ||
-            //        getKeywordList.saveKWlist[i] == "과제마스터" ||
-            //        getKeywordList.saveKWlist[i] == "유머러스" ||
-            //        getKeywordList.saveKWlist[i] == "박학다식" ||
-            //        getKeywordList.saveKWlist[i] == "인싸중에아싸" ||
-            //        getKeywordList.saveKWlist[i] == "아싸중에인싸")
+            //    for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
             //    {
-            //        //성향 카테고리 #ff8550
-            //        tendencyKW.Add(getKeywordList.saveKWlist[i]);
+            //        KWList.Add(getKeywordList.saveKWlist[i]);
             //    }
-            //    else if (getKeywordList.saveKWlist[i] == "얼리버드" ||
-            //        getKeywordList.saveKWlist[i] == "저녁형" ||
-            //        getKeywordList.saveKWlist[i] == "올빼미형" ||
-            //        getKeywordList.saveKWlist[i] == "프로집콕러" ||
-            //        getKeywordList.saveKWlist[i] == "프로외출러" ||
-            //        getKeywordList.saveKWlist[i] == "밥보다 잠" ||
-            //        getKeywordList.saveKWlist[i] == "하루다섯끼" ||
-            //        getKeywordList.saveKWlist[i] == "워라밸" ||
-            //        getKeywordList.saveKWlist[i] == "워커홀릭" ||
-            //        getKeywordList.saveKWlist[i] == "벼락치기"
-            //        )
+            //    for (int j = 0; j < KWList.Count; j++)
             //    {
-            //        //관심 카테고리 #7043c0
-            //        interestKW.Add(getKeywordList.saveKWlist[i]);
+            //        Debug.Log("SAVE 새로 선택한 키워드: " + KWList[j]);
             //    }
-            //    else
-            //    {
-            //        //생활패턴 카테고리 #001130
-            //        lifestyleKW.Add(getKeywordList.saveKWlist[i]);
-            //    }
-            //}
-            //Dictionary<string, object> kw = new Dictionary<string, object>
-            //{
-            //    {"#ff8550" , tendencyKW },
-            //    {"#7043c0" , interestKW },
-            //    {"#001130" , lifestyleKW }
-            //};
-            //db.Collection("userInfo").Document(myname).UpdateAsync("KeyWord", kw);
-        }
+            //    db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", KWList);
+            //    Debug.LogError("db에 키워드 저장 완료!");
+            //});
+            
 
-        public void makeUserData() //새로운유저 DB 생성
-        {
-            if (Name.text.Trim() != "" && Name.text.Trim() == "")
-            {
-                Debug.Log("인풋필드 입력받기 성공");
-                //makeUserInfoDB();
-                //ImgDB();
-                //profileDB();
-                //keywordDB();
-                //mannerDB();
-                //sendRequestDB();
-                //reportDB();
-                            }
         }
+        
+        //public async Task delete_duplicatedKW()
+        //{
+        //    await db.Collection("userInfo").Document(GCN).UpdateAsync("Keyword", FieldValue.Delete);
+        //    Debug.LogError("DB키워드 삭제 완료!");
+        //}
 
-        //public static Dictionary<string, List<object>> KWList = new Dictionary<string, List<object>>();
-        public static List<object> KWList = new List<object>();
         public async void LoadKW()
         {
             DocumentReference KWRef = db.Collection("userInfo").Document(GCN);
@@ -425,17 +379,13 @@ namespace FireStoreScript {
                     Dictionary<string, object> Keywords = snapshot.ToDictionary();
 
                     KWList = (List<object>)Keywords["Keyword"];
-                    //for (int i = 0; i < KWList.Count; i++)
-                    //{
-                    //    Debug.Log(KWList[i]);
-                    //}
-                    
                 }
                 else
                 {
                     Debug.Log("저장된키워드없음");
                 }
             });
+            Debug.LogError("DB 키워드 불러오기 완료!");
         }
 
         public static string MbtiType;

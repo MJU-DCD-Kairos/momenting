@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using FireStoreScript;
 using Firebase.Firestore;
+using System.Threading.Tasks;
+using myprofile;
 
 namespace editprofile
 {
@@ -28,7 +30,7 @@ namespace editprofile
 
         private void Start()
         {
-            SaveBtn.onClick.AddListener(firebaseKW);
+            //SaveBtn.onClick.AddListener(KWedit);
             
         }
 
@@ -38,11 +40,7 @@ namespace editprofile
             txtPlaceholder.text = FirebaseManager.myintroduction;
             txtIntro_edit.text = FirebaseManager.myintroduction;
         }
-        public void firebaseKW()
-        {
-            GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().SaveKW();
-        }
-
+        
         //프로필 편집
         public async void Edit_Save()
         {
