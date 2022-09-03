@@ -24,7 +24,6 @@ namespace editprofile
         private void Update()
         {
             getKWnum();
-            setKWBtn();
 
         }
 
@@ -63,19 +62,6 @@ namespace editprofile
             IndicatorNum.text = getKeywordList.KWcheckCount.ToString();
         }
 
-        public void setKWBtn()
-        {
-            if (getKeywordList.KWcheckCount >= 1)
-            {
-                // 선택한 키워드 개수가 1개 이상이면 계속버튼 활성화
-                Save.SetActive(true);
-            }
-            else
-            {
-                // 선택한 키워드 개수가 1개 미만이면 계속버튼 비활성화
-                Save.SetActive(false);
-            }
-
-        }
+        
     }
 }

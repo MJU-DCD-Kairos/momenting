@@ -77,6 +77,7 @@ namespace myprofile
             {
                 txtSex.text = "여";
             }
+            KW_ToggleOn();
             setUserKW();
             SaveBtn.onClick.AddListener(KWedit);
         }
@@ -117,17 +118,7 @@ namespace myprofile
                 
             }
         }
-        //async Task firebase_LoadKW()
-        //{
-        //    GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().LoadKW();
-        //}
-
-        //async Task firebaseKW()
-        //{
-        //    //saveEditKW();
-        //    GameObject.FindGameObjectWithTag("firebaseManager").GetComponent<FirebaseManager>().SaveKW();
-        //    Debug.LogError("firebaseKW 실행");
-        //}
+        
         public async Task Edit_SaveKW()
         {
             var awaiter = delete_duplicatedKW().GetAwaiter();
@@ -139,7 +130,6 @@ namespace myprofile
                 {
                     FirebaseManager.KWList.Add(getKeywordList.saveKWlist[i]);
                     Debug.Log("SAVE 새로 선택한 키워드: " + FirebaseManager.KWList[i]);
-                    //kw += 1;
                     
                 }
                 //return kw;
@@ -166,6 +156,7 @@ namespace myprofile
             var awaiter = Edit_SaveKW().GetAwaiter();
             awaiter.OnCompleted(() =>
             {
+                //setUserKW();
                 Invoke("setUserKW", 0.5f);
                 
             });
@@ -177,15 +168,22 @@ namespace myprofile
             for (int k = 1; k < 6; k++)
             { 
                 GameObject Group = KWarea.transform.GetChild(k).gameObject;
+                
                 for (int i = 0; i < Group.transform.childCount; i++)
                 {
                     string Text = Group.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text;
+                    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+
                     for (int w = 0; w < FirebaseManager.KWList.Count; w++)
                     {
                         if (Text == FirebaseManager.KWList[w].ToString())
                         {
                             Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
                         }
+                        //else
+                        //{
+                        //    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+                        //}
                     }
                 }
             }
@@ -193,25 +191,29 @@ namespace myprofile
             for (int k = 7; k < 14; k++)
             {
                 GameObject Group = KWarea.transform.GetChild(k).gameObject;
+                
                 for (int i = 0; i < Group.transform.childCount; i++)
                 {
                     string Text = Group.transform.GetChild(i).transform.GetChild(0).GetComponent<Text>().text;
+                    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+
                     for (int w = 0; w < FirebaseManager.KWList.Count; w++)
                     {
                         if (Text == FirebaseManager.KWList[w].ToString())
                         {
                             Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
                         }
+                        //else
+                        //{
+                        //    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+                        //}
                     }
                 }
             }
             Debug.LogError("KW_ToggleOn 실행");
         }
-        //async Task setkw()
-        //{
-        //    setUserKW();
-        //}
-        //유저의 키워드를 생성하는 함수
+        
+        //키워드 칩스 생성하는 함수
         async Task setUserKW()
         {
             //리스트 프리팹 삭제
@@ -235,59 +237,83 @@ namespace myprofile
             //Debug.Log("KWList 받아옴");
             GameObject ListContent;
 
-            for (int i = 0; i < FirebaseManager.KWList.Count; i++)
+            if (FirebaseManager.KWList.Count == 0) //키워드가 없을때 UI
             {
-                if ((FirebaseManager.KWList[i].ToString().Length == 1) || FirebaseManager.KWList[i].ToString() == "IT") { KW_Wid.Add(36 + 187 + 32); }
-                else if (FirebaseManager.KWList[i].ToString().Length == 2) { KW_Wid.Add(36 + 246 + 32); }
-                else if (FirebaseManager.KWList[i].ToString().Length == 3)
-                {
-                    if (FirebaseManager.KWList[i].ToString() == "SNS") { KW_Wid.Add(36 + 253 + 32); }
-                    else { KW_Wid.Add(36 + 305 + 32); }
-                }
-                else if (FirebaseManager.KWList[i].ToString().Length == 4)
-                {
-                    if (FirebaseManager.KWList[i].ToString() == "MBTI") { KW_Wid.Add(36 + 283 + 32); }
-                    else { KW_Wid.Add(36 + 364 + 32); }
-                }
-                else if (FirebaseManager.KWList[i].ToString().Length == 5) { KW_Wid.Add(36 + 423 + 32); }
-                else { KW_Wid.Add(36 + 482 + 32); }
-            }
+                KWParents.transform.GetChild(0).gameObject.SetActive(true);
+                KWContents0.SetActive(false);
+                KWContents1.SetActive(false);
+                KWContents2.SetActive(false);
+                KWContents3.SetActive(false);
 
-            for (int n = 0; n < KW_Wid.Count; n++)
+                //canvas_ED.SetActive(false);
+                //canvas_ED.SetActive(true);
+
+                KWParents.SetActive(false);
+                KWParents.SetActive(true);
+            }
+            else
             {
-                ListContent = Instantiate(Resources.Load("Prefabs/KeywordPrefs/C_KW")) as GameObject;
-                //키워드 글자
-                ListContent.transform.GetChild(0).GetComponent<Text>().text = "#" + FirebaseManager.KWList[n].ToString();
+                KWParents.transform.GetChild(0).gameObject.SetActive(false);
+                KWContents0.SetActive(true);
+                KWContents1.SetActive(true);
+                KWContents2.SetActive(true);
+                KWContents3.SetActive(true);
 
-                if (sum0 + KW_Wid[n] <= 1312)
+                for (int i = 0; i < FirebaseManager.KWList.Count; i++)
                 {
-                    sum0 = sum0 + KW_Wid[n];
-                    ListContent.transform.SetParent(KWContents0.transform, false);
-                }
-                else if (sum1 + KW_Wid[n] <= 1312)
-                {
-                    sum1 = sum1 + KW_Wid[n];
-                    ListContent.transform.SetParent(KWContents1.transform, false);
-                }
-                else if (sum2 + KW_Wid[n] <= 1312)
-                {
-                    sum2 = sum2 + KW_Wid[n];
-                    ListContent.transform.SetParent(KWContents2.transform, false);
-                }
-                else
-                {
-                    ListContent.transform.SetParent(KWContents3.transform, false);
+                    if ((FirebaseManager.KWList[i].ToString().Length == 1) || FirebaseManager.KWList[i].ToString() == "IT") { KW_Wid.Add(36 + 187 + 32); }
+                    else if (FirebaseManager.KWList[i].ToString().Length == 2) { KW_Wid.Add(36 + 246 + 32); }
+                    else if (FirebaseManager.KWList[i].ToString().Length == 3)
+                    {
+                        if (FirebaseManager.KWList[i].ToString() == "SNS") { KW_Wid.Add(36 + 253 + 32); }
+                        else { KW_Wid.Add(36 + 305 + 32); }
+                    }
+                    else if (FirebaseManager.KWList[i].ToString().Length == 4)
+                    {
+                        if (FirebaseManager.KWList[i].ToString() == "MBTI") { KW_Wid.Add(36 + 283 + 32); }
+                        else { KW_Wid.Add(36 + 364 + 32); }
+                    }
+                    else if (FirebaseManager.KWList[i].ToString().Length == 5) { KW_Wid.Add(36 + 423 + 32); }
+                    else { KW_Wid.Add(36 + 482 + 32); }
                 }
 
+                for (int n = 0; n < KW_Wid.Count; n++)
+                {
+                    ListContent = Instantiate(Resources.Load("Prefabs/KeywordPrefs/C_KW")) as GameObject;
+                    //키워드 글자
+                    ListContent.transform.GetChild(0).GetComponent<Text>().text = "#" + FirebaseManager.KWList[n].ToString();
+
+                    if (sum0 + KW_Wid[n] <= 1312)
+                    {
+                        sum0 = sum0 + KW_Wid[n];
+                        ListContent.transform.SetParent(KWContents0.transform, false);
+                    }
+                    else if (sum1 + KW_Wid[n] <= 1312)
+                    {
+                        sum1 = sum1 + KW_Wid[n];
+                        ListContent.transform.SetParent(KWContents1.transform, false);
+                    }
+                    else if (sum2 + KW_Wid[n] <= 1312)
+                    {
+                        sum2 = sum2 + KW_Wid[n];
+                        ListContent.transform.SetParent(KWContents2.transform, false);
+                    }
+                    else
+                    {
+                        ListContent.transform.SetParent(KWContents3.transform, false);
+                    }
+
+                }
+                canvas_ED.SetActive(false);
+                canvas_ED.SetActive(true);
+
+                KWParents.SetActive(false);
+                KWParents.SetActive(true);
+                KW_ToggleOn();
+
+                Debug.LogError("setUserKW 실행");
             }
-            canvas_ED.SetActive(false);
-            canvas_ED.SetActive(true);
-
-            KWParents.SetActive(false);
-            KWParents.SetActive(true);
-            KW_ToggleOn();
-
-            Debug.LogError("setUserKW 실행");
+            
         }
 
     }
