@@ -254,6 +254,7 @@ namespace LoadCL
                     {
                         GameObject badge = GameObject.Find("Group_Received").transform.GetChild(n).transform.GetChild(0).gameObject;
                         if (badge.activeInHierarchy) { badge.SetActive(false); } //뱃지가 활성화되어 있으면 비활성화 시킴
+                        //if (badge.activeInHierarchy) etActive(false); }
                     }
 
                 });

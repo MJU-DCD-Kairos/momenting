@@ -240,7 +240,8 @@ namespace CLCM
                     if (goTime.Hours == 0)
                     {
                         if (goTime.Minutes > 20)
-                        {
+                        {+
+            string
                             RoomTimerText = "Á¾·á";
                         }
                         else
