@@ -108,6 +108,7 @@ namespace FireStoreScript {
             //GCN = "";
             PlayerPrefs.SetString("GCName","츄아");
             GCN = PlayerPrefs.GetString("GCName");
+            Debug.Log("플레이어프랩스에서 받아온 GCN: " + GCN);
             //isMatchToken(); //토큰 정보 있는지 확인
             //Debug.Log("유저닉네임 : " + PlayerPrefs.GetString("name"));
             //Debug.Log("유저성별 : " + PlayerPrefs.GetString("sex"));
@@ -554,7 +555,7 @@ namespace FireStoreScript {
 
                     }
 
-                    Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
+                    //Debug.Log("DB타임스트링: " + docDictionary["updateTime"].ToString());
                     if (todayQIndex > myLastTqIndex)
                     {
                         Dictionary<string, object> TqAnswerState = new Dictionary<string, object>
@@ -588,6 +589,7 @@ namespace FireStoreScript {
                             { "lastTqIndex", todayQIndex}
                         };
             //상태를 DB의 TqAnswer에 덮어쓰기함
+            Debug.Log(GCN);
             db.Collection("userInfo").Document(GCN).SetAsync(TqAnswerState, SetOptions.MergeAll);
 
             //전역변수도 업데이트

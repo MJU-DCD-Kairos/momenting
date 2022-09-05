@@ -599,6 +599,7 @@ namespace GameChatSample
         {
             
             TimeSpan goTime = DateTime.Now - Convert.ToDateTime(openTime);
+            Debug.Log("데이트타임형식으로 변환: " + Convert.ToDateTime(openTime));
             
             if (goTime.Days <= 0)
             {
