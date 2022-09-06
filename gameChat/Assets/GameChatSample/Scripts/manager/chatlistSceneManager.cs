@@ -170,6 +170,7 @@ namespace CLCM
 
 
         //현진추가_220905 1:1채팅
+        /*
         public void makePCcardList()
         {
             //Debug.Log("makePCcardList실행");
@@ -207,6 +208,7 @@ namespace CLCM
             }
             //Debug.Log("makeGCcardList꾸ㅡㅌ남");
         }
+        */
 
 
 
@@ -313,7 +315,7 @@ namespace CLCM
 
             }*/
 
-        }
-
     }
+
+}
 }
