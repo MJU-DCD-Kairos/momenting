@@ -124,7 +124,6 @@ namespace GameChatSample
 
             //매칭 과정을 위한 테스트설정
             username = PlayerPrefs.GetString("GCName");
-            //username = "솔비";
             usersex = FirebaseManager.sex;
             Debug.Log("현재 로그인 유저 닉네임 : " + username);
             Debug.Log("현재 로그인 유저 성별 : " + usersex);
@@ -308,7 +307,7 @@ namespace GameChatSample
 
         void makeNewRoom() //채팅방 생성
         {
-            StartCoroutine("CreateChatR");
+            StartCoroutine("CreatGChatR");
         }
         
         async void makeNewRoom2()
@@ -330,13 +329,14 @@ namespace GameChatSample
             { ISACTIVE, false },
             { ISOPEN , false },
             { MEMBER , "" },
-            { OPENTIME , null } //타임스탬프 (6명된 시간)
+            { OPENTIME , null }, //타임스탬프 (6명된 시간)
+            { "RCategory" , "GC" } //채팅방 유형 그룹채팅
         };
             //문서 새로 생성
             DocumentReference addmrRef = FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID);
             await addmrRef.SetAsync(room);
             await FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
-            Debug.Log("채팅방 문서 생성됨");
+            Debug.Log("그룹채팅방 문서 생성됨");
 
             listener2 = addmrRef.Listen(snapshot =>
             {
@@ -367,7 +367,7 @@ namespace GameChatSample
 
         #endregion
 
-
+        //그룹 채팅방 제목 랜덤 메이킹 함수
         //임의의 형용사 + 명사 7자 이하의 채팅방 이름 생성 함수
         //스트링 타입의 (adj + " " + noun)를 반환 "형용사 한칸띄고 명사"
         public async Task makeChatRoomName()
@@ -396,7 +396,7 @@ namespace GameChatSample
 
                         Debug.Log("이즈 더블 폴스임 "+adj + " " + noun);
                         nowChatName = (adj + " " + noun);
-                        CallCreatCR();
+                        CallCreatGCR();
                         break;
 
                     }
@@ -412,6 +412,7 @@ namespace GameChatSample
 
         }
 
+        //그룹 채팅방 이름 중복체크 코드
         public static async Task CRdoubleCheck(string name)
         {
             DocumentReference docRef = FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(name);
@@ -432,12 +433,14 @@ namespace GameChatSample
             });
         }
 
-        public void CallCreatCR()
+        //그룹채팅방 생성 함수 코루틴 실행함수
+        public void CallCreatGCR()
         {
-            StartCoroutine("CreateChatR");
+            StartCoroutine("CreatGChatR");
         }
 
-        IEnumerator CreateChatR()
+        //그룹채팅방 생성 함수
+        IEnumerator CreatGChatR()
         {
             string url = "https://dashboard-api.gamechat.naverncp.com/v1/api/project/e3558324-2d64-47d0-bd7a-6fa362824bd7/channel";
             string APIKey = "ec31cc21b559da9eb19eaec2dadcd50ed786857a740a561d";
@@ -482,7 +485,117 @@ namespace GameChatSample
                 
             }
         }
-        
+
+
+        //1:1채팅방 생성 함수 코루틴 실행함수
+        public void CallCreatPCR()
+        {
+            StartCoroutine("CreatPChatR");
+        }
+
+        //1:1채팅방 생성 함수
+        IEnumerator CreatPChatR(string otherNickname)
+        {
+            string url = "https://dashboard-api.gamechat.naverncp.com/v1/api/project/e3558324-2d64-47d0-bd7a-6fa362824bd7/channel";
+            string APIKey = "ec31cc21b559da9eb19eaec2dadcd50ed786857a740a561d";
+
+
+
+            WWWForm form = new WWWForm();
+            form.AddField("name", otherNickname);
+
+
+            //웹 url 요청함 POST 요청
+            UnityWebRequest www = UnityWebRequest.Post(url, form);
+
+            www.SetRequestHeader("x-api-key", APIKey);
+            //www.SetRequestHeader("content-type", "application/json");
+
+            //요청에 대한 응답을 기다림
+            yield return www.SendWebRequest();
+
+            //Debug.Log("현재 생성된 채팅방 아이디는 : " + www.result);
+            //result값이 success라고 뜨는 상황
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("성공");
+                string result = www.downloadHandler.text.Substring(22, 36);
+
+                newChatRoom.Add("ChannelID", result);//채널 id
+                newChatRoom.Add("ChannelName", otherNickname);//채팅방이름
+                Debug.Log(result);
+                Debug.Log(otherNickname);
+
+                makeNewRoom3();
+
+            }
+        }
+
+        //1대1채팅 도큐먼트 생성함수
+        async void makeNewRoom3()
+        {
+            channelID = newChatRoom["ChannelID"].ToString(); //채팅방ID 저장
+            docID = newChatRoom["ChannelName"].ToString(); //채팅방이름 저장
+            gameSceneManager.chatRname = docID;
+            gameSceneManager.chatRID = channelID;
+            Dictionary<string, object> addUser = new Dictionary<string, object> //member에 추가할 유저정보
+                {
+                    { NICKNAME , username },
+                    { SEX , usersex }
+                };
+
+            Dictionary<string, object> room = new Dictionary<string, object>
+        {
+            { CHANNELID , channelID }, //채팅방ID 받아와서 넣기
+            { CREATETIME, System.DateTime.Now.ToString()}, //타임스탬프 (현재시간)
+            { MEMBER , "" },
+            { "RCategory", "PC"}//채팅방 카테고리 유형 1대1채팅
+            //{ ISACTIVE, false },
+            //{ ISOPEN , false },
+            //{ OPENTIME , DateTime.Now} 
+        };
+            //문서 새로 생성
+            DocumentReference addmrRef = FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID);
+            await addmrRef.SetAsync(room);
+            await FirebaseManager.db.Collection(GAMECHAT_ROOM).Document(docID).UpdateAsync(MEMBER, FieldValue.ArrayUnion(addUser));
+            Debug.Log("1:1채팅방 문서 생성됨");
+
+            listener2 = addmrRef.Listen(snapshot =>
+            {
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> doc = snapshot.ToDictionary();
+                    string isopen = doc[ISOPEN].ToString();
+                    //gameSceneManager.IDoTime.Add(doc[CHANNELID].ToString(), doc[ISOPEN].ToString());
+                    Debug.Log(isopen);
+                    Debug.Log("새로운 문서 업데이트");
+                    if (isopen == "True")
+                    {
+                        listener2.Stop();
+                        Invoke("showChatRoom", 5f);
+                    }
+                }
+                else
+                {
+                    Debug.Log(string.Format("새로 생성한 문서가 존재하지 않습니다!", snapshot.Id)); //재매칭 시도해야됨
+                    listener2.Stop();
+                    Dialog_Matching_ReMatching.SetActive(true);
+                    newChatRoom.Clear();//채널id랑 채팅방이름 저장한 딕셔너리 초기화
+                }
+
+            });
+        }
+
+
+
+
+
+
         public void sendMSG()
         {
             GameChat.sendMessage(CList[0].id, "메시지 전송");

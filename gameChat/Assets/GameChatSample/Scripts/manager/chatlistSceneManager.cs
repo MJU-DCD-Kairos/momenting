@@ -79,7 +79,7 @@ namespace CLCM
         //유저 닉네임과 동일한 값이 있는 Document의 id, 채널id, openTime을 가져옴
         //가져온 채널id로 최근 메시지를 가져옴
         //PlayerPrefs.GetString("GCN"); //앱이 시작할 때, 유저 정보를 로드하는 과정을 마친 후 그 변수를 사용해야함.
-        public static List<string[]> gSlotList = new List<string[]>();
+        public static List<string[]> ChatSlotList = new List<string[]>();
         public Dictionary<string, Text> gSlotMsgDict = new Dictionary<string, Text>();
         public string[] cInfoList;
 
@@ -90,9 +90,11 @@ namespace CLCM
             gotMyGClistInfo();
         }
 
+
+        //현진 수정_220906 GC를 가져오는 함수에서 전체 채팅방 정보를 가져오는 함수로 변경(gotMyGClistInfo > gotMyClistInfo)
         public async Task gotMyGClistInfo()
         {
-            gSlotList.Clear();
+            ChatSlotList.Clear();
             gSlotMsgDict.Clear();
             Query alldocQauery = FirebaseManager.db.Collection("gameChatRoom");
 
@@ -108,19 +110,22 @@ namespace CLCM
                     if (m["nickName"].ToString() == userNickName)
                     {
 
-                        cInfoList = new string[3];
+                        cInfoList = new string[4];
 
-                        cInfoList[0] = docSnapShot.Id;
+                        cInfoList[0] = docSnapShot.Id; //채팅방 제목 정보
 
                         //Debug.Log("겟타입"+docDictionary["openTime"]);
 
-                        cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string);
+                        cInfoList[1] = NewChatManager.getLostTime(docDictionary["openTime"] as string); //채팅방 남은 시간 정보
+                        //Debug.Log("DB시간 텍스트로 로드: "+NewChatManager.getLostTime(docDictionary["openTime"] as string));
 
-                        Debug.Log("DB시간 텍스트로 로드: "+NewChatManager.getLostTime(docDictionary["openTime"] as string));
-
-                        cInfoList[2] = docDictionary["channelID"] as string;// NewChatManager.curMsg;
+                        cInfoList[2] = docDictionary["channelID"] as string; // NewChatManager.curMsg;
                         //Debug.Log(NewChatManager.getCurMSG(docDictionary["channelID"] as string));
-                        gSlotList.Add(cInfoList);
+
+                        cInfoList[3] = docDictionary["RCategory"] as string; //채팅방 종류 정보;
+                        //Debug.Log("채팅방 종류: "+docDictionary["RCategory"] as string);
+
+                        ChatSlotList.Add(cInfoList);
                     }
                 }
             }
@@ -140,27 +145,27 @@ namespace CLCM
                 }
             }
 
-            for (int i = 0; i < gSlotList.Count; i++)
+            for (int i = 0; i < ChatSlotList.Count; i++)
             {
-                //Debug.Log(gSlotList[i][0] + "/" + gSlotList[i][1] + "/" + gSlotList[i][2]);
+                //Debug.Log(ChatSlotList[i][0] + "/" + ChatSlotList[i][1] + "/" + ChatSlotList[i][2]);
 
                 //프리팹 생성 후 뷰포트의 자식으로 설정
                 GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
                 ui.transform.SetParent(GameObject.Find("GCViewport").transform);
 
                 //채팅방 이름 넣기
-                ui.transform.GetChild(3).GetComponent<Text>().text = gSlotList[i][0];
+                ui.transform.GetChild(3).GetComponent<Text>().text = ChatSlotList[i][0];
 
                 //남은 시간 넣기
-                ui.transform.GetChild(4).transform.GetChild(0).GetComponent<Text>().text = gSlotList[i][1];
+                ui.transform.GetChild(4).transform.GetChild(0).GetComponent<Text>().text = ChatSlotList[i][1];
                 
 
                 //최근 메시지 넣기
-                ui.transform.GetChild(2).GetComponent<Text>().text = "";// gSlotList[i][2];
+                ui.transform.GetChild(2).GetComponent<Text>().text = "";// ChatSlotList[i][2];
                 
 
-                gSlotMsgDict.Add(gSlotList[i][2], ui.transform.GetChild(2).GetComponent<Text>());
-                NewChatManager.getCurMSG(gSlotList[i][2], OnRecvMsg);
+                gSlotMsgDict.Add(ChatSlotList[i][2], ui.transform.GetChild(2).GetComponent<Text>());
+                NewChatManager.getCurMSG(ChatSlotList[i][2], OnRecvMsg);
 
             }
             //Debug.Log("makeGCcardList꾸ㅡㅌ남");
@@ -185,25 +190,25 @@ namespace CLCM
 
             for (int i = 0; i < pSlotList.Count; i++)
             {
-                //Debug.Log(gSlotList[i][0] + "/" + gSlotList[i][1] + "/" + gSlotList[i][2]);
+                //Debug.Log(ChatSlotList[i][0] + "/" + ChatSlotList[i][1] + "/" + ChatSlotList[i][2]);
 
                 //프리팹 생성 후 뷰포트의 자식으로 설정
                 GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
                 ui.transform.SetParent(GameObject.Find("GCViewport").transform);
 
                 //채팅방 이름 넣기
-                ui.transform.GetChild(3).GetComponent<Text>().text = gSlotList[i][0];
+                ui.transform.GetChild(3).GetComponent<Text>().text = ChatSlotList[i][0];
 
                 //남은 시간 넣기
-                ui.transform.GetChild(4).transform.GetChild(0).GetComponent<Text>().text = gSlotList[i][1];
+                ui.transform.GetChild(4).transform.GetChild(0).GetComponent<Text>().text = ChatSlotList[i][1];
 
 
                 //최근 메시지 넣기
-                ui.transform.GetChild(2).GetComponent<Text>().text = "";// gSlotList[i][2];
+                ui.transform.GetChild(2).GetComponent<Text>().text = "";// ChatSlotList[i][2];
 
 
-                gSlotMsgDict.Add(gSlotList[i][2], ui.transform.GetChild(2).GetComponent<Text>());
-                NewChatManager.getCurMSG(gSlotList[i][2], OnRecvMsg);
+                gSlotMsgDict.Add(ChatSlotList[i][2], ui.transform.GetChild(2).GetComponent<Text>());
+                NewChatManager.getCurMSG(ChatSlotList[i][2], OnRecvMsg);
 
             }
             //Debug.Log("makeGCcardList꾸ㅡㅌ남");
@@ -221,14 +226,14 @@ namespace CLCM
 
         public static void isEqualName()
         {
-            for (int i = 0; i < gSlotList.Count; i++)
+            for (int i = 0; i < ChatSlotList.Count; i++)
             {
-                if (gSlotList[i][0] == getGCID.thisRoomName)
+                if (ChatSlotList[i][0] == getGCID.thisRoomName)
                 {
-                    gameSceneManager.chatRID = gSlotList[i][2];
-                    //Debug.Log("#################전달ID ::" + gSlotList[i][2]);
-                    gameSceneManager.chatRname = gSlotList[i][0];
-                    //Debug.Log("#################전달채팅방이름 ::" + gSlotList[i][0]);
+                    gameSceneManager.chatRID = ChatSlotList[i][2];
+                    //Debug.Log("#################전달ID ::" + ChatSlotList[i][2]);
+                    gameSceneManager.chatRname = ChatSlotList[i][0];
+                    //Debug.Log("#################전달채팅방이름 ::" + ChatSlotList[i][0]);
                     
 
                 }
@@ -237,7 +242,7 @@ namespace CLCM
 
 
             /*
-            List<GameObject> gslotList = new List<GameObject>();
+            List<GameObject> ChatSlotList = new List<GameObject>();
             public void makeRList()
             {
                 GameObject ui = Instantiate(CListUI, GameObject.Find("GCViewport").GetComponent<RectTransform>());
@@ -259,7 +264,7 @@ namespace CLCM
 
                 //CurChatInfo[0]이름 [1]내용 [2]생성시간 [3]생성날짜 [4]새로운메시지수
 
-                gslotList.Add(ui);
+                ChatSlotList.Add(ui);
             }
 
             public void GetCurrentChatCount(string id)
