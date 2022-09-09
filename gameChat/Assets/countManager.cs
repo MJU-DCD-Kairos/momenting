@@ -12,6 +12,10 @@ public class countManager : MonoBehaviour
     public InputField stt;
     public Text counting;
     
+    private void Update()
+    {
+        CountT();
+    }
     public void CountT()
     {
         int length = stt.text.Length;

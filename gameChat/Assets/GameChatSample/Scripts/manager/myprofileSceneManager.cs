@@ -8,7 +8,6 @@ using System.Text;
 using System;
 using editprofile;
 using System.Threading.Tasks;
-using editprofile;
 using Firebase;
 using Firebase.Firestore;
 using Firebase.Extensions;
@@ -39,12 +38,18 @@ namespace myprofile
         public GameObject KWContents2; //키워드 리스트 3번째 줄
         public GameObject KWContents3; //키워드 리스트 4번째 줄
         public GameObject KWarea;
-        public GameObject canvas_ED;
+        public GameObject canvas_Pr;
 
-        //public List<string> myKW = new List<string>();
-        public Button SaveBtn;
+        //public Button Save_KW;
         public List<string> profileKW = new List<string>();
 
+        //편집에서 필요한 참조
+        public Text txtIntro_edit;
+        public Text txtPlaceholder;
+        public static string EDIT_INTRO;
+        public InputField Intro_Input;
+
+        public Text IndicatorNum;
 
 
         void Awake()
@@ -69,6 +74,7 @@ namespace myprofile
             txtName.text = GCN;
             txtAge.text = FirebaseManager.age;
             txtIntro.text = FirebaseManager.myintroduction;
+
             if (FirebaseManager.sex == 1)
             {
                 txtSex.text = "남";
@@ -79,7 +85,9 @@ namespace myprofile
             }
             KW_ToggleOn();
             setUserKW();
-            SaveBtn.onClick.AddListener(KWedit);
+            //Save_KW.onClick.AddListener(KWedit);
+
+            //Edit_Load_Intro();  //편집페이지에 한줄소개 로드
         }
 
         // Update is called once per frame
@@ -93,32 +101,36 @@ namespace myprofile
                                                     //Application.Quit(); // 씬 종료 .(나가기)            위씬으로 이동이나 종료기능 둘중하나 원하시는것을 사용하시면 됩니다.
                 }
             }
+
+            getKWnum();
         }
 
         //편집 후 프로필 재로드
         public void LoadProfile() 
         {
-            if (MyProfileEditManager.EDIT_INTRO == null)
-            {
-                Invoke("LoadProfile", 0.1f);
-            }
-            else
-            {
-                Debug.Log("프로필 씬 == " + MyProfileEditManager.EDIT_INTRO);
-                txtIntro.text = MyProfileEditManager.EDIT_INTRO;
-                //firebase_LoadKW();
-                //if (FirebaseManager.KWList == null)
-                //{
-                //    Invoke("firebase_LoadKW", 0.1f);
-                //}
-                //else
-                //{
-                //    setUserKW();
-                //}
-                
-            }
+            Debug.Log("변경된 한줄소개: " + txtIntro_edit.text);
+            txtIntro.text = txtIntro_edit.text;
         }
         
+
+        //편집페이지 로드 시 정보 불러오기
+        public void Edit_Load_Intro()
+        {
+            txtPlaceholder.text = txtIntro.text;
+            txtIntro_edit.text = txtIntro.text;
+            Intro_Input.text = txtIntro.text;
+        }
+
+        public async void Edit_Save_Intro()
+        {
+            DocumentReference userRef = FirebaseManager.db.Collection("userInfo").Document(FirebaseManager.GCN);
+            
+            await userRef.UpdateAsync("Introduction", txtIntro_edit.text);
+            Debug.Log(txtIntro_edit.text + "저장완료!");
+            //EDIT_INTRO = txtIntro_edit.text;
+            //Debug.Log("edit 씬 == " + EDIT_INTRO);
+        }
+
         public async Task Edit_SaveKW()
         {
             var awaiter = delete_duplicatedKW().GetAwaiter();
@@ -137,12 +149,7 @@ namespace myprofile
                 Debug.LogError("db에 키워드 저장 완료!");
             });
 
-
         }
-        //async Task setKW()
-        //{
-
-        //}
 
         public async Task delete_duplicatedKW()
         {
@@ -304,8 +311,8 @@ namespace myprofile
                     }
 
                 }
-                canvas_ED.SetActive(false);
-                canvas_ED.SetActive(true);
+                canvas_Pr.SetActive(false);
+                canvas_Pr.SetActive(true);
 
                 KWParents.SetActive(false);
                 KWParents.SetActive(true);
@@ -316,6 +323,11 @@ namespace myprofile
             
         }
 
+        //선택한 키워드의 숫자를 받아와 UI에 띄워주는 코드
+        public void getKWnum()
+        {
+            IndicatorNum.text = getKeywordList.KWcheckCount.ToString();
+        }
     }
 }
 
