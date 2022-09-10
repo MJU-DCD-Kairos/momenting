@@ -43,8 +43,13 @@ namespace SUCM
 
         //선택된 키워드 개수 노출
         public Text IndicatorNum;
-        
 
+        public GameObject KWGroup;
+        public GameObject KW0;
+        public GameObject KW1;
+        public GameObject KW2;
+        public GameObject KW3;
+        public GameObject canvas_Pre;
 
         // Start is called before the first frame update
         void Start()
@@ -99,9 +104,16 @@ namespace SUCM
             PreAge.text = newAge;
             PreName.text = Mname.text;
             PreSex.text = Msex.options[Msex.value].text;
-            PreIntro.text = Mintro.text;
-
-
+            
+            if(Mintro.text != null) 
+            {
+                PreIntro.text = "한 줄 소개를 작성하지 않았어요.";
+            }
+            else
+            {
+                PreIntro.text = Mintro.text;
+            }
+            
         }
 
         public void setstring()
@@ -130,5 +142,109 @@ namespace SUCM
                 
         }
         
+        public void Pre_setKW()
+        {
+            //리스트 프리팹 삭제
+            for (int j = 0; j < 4; j++)
+            {
+                GameObject KWprefab = KWGroup.transform.GetChild(j).gameObject;
+                if (0 < KWprefab.transform.childCount)
+                {
+                    for (int n = 0; n < KWprefab.transform.childCount; n++)
+                    {
+                        GameObject.Destroy(KWprefab.transform.GetChild(n).gameObject);
+                    }
+                }
+            }
+            float sum0 = -32;
+            float sum1 = -32;
+            float sum2 = -32;
+
+            List<float> KW_Wid = new List<float>();
+
+            GameObject ListContent;
+
+            if (getKeywordList.saveKWlist.Count == 0) //키워드가 없을때 UI
+            {
+                KWGroup.transform.GetChild(0).gameObject.SetActive(true);
+                KW0.SetActive(false);
+                KW1.SetActive(false);
+                KW2.SetActive(false);
+                KW3.SetActive(false);
+
+                //canvas_ED.SetActive(false);
+                //canvas_ED.SetActive(true);
+
+                KWGroup.SetActive(false);
+                KWGroup.SetActive(true);
+            }
+            else
+            {
+                KWGroup.transform.GetChild(0).gameObject.SetActive(false);
+                KW0.SetActive(true);
+                KW1.SetActive(true);
+                KW2.SetActive(true);
+                KW3.SetActive(true);
+
+                for (int i = 0; i < getKeywordList.saveKWlist.Count; i++)
+                {
+                    if ((getKeywordList.saveKWlist[i].ToString().Length == 1) || getKeywordList.saveKWlist[i].ToString() == "IT") { KW_Wid.Add(36 + 187 + 32); }
+                    else if (getKeywordList.saveKWlist[i].ToString().Length == 2) { KW_Wid.Add(36 + 246 + 32); }
+                    else if (getKeywordList.saveKWlist[i].ToString().Length == 3)
+                    {
+                        if (getKeywordList.saveKWlist[i].ToString() == "SNS") { KW_Wid.Add(36 + 253 + 32); }
+                        else { KW_Wid.Add(36 + 305 + 32); }
+                    }
+                    else if (getKeywordList.saveKWlist[i].ToString().Length == 4)
+                    {
+                        if (getKeywordList.saveKWlist[i].ToString() == "MBTI") { KW_Wid.Add(36 + 283 + 32); }
+                        else { KW_Wid.Add(36 + 364 + 32); }
+                    }
+                    else if (getKeywordList.saveKWlist[i].ToString().Length == 5) { KW_Wid.Add(36 + 423 + 32); }
+                    else { KW_Wid.Add(36 + 482 + 32); }
+                }
+
+                for (int n = 0; n < KW_Wid.Count; n++)
+                {
+                    ListContent = Instantiate(Resources.Load("Prefabs/KeywordPrefs/C_KW")) as GameObject;
+                    //키워드 글자
+                    ListContent.transform.GetChild(0).GetComponent<Text>().text = "#" + getKeywordList.saveKWlist[n].ToString();
+
+                    if (sum0 + KW_Wid[n] <= 1312)
+                    {
+                        sum0 = sum0 + KW_Wid[n];
+                        ListContent.transform.SetParent(KW0.transform, false);
+                    }
+                    else if (sum1 + KW_Wid[n] <= 1312)
+                    {
+                        sum1 = sum1 + KW_Wid[n];
+                        ListContent.transform.SetParent(KW1.transform, false);
+                    }
+                    else if (sum2 + KW_Wid[n] <= 1312)
+                    {
+                        sum2 = sum2 + KW_Wid[n];
+                        ListContent.transform.SetParent(KW2.transform, false);
+                    }
+                    else
+                    {
+                        ListContent.transform.SetParent(KW3.transform, false);
+                    }
+
+                }
+                canvas_Pre.SetActive(false);
+                canvas_Pre.SetActive(true);
+
+                KWGroup.SetActive(false);
+                KWGroup.SetActive(true);
+                //KW_ToggleOn();
+
+                Debug.LogError("Pre_setKW 실행");
+            }
+        }
+
+        public void Load_TypeTest()
+        {
+            SceneManager.LoadScene("TypeTest");
+        }
     }
 }

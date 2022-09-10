@@ -187,10 +187,6 @@ namespace myprofile
                         {
                             Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
                         }
-                        //else
-                        //{
-                        //    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
-                        //}
                     }
                 }
             }
@@ -210,10 +206,6 @@ namespace myprofile
                         {
                             Group.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
                         }
-                        //else
-                        //{
-                        //    Group.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
-                        //}
                     }
                 }
             }
