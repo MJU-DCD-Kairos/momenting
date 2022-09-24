@@ -15,7 +15,6 @@ public class ElseProfileManager : MonoBehaviour
         public Text txtIntro;
         public Text txtSex;
         public Text txtMbti;
-
         // Start is called before the first frame update
         void Start()
     {
@@ -32,8 +31,9 @@ public class ElseProfileManager : MonoBehaviour
     public static string userName2;
     public void ElseProfile()
     {
-        //userName.text = userName2;
-        GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.SetActive(true);
+
+            //userName.text = userName2;
+            GameObject.Find("PrCanvas").transform.Find("GC_Chat_PrCanvas").gameObject.SetActive(true);
             //
         FirebaseManager.ElseData(userName.text);
         Debug.Log(userName.text + "유저네임");
